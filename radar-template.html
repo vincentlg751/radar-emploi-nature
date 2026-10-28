@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Radar Emploi Nature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: sticky search bar, then a two-column workspace — offer list on the left, offer detail + CV adaptation on the right (stacked on phones). */
+:root {
+--bg: #F1F4EF;
+--surface: #FFFFFF;
+--sunk: #E7ECE4;
+--ink: #16201A;
+--muted: #5A6A5E;
+--line: #D6DDD2;
+--accent: #1D6658;
+--accent-soft: #DCEBE5;
+--accent-ink: #FFFFFF;
+--new: #A9580C;
+--new-soft: #F6E6D3;
+--good: #2E7A3A;
+--warn: #A13A28;
+--warn-soft: #F5DFD9;
+--f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+--f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+--f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+--r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+--bg: #0F1411; --surface: #171E19; --sunk: #1E2721; --ink: #E4EBE3; --muted: #9AA99D; --line: #2A352D;
+--accent: #62B9A2; --accent-soft: #1C3530; --accent-ink: #0C1310; --new: #E6A05A; --new-soft: #3A2A18;
+--good: #7CC487; --warn: #E8846F; --warn-soft: #3A211B; color-scheme: dark;
+}
+}
+:root[data-theme="dark"] {
+--bg: #0F1411; --surface: #171E19; --sunk: #1E2721; --ink: #E4EBE3; --muted: #9AA99D; --line: #2A352D;
+--accent: #62B9A2; --accent-soft: #1C3530; --accent-ink: #0C1310; --new: #E6A05A; --new-soft: #3A2A18;
+--good: #7CC487; --warn: #E8846F; --warn-soft: #3A211B; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1280px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { padding-block: 22px 10px; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(26px, 4vw, 36px); line-height: 1.05; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 small { display: block; font-family: var(--f-body); font-weight: 500; font-size: 14px; color: var(--muted); letter-spacing: 0; margin-top: 6px; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 20px; margin: 0; text-wrap: balance; }
+h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+button, select, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn.small { padding: 4px 9px; font-size: 13px; }
+.status-line { font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+/* sticky controls */
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.controls-inner { display: flex; flex-direction: column; gap: 10px; }
+.searchrow { display: flex; gap: 8px; flex-wrap: wrap; }
+.search { flex: 1 1 260px; min-width: 0; display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
+.search input { border: 0; outline: 0; background: transparent; padding: 10px 0; width: 100%; min-width: 0; }
+.search:focus-within { border-color: var(--accent); }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.filters select { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; max-width: 100%; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 6px 10px; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 8px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dc, var(--muted)); }
+.chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.chip .n { color: var(--muted); font-family: var(--f-mono); font-size: 12px; }
+/* main grid */
+main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 20px; padding-block: 16px 40px; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+.listhead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.list { display: flex; flex-direction: column; gap: 8px; }
+.offer { text-align: left; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+.offer:hover { border-color: var(--accent); }
+.offer[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.offer .t { font-weight: 600; font-size: 15px; line-height: 1.3; }
+.offer .m { font-size: 13px; color: var(--muted); grid-column: 1 / 2; }
+.offer .side { grid-row: 1 / 3; grid-column: 2; display: flex; flex-direction: column; align-items: end; gap: 4px; }
+.offer .tags { grid-column: 1 / -1; display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.pill { font-size: 11.5px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; }
+.pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dc, var(--muted)); }
+.pill.new { background: var(--new-soft); color: var(--new); border-color: transparent; font-weight: 600; }
+.pill.st { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.age { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.score { font-family: var(--f-mono); font-size: 12px; font-weight: 500; border-radius: 6px; padding: 1px 7px; background: var(--sunk); color: var(--muted); }
+.score.hi { background: var(--accent); color: var(--accent-ink); }
+.score.mid { background: var(--accent-soft); color: var(--accent); }
+.score.lo { background: var(--warn-soft); color: var(--warn); }
+.idx { display: flex; flex-direction: column; gap: 8px; background: var(--sunk); border-radius: 10px; padding: 12px 14px; }
+.idx .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.idx .big { font-family: var(--f-display); font-weight: 700; font-size: 34px; line-height: 1; }
+.idx .verdict { font-weight: 600; }
+.crit { display: grid; grid-template-columns: minmax(0, 12em) minmax(60px, 1fr) 2.5em; gap: 8px; align-items: center; font-size: 13px; }
+.crit .bar { height: 6px; background: var(--surface); }
+.crit .v { font-family: var(--f-mono); text-align: right; color: var(--muted); }
+.progress { font-size: 13px; color: var(--muted); }
+.empty { border: 1px dashed var(--line); border-radius: var(--r); padding: 22px; color: var(--muted); text-align: center; }
+.notice { border-radius: var(--r); padding: 12px 14px; background: var(--warn-soft); color: var(--ink); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+.more { margin-top: 10px; }
+/* right column */
+aside.work { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 150px); display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 170px); overflow: auto; padding-bottom: 8px; }
+@media (max-width: 900px) { aside.work { position: static; max-height: none; overflow: visible; } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.cvbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.cvbar > div:first-child { min-width: 0; flex: 1 1 200px; }
+.cvbar .name { font-weight: 600; overflow-wrap: anywhere; }
+textarea { width: 100%; min-height: 120px; resize: vertical; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: 13.5px; line-height: 1.45; }
+.drop { border: 1.5px dashed var(--line); border-radius: 10px; padding: 14px; text-align: center; color: var(--muted); font-size: 13.5px; }
+.drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; font-size: 13.5px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.result { display: flex; flex-direction: column; gap: 14px; }
+.gauge { display: flex; align-items: center; gap: 14px; }
+.gauge .num { font-family: var(--f-display); font-weight: 700; font-size: 40px; line-height: 1; }
+.bar { flex: 1; height: 8px; border-radius: 999px; background: var(--sunk); overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); }
+ul.clean { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.fix { border-left: 3px solid var(--new); padding: 4px 0 4px 10px; display: flex; flex-direction: column; gap: 2px; }
+.fix b { font-weight: 600; }
+.fix .act { color: var(--accent); }
+.rew { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 8px; }
+.rew .a { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--muted) 50%, transparent); }
+.quote { background: var(--sunk); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; }
+.tagset { display: flex; flex-wrap: wrap; gap: 6px; }
+.thinking { color: var(--muted); font-style: italic; }
+details summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+.legal { font-size: 12px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .offer, .btn { transition: border-color .15s, filter .15s; } }
+.keybox { display: flex; flex-direction: column; gap: 8px; }
+.keybox input { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-family: var(--f-mono); font-size: 13px; }
+.yrs { width: 4.5em; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font-family: var(--f-mono); }
+.kw-miss .pill { border-color: var(--new); color: var(--new); }
+.kw-ok .pill { border-color: var(--accent); color: var(--accent); }
+a.btn { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<h1>Radar Emploi Nature<small>Offres CDI et CDD en écologie, publiées depuis moins de 3 semaines (sans RSE ni greenwashing)</small></h1>
+<div class="status-line">
+<span id="sync"></span>
+<a class="btn small" href="https://harsh-sesame-ac5.notion.site/650d2e7e59c74a239cfe04291fbcfed5?v=40704136fa7481209f74000c59d03704" target="_blank" rel="noopener">Base Notion ↗</a>
+</div>
+</header>
+</div>
+<div class="controls">
+<div class="wrap controls-inner">
+<div class="searchrow">
+<label class="search" for="q">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input id="q" type="search" placeholder="Poste, employeur, ville, compétence (ex. écologue, QGIS, Bretagne)…" autocomplete="off">
+</label>
+<div class="seg" role="group" aria-label="Ajoutées depuis" id="since">
+<button type="button" data-v="1" aria-pressed="false">24 h</button>
+<button type="button" data-v="3" aria-pressed="false">3 j</button>
+<button type="button" data-v="7" aria-pressed="false">7 j</button>
+<button type="button" data-v="0" aria-pressed="true">Toutes</button>
+</div>
+</div>
+<div class="filters">
+<select id="f-region" aria-label="Région"><option value="">Toutes régions</option></select>
+<select id="f-contrat" aria-label="Contrat"><option value="">CDI + CDD</option><option>CDI</option><option>CDD</option></select>
+<select id="f-niveau" aria-label="Niveau"><option value="">Tous niveaux</option><option>Junior</option><option>Technicien</option><option>Confirmé</option><option>Senior / Cadre</option></select>
+<select id="f-statut" aria-label="Statut"><option value="actives">Hors écartées</option><option value="">Tous statuts</option><option>Nouveau</option><option>À regarder</option><option>Candidaté</option><option>Écarté</option></select>
+<select id="f-sort" aria-label="Tri"><option value="pub">Plus récentes</option><option value="add">Dernières ajoutées</option><option value="score">Indice de compatibilité</option></select>
+<select id="f-pref" aria-label="Contrat souhaité"><option value="CDI">Je vise un CDI</option><option value="CDD">Je vise un CDD</option><option value="">Contrat indifférent</option></select>
+<select id="f-min" aria-label="Indice minimum"><option value="0">Tout indice</option><option value="50">Indice ≥ 50</option><option value="65">Indice ≥ 65</option><option value="80">Indice ≥ 80</option></select>
+</div>
+<div class="chips" id="domains" aria-label="Domaines"></div>
+</div>
+</div>
+<div class="wrap">
+<main>
+<section aria-labelledby="lh">
+<div class="listhead">
+<h2 id="lh"><span id="count" class="mono">0</span> offres</h2>
+<div class="row">
+<span class="muted" style="font-size:13px" id="rankinfo"></span>
+<button class="btn small" id="rank" type="button" hidden>Affiner l'indice avec Claude</button>
+</div>
+</div>
+<div class="list" id="list"></div>
+<button class="btn more" id="more" type="button" hidden>Afficher plus</button>
+</section>
+<aside class="work">
+<section class="panel" aria-labelledby="cvh">
+<div class="cvbar">
+<div><h3 id="cvh">Mon CV</h3><div class="name" id="cvname">Aucun CV importé</div></div>
+<div class="row">
+<label class="btn small" for="cvfile">Importer (PDF, DOCX, TXT)</label>
+<input id="cvfile" type="file" accept=".pdf,.docx,.txt,.md,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+<button class="btn small" id="cvedit" type="button">Coller / modifier</button>
+</div>
+</div>
+<div class="drop" id="drop">Glissez votre CV ici. Il reste sur cet appareil : l'indice est calculé dans votre navigateur.</div>
+<div id="cvbox" hidden>
+<textarea id="cvtext" placeholder="Collez le texte de votre CV ici…"></textarea>
+<div class="row" style="margin-top:8px"><button class="btn small primary" id="cvsave" type="button">Enregistrer</button><button class="btn small" id="cvclear" type="button">Effacer le CV</button></div>
+</div>
+<div class="row" id="yrsrow" hidden style="font-size:13px"><label for="yrs">Années d'expérience professionnelle</label><input class="yrs" id="yrs" type="number" min="0" max="45" step="0.5"><span class="legal">estimées depuis le CV, corrigez si besoin</span></div>
+<div id="cvmsg" class="legal"></div>
+<details id="keyd">
+<summary>Analyse rédigée par Claude (facultatif, avec votre clé API)</summary>
+<div class="keybox" style="margin-top:8px">
+<span class="legal">Sans clé, l'indice et les mots-clés manquants sont calculés dans le navigateur. Avec une clé API Anthropic (console.anthropic.com), vous obtenez aussi l'analyse rédigée et un indice affiné. Les appels sont facturés sur votre compte API et partent directement de ce navigateur vers Anthropic.</span>
+<input id="apikey" type="password" placeholder="sk-ant-…" autocomplete="off">
+<label class="row legal" for="keymem" style="gap:6px"><input id="keymem" type="checkbox"> Mémoriser la clé sur cet appareil</label>
+<div class="row"><button class="btn small primary" id="keysave" type="button">Activer</button><button class="btn small" id="keydel" type="button">Retirer la clé</button><span class="legal" id="keymsg"></span></div>
+</div>
+</details>
+</section>
+<section class="panel" id="detail" aria-live="polite">
+<h3>Offre sélectionnée</h3>
+<p class="muted" style="margin:0">Choisissez une offre dans la liste pour voir le détail et son indice de compatibilité avec votre CV.</p>
+</section>
+</aside>
+</main>
+</div>
+<script id="offres-gz" type="text/plain">__OFFRES_GZ_B64__</script>
+<script>
+(() => {
+const WINDOW_DAYS = 21, PAGE = 40;
+const DOMAINS = ["Biodiversité","Marin & littoral","Forêt","Eau & milieux aquatiques","Énergies renouvelables","Climat & adaptation","Agriculture & sols","Déchets & économie circulaire","Air & pollutions","Éducation à l'environnement","Aménagement & espaces naturels"];
+const DHUE = { "Biodiversité": 130, "Marin & littoral": 205, "Forêt": 95, "Eau & milieux aquatiques": 190, "Énergies renouvelables": 45, "Climat & adaptation": 20, "Agriculture & sols": 70, "Déchets & économie circulaire": 260, "Air & pollutions": 230, "Éducation à l'environnement": 320, "Aménagement & espaces naturels": 160 };
+const dcol = d => `hsl(${DHUE[d] ?? 0} 45% 48%)`;
+const $ = s => document.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => {
+const n = document.createElement(tag);
+for (const [k, v] of Object.entries(attrs)) {
+if (v == null || v === false) continue;
+if (k === "class") n.className = v; else if (k === "style") n.style.cssText = v;
+else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v === true ? "" : v);
+}
+for (const c of kids.flat()) if (c != null && c !== false) n.append(c.nodeType ? c : String(c));
+return n;
+};
+const store = {
+get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+del(k) { try { localStorage.removeItem(k); } catch {} }
+};
+let sessionKey = "";
+const S = { offers: [], filtered: [], shown: PAGE, q: "", since: 0, domains: new Set(), selected: null, ai: {}, analyses: {}, cv: store.get("radar.cv") || "", cvName: store.get("radar.cvname") || "", yrs: null, model: store.get("radar.model") || "" };
+try { S.ai = JSON.parse(store.get("radar.ai") || "{}"); } catch {}
+try { S.analyses = JSON.parse(store.get("radar.analyses") || "{}"); } catch {}
+const apiKey = () => sessionKey || store.get("radar.key") || "";
+// ---------- data ----------
+// Offers are embedded as gzip + base64 JSON ({genere, offres}) to keep the file small.
+let DATA = { genere: "", offres: [] };
+async function loadData() {
+const b64 = (document.getElementById("offres-gz")?.textContent || "").trim();
+if (!b64 || b64.startsWith("__")) return;
+const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+DATA = JSON.parse(await new Response(stream).text());
+}
+const mapOffers = () => (DATA.offres || []).map(r => ({ id: r.id || r.u, poste: r.p || "", entreprise: r.e || "", lieu: r.l || "", region: r.r || "", contrat: r.c || "", domaines: r.d || [], niveau: r.n || "", pub: r.pub || "", source: r.s || "", lien: r.u || "", resume: r.res || "", salaire: r.sal || "", statut: r.st || "", ajoute: r.aj || "" }));
+// ---------- dates ----------
+const today = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
+const daysSince = s => s ? Math.round((today() - new Date(s + "T00:00:00")) / 864e5) : null;
+// ---------- local text analysis ----------
+const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+const STOP = new Set("avec dans pour sous sans entre leur leurs vous nous elle elles ils sont etre avoir plus tres bien tout tous toute toutes cette ces ceci cela comme mais donc ainsi aussi autre autres afin selon chez dont lors notre votre votres meme ensemble poste postes mission missions profil profils candidat candidate experience experiences annee annees ans mois minimum souhaite souhaitee appreciee apprecie apprecies requis requise exige exigee exiges obligatoire obligatoires niveau diplome formation equipe equipes travail travaux charge chargee charges chef cheffe projet projets suivi suivis appui contrat temps plein partiel renouvelable remplacement recrutement h/f offre offres entreprise structure service services dossier dossiers etude etudes connaissance connaissances competence competences maitrise bonne bonnes bon bons qualites capacite sens rigueur autonomie relationnel permis vehicule deplacements candidature date semaine jour jours sein cadre categorie grade grille titulaire contractuel contractuels".split(" "));
+const stem = w => w.length >= 6 ? w.slice(0, 6) : w.replace(/[sx]$/, "");
+function terms(text) {
+const out = new Map();
+for (const w of norm(text).split(/[^a-z0-9+]+/)) {
+if (w.length < 4 || STOP.has(w) || /^\d+$/.test(w)) continue;
+const s = stem(w); if (!out.has(s)) out.set(s, w);
+}
+return out;
+}
+const DOMAIN_KW = {
+"Biodiversité": ["biodiv", "ecolog", "faune", "flore", "espece", "habita", "natura", "invent", "natura", "conser", "botani", "orchid", "exotiq", "envahi", "compen"],
+"Marin & littoral": ["marin", "littor", "mer", "cotier", "ocean", "peche", "halieu", "dune", "submer", "estran"],
+"Forêt": ["forest", "foret", "bois", "sylvic", "boisem", "reboise", "peuple", "carbon", "incend"],
+"Eau & milieux aquatiques": ["eau", "riviere", "cours", "ripisy", "zones", "humide", "aquati", "hydrol", "hydrog", "bassin", "assain"],
+"Énergies renouvelables": ["energi", "renouv", "eolien", "photov", "solair", "hydroe", "biomet", "methan"],
+"Climat & adaptation": ["climat", "adapta", "change", "risque", "resili", "carbon", "attenu", "inonda"],
+"Agriculture & sols": ["agric", "agrono", "sols", "pedolo", "agroec", "exploit", "cultur", "pestic", "elevag"],
+"Déchets & économie circulaire": ["dechet", "recycl", "circul", "reempl", "tri", "valori", "emball"],
+"Air & pollutions": ["air", "pollut", "emissi", "deverse", "iso", "14001", "icpe", "qualit"],
+"Éducation à l'environnement": ["educat", "sensib", "animat", "pedago", "scolai", "public", "mediat"],
+"Aménagement & espaces naturels": ["gestio", "espace", "naturel", "reserv", "parc", "plan", "territ", "amenag", "restau", "solution", "fondee"]
+};
+let CV = { terms: new Map(), dom: {}, master: false };
+function analyseCV() {
+const t = terms(S.cv);
+const n = norm(S.cv);
+const dom = {};
+for (const [d, kws] of Object.entries(DOMAIN_KW)) dom[d] = kws.filter(k => n.includes(k)).length;
+CV = { terms: t, dom, master: /(master|msc|bac\s*\+\s*5|ingenieur|doctorat|phd)/.test(n) };
+}
+function estimateYears(text) {
+const n = norm(text), now = new Date().getFullYear();
+const EDU = /(master|msc|licence|bachelor|\bba\b|universit|ecole|lycee|baccalaureat|erasmus|faculte|bts|dut|iut|formation|education)/;
+const re = /\b(19[89]\d|20[0-4]\d)\s*[-–à]\s*(20[0-4]\d|aujourd'?hui|present|actuel|now)?/g;
+let m, starts = [];
+while ((m = re.exec(n))) {
+const ctx = n.slice(Math.max(0, m.index - 70), m.index + 70);
+if (EDU.test(ctx)) continue;
+starts.push(+m[1]);
+}
+if (!starts.length) return null;
+return Math.max(0, Math.min(40, now - Math.min(...starts)));
+}
+const TERMS = new Map(); let DF = new Map(), AVG_IDF = 1;
+const offerTerms = o => { if (!TERMS.has(o.id)) TERMS.set(o.id, terms(`${o.poste} ${o.resume}`)); return TERMS.get(o.id); };
+const idf = s => Math.log((S.offers.length + 1) / ((DF.get(s) || 0) + 1)) + 0.2;
+function buildIdf() {
+DF = new Map();
+for (const o of S.offers) for (const s of offerTerms(o).keys()) DF.set(s, (DF.get(s) || 0) + 1);
+const v = [...DF.keys()].map(idf); AVG_IDF = v.length ? v.reduce((a, b) => a + b, 0) / v.length : 1;
+}
+const RANGES = { "Junior": [0, 2], "Technicien": [0, 5], "Confirmé": [2, 7], "Senior / Cadre": [5, 30] };
+const clamp = v => Math.max(0, Math.min(100, Math.round(+v)));
+function localScore(o) {
+if (!S.cv) return null;
+// Weighted overlap: rare words (high IDF) count more than generic ones ("environnement");
+// title words count double; a prior in the denominator stops short summaries from scoring high.
+const T = offerTerms(o), title = terms(o.poste);
+let got = 0, tot = 0; const ok = [], miss = [];
+for (const [s, w] of T) {
+const wt = idf(s) * (title.has(s) ? 2 : 1);
+tot += wt;
+if (CV.terms.has(s)) { got += wt; ok.push(w); } else miss.push(w);
+}
+const ratio = got / (tot + 4 * AVG_IDF);
+const comp = clamp(5 + ratio * 150);
+const yrs = S.yrs ?? 0;
+let [lo, hi] = RANGES[o.niveau] || [0, 30];
+const req = norm(o.resume).match(/(\d+)\s*(?:a\s*\d+\s*)?ans\s*(?:d'?|minimum d'?)?exp/);
+if (req) lo = Math.max(lo, +req[1]);
+let exp = yrs < lo ? 100 - 18 * (lo - yrs) : yrs > hi ? 100 - 8 * (yrs - hi) : 100;
+if (o.niveau === "Technicien" && CV.master) exp -= 15;
+exp = Math.max(15, clamp(exp));
+const maxD = Math.max(1, ...Object.values(CV.dom));
+const dom = o.domaines.length ? Math.max(...o.domaines.map(d => clamp(25 + 75 * (CV.dom[d] || 0) / maxD))) : 50;
+return { comp, exp, dom, ok, miss };
+}
+// ---------- index ----------
+const WEIGHTS = { comp: 0.45, exp: 0.25, dom: 0.15, con: 0.15 };
+const CRIT = [["comp", "Compétences"], ["exp", "Niveau d'expérience"], ["dom", "Domaine"], ["con", "Type de contrat"]];
+function contratScore(o) { const p = $("#f-pref").value; if (!p) return 100; return o.contrat === p ? 100 : o.contrat ? 50 : 70; }
+function indexOf(o) {
+const ai = S.ai[o.id];
+const base = ai && [ai.comp, ai.exp, ai.dom].every(v => Number.isFinite(+v)) ? { comp: clamp(ai.comp), exp: clamp(ai.exp), dom: clamp(ai.dom), src: ai.detailed ? "analyse détaillée de Claude" : "affiné par Claude", raison: ai.raison || "" } : (() => { const l = localScore(o); return l && { ...l, src: "calcul local par mots-clés", raison: "" }; })();
+if (!base) return null;
+const parts = { comp: base.comp, exp: base.exp, dom: base.dom, con: contratScore(o) };
+const total = Math.round(Object.entries(WEIGHTS).reduce((t, [k, w]) => t + parts[k] * w, 0));
+return { total, parts, src: base.src, raison: base.raison };
+}
+const tier = v => v >= 75 ? "hi" : v >= 55 ? "mid" : "lo";
+const verdict = v => v >= 80 ? "Très compatible" : v >= 65 ? "Compatible" : v >= 50 ? "Partiellement compatible" : "Peu compatible";
+// ---------- filters ----------
+function buildFilters() {
+const regs = [...new Set(S.offers.map(o => o.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
+$("#f-region").replaceChildren(el("option", { value: "" }, "Toutes régions"), ...regs.map(r => el("option", { value: r }, r)));
+const counts = {}; S.offers.forEach(o => o.domaines.forEach(d => counts[d] = (counts[d] || 0) + 1));
+$("#domains").replaceChildren(...DOMAINS.filter(d => counts[d]).map(d => el("button", {
+class: "chip", type: "button", "aria-pressed": "false", style: `--dc:${dcol(d)}`,
+onclick: ev => { S.domains.has(d) ? S.domains.delete(d) : S.domains.add(d); ev.currentTarget.setAttribute("aria-pressed", S.domains.has(d)); apply(); }
+}, el("span", { class: "dot" }), d, el("span", { class: "n" }, counts[d]))));
+}
+function apply() {
+const words = norm(S.q).split(/\s+/).filter(Boolean);
+const reg = $("#f-region").value, con = $("#f-contrat").value, niv = $("#f-niveau").value, st = $("#f-statut").value, sort = $("#f-sort").value, min = +$("#f-min").value || 0;
+const cutoff = S.since ? Date.now() - S.since * 864e5 : 0;
+S.filtered = S.offers.filter(o => {
+if (reg && o.region !== reg) return false;
+if (con && o.contrat !== con) return false;
+if (niv && o.niveau !== niv) return false;
+if (st === "actives" && o.statut === "Écarté") return false;
+if (st && st !== "actives" && o.statut !== st) return false;
+if (S.domains.size && !o.domaines.some(d => S.domains.has(d))) return false;
+if (cutoff && !(Date.parse(o.ajoute) >= cutoff)) return false;
+if (min && !((indexOf(o)?.total ?? -1) >= min)) return false;
+if (words.length) {
+const hay = norm([o.poste, o.entreprise, o.lieu, o.region, o.resume, o.domaines.join(" "), o.source, o.niveau].join(" "));
+if (!words.every(t => hay.includes(t))) return false;
+}
+return true;
+});
+const by = {
+pub: (a, b) => (b.pub || "").localeCompare(a.pub || "") || (b.ajoute || "").localeCompare(a.ajoute || ""),
+add: (a, b) => (b.ajoute || "").localeCompare(a.ajoute || "") || (b.pub || "").localeCompare(a.pub || ""),
+score: (a, b) => (indexOf(b)?.total ?? -1) - (indexOf(a)?.total ?? -1) || by.pub(a, b)
+};
+S.filtered.sort(by[sort] || by.pub);
+S.shown = PAGE; renderList();
+}
+// ---------- list ----------
+function offerCard(o) {
+const age = daysSince(o.pub), ix = indexOf(o);
+const isNew = o.ajoute && Date.now() - Date.parse(o.ajoute) < 864e5;
+return el("button", { class: "offer", type: "button", "aria-current": S.selected === o.id ? "true" : "false", onclick: () => select(o.id) },
+el("div", { class: "t" }, o.poste),
+el("div", { class: "side" },
+ix ? el("span", { class: "score " + tier(ix.total), title: `Indice de compatibilité : ${verdict(ix.total)}` }, ix.total + "/100") : null,
+age != null ? el("span", { class: "age", title: "Publiée le " + o.pub }, age === 0 ? "auj." : `J-${age}`) : null),
+el("div", { class: "m" }, [o.entreprise, o.lieu].filter(Boolean).join(" · ")),
+el("div", { class: "tags" },
+isNew ? el("span", { class: "pill new" }, "Nouvelle") : null,
+o.statut && o.statut !== "Nouveau" ? el("span", { class: "pill st" }, o.statut) : null,
+o.contrat ? el("span", { class: "pill" }, o.contrat) : null,
+o.niveau ? el("span", { class: "pill" }, o.niveau) : null,
+...o.domaines.slice(0, 2).map(d => el("span", { class: "pill", style: `--dc:${dcol(d)}` }, el("span", { class: "dot" }), d))));
+}
+function renderList() {
+$("#count").textContent = S.filtered.length;
+$("#list").replaceChildren(...(S.filtered.length ? S.filtered.slice(0, S.shown).map(offerCard) : [el("div", { class: "empty" }, S.offers.length ? "Aucune offre ne correspond à ces filtres." : "Aucune offre dans ce fichier.")]));
+$("#more").hidden = S.filtered.length <= S.shown;
+$("#rank").hidden = !(apiKey() && S.cv);
+$("#rankinfo").textContent = S.cv ? ($("#rankinfo").dataset.msg || "Indice calculé localement à partir de votre CV") : "Importez votre CV pour voir l'indice de compatibilité";
+}
+$("#more").onclick = () => { S.shown += PAGE; renderList(); };
+// ---------- detail ----------
+const byId = id => S.offers.find(o => o.id === id);
+function select(id) { S.selected = id; renderList(); renderDetail(); if (matchMedia("(max-width: 900px)").matches) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); }
+function indexBlock(o) {
+const ix = indexOf(o);
+if (!ix) return el("div", { class: "idx" }, el("h3", { style: "margin:0" }, "Indice de compatibilité"), el("span", { class: "muted", style: "font-size:13px" }, "Importez votre CV pour obtenir l'indice."));
+const pref = $("#f-pref").value;
+const conNote = !pref ? "contrat indifférent" : o.contrat === pref ? `${o.contrat}, conforme à votre préférence` : `${o.contrat || "contrat non précisé"}, vous visez un ${pref}`;
+return el("div", { class: "idx" },
+el("h3", { style: "margin:0" }, "Indice de compatibilité"),
+el("div", { class: "head" }, el("span", { class: "big mono" }, ix.total), el("span", { class: "muted" }, "/100"), el("span", { class: "verdict" }, verdict(ix.total)), el("span", { class: "legal" }, ix.src)),
+...CRIT.map(([k, label]) => el("div", { class: "crit" }, el("span", {}, label + ` (${Math.round(WEIGHTS[k] * 100)} %)`), el("div", { class: "bar" }, el("span", { style: `width:${ix.parts[k]}%` })), el("span", { class: "v" }, ix.parts[k]))),
+el("span", { class: "legal" }, `Contrat : ${conNote}.` + (ix.raison ? ` ${ix.raison}` : "")));
+}
+function keywordsBlock(o) {
+const l = localScore(o); if (!l) return null;
+const miss = [...new Set(l.miss)].slice(0, 14), ok = [...new Set(l.ok)].slice(0, 14);
+return el("div", {},
+miss.length ? el("div", { class: "kw-miss" }, el("h3", {}, "Mots de l'offre absents de votre CV"), el("div", { class: "tagset" }, ...miss.map(w => el("span", { class: "pill" }, w))), el("p", { class: "legal", style: "margin:6px 0 0" }, "Ajoutez ceux qui correspondent à une expérience réelle, avec les termes exacts de l'annonce.")) : null,
+ok.length ? el("div", { class: "kw-ok", style: "margin-top:10px" }, el("h3", {}, "Points communs à mettre en avant"), el("div", { class: "tagset" }, ...ok.map(w => el("span", { class: "pill" }, w)))) : null);
+}
+function renderDetail() {
+const o = byId(S.selected); if (!o) return;
+const age = daysSince(o.pub), left = age != null ? Math.max(0, WINDOW_DAYS - age) : null;
+const out = el("div", { class: "result" });
+const fullDesc = el("textarea", { placeholder: "Facultatif : collez la description complète de l'annonce pour une analyse plus précise.", style: "min-height:90px" });
+const go = el("button", { class: "btn primary", type: "button" }, "Analyse détaillée par Claude");
+go.onclick = () => analyse(o, fullDesc.value, out, go);
+$("#detail").replaceChildren(
+el("h3", {}, "Offre sélectionnée"),
+el("h2", {}, o.poste),
+el("div", { class: "muted" }, [o.entreprise, o.lieu].filter(Boolean).join(" · ")),
+el("p", { style: "margin:0" }, o.resume || "Pas de résumé."),
+el("dl", { class: "kv" },
+el("dt", {}, "Contrat"), el("dd", {}, o.contrat || "—"),
+el("dt", {}, "Niveau"), el("dd", {}, o.niveau || "—"),
+el("dt", {}, "Domaines"), el("dd", {}, o.domaines.join(", ") || "—"),
+el("dt", {}, "Salaire"), el("dd", {}, o.salaire || "Non indiqué"),
+el("dt", {}, "Publiée"), el("dd", { class: "mono" }, o.pub ? `${new Date(o.pub + "T00:00:00").toLocaleDateString("fr-FR")} (J-${age})` : "—"),
+el("dt", {}, "Fenêtre"), el("dd", {}, left == null ? "—" : left ? `Retirée de la veille dans ${left} j si son statut reste « Nouveau »` : "Hors fenêtre de 21 jours"),
+el("dt", {}, "Statut"), el("dd", {}, (o.statut || "Nouveau") + " (modifiable dans Notion)"),
+el("dt", {}, "Source"), el("dd", {}, o.source || "—")),
+el("div", { class: "row" }, o.lien ? el("a", { class: "btn", href: o.lien, target: "_blank", rel: "noopener" }, "Voir l'annonce ↗") : null),
+indexBlock(o),
+keywordsBlock(o),
+apiKey() && S.cv ? el("div", { style: "display:flex;flex-direction:column;gap:10px" },
+el("details", {}, el("summary", {}, "Ajouter la description complète de l'annonce"), fullDesc),
+el("div", { class: "row" }, go), out) : el("p", { class: "legal", style: "margin:0" }, S.cv ? "Pour une analyse rédigée (points à revoir, accroche, reformulations), activez une clé API dans le bloc « Mon CV »." : ""));
+const prev = S.analyses[o.id]; if (prev && apiKey()) renderAnalysis(prev, out, o);
+}
+// ---------- CV import ----------
+function setCV(text, name) {
+S.cv = (text || "").trim(); S.cvName = S.cv ? (name || "CV collé") : "";
+if (S.cv) { store.set("radar.cv", S.cv); store.set("radar.cvname", S.cvName); } else { store.del("radar.cv"); store.del("radar.cvname"); }
+S.ai = {}; S.analyses = {}; store.del("radar.ai"); store.del("radar.analyses"); store.del("radar.yrs");
+S.yrs = S.cv ? estimateYears(S.cv) : null;
+afterCV();
+}
+function afterCV() {
+analyseCV();
+if (S.yrs == null && S.cv) { const y = parseFloat(store.get("radar.yrs")); S.yrs = Number.isFinite(y) ? y : (estimateYears(S.cv) ?? 2); }
+$("#cvname").textContent = S.cv ? `${S.cvName} · ${S.cv.split(/\s+/).length} mots` : "Aucun CV importé";
+$("#drop").hidden = !!S.cv; $("#cvtext").value = S.cv;
+$("#yrsrow").hidden = !S.cv; $("#yrs").value = S.yrs ?? "";
+if (S.cv && $("#f-sort").value === "pub" && !store.get("radar.sorted")) { $("#f-sort").value = "score"; store.set("radar.sorted", "1"); }
+apply(); renderDetail();
+}
+$("#yrs").addEventListener("change", e => { const v = parseFloat(e.target.value); S.yrs = Number.isFinite(v) ? v : 0; store.set("radar.yrs", String(S.yrs)); apply(); renderDetail(); });
+const loaded = {};
+const loadScript = src => loaded[src] ||= new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load")); document.head.append(s); });
+async function readFile(f) {
+const msg = $("#cvmsg"); msg.textContent = "Lecture de " + f.name + "…";
+try {
+let text = "";
+const ext = f.name.toLowerCase().split(".").pop();
+if (ext === "pdf") {
+await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
+await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js");
+const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()) }).promise;
+const pages = [];
+for (let i = 1; i <= pdf.numPages; i++) {
+const c = await (await pdf.getPage(i)).getTextContent();
+let line = ""; const lines = [];
+for (const it of c.items) { line += it.str; if (it.hasEOL) { lines.push(line); line = ""; } else if (it.str && !it.str.endsWith(" ")) line += " "; }
+if (line) lines.push(line);
+pages.push(lines.join("\n").replace(/(?:^|(?<=\s))((?:\p{L} ){2,}\p{L})(?=\s|$)/gmu, m => m.replace(/ /g, "")).trim());
+}
+if (pages.filter(Boolean).length > 2) { choosePages(pages, f.name); return; }
+text = pages.join("\n\n");
+} else if (ext === "docx") {
+await loadScript("https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js");
+text = (await window.mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() })).value;
+} else text = await f.text();
+text = text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+if (text.length < 80) throw new Error("vide");
+setCV(text, f.name); msg.textContent = "CV importé. Vérifiez le texte avec « Coller / modifier » si besoin.";
+} catch {
+msg.textContent = "Impossible de lire ce fichier (PDF scanné, protégé, ou pas de connexion internet pour charger le lecteur PDF). Copiez le texte du CV et collez-le avec « Coller / modifier ».";
+}
+}
+function choosePages(pages, name) {
+const squash = p => p.replace(/\s+/g, "").toLowerCase();
+const isCV = p => { const q = squash(p); return /exp[ée]rience/.test(q) && /(education|éducation|formation|compétences|competences)/.test(q) && !/(lettredemotivation|coverletter|madame|monsieur|cordialement|salutations|towhom)/.test(q); };
+let best = -1; pages.forEach((p, i) => { if (isCV(p)) best = i; });
+const boxes = pages.map((p, i) => p ? el("label", { for: "pg" + i, class: "row", style: "gap:6px;align-items:flex-start;font-size:13px" },
+el("input", { type: "checkbox", id: "pg" + i, value: i, checked: i === best }),
+el("span", {}, el("b", {}, `Page ${i + 1}`), " · ", el("span", { class: "muted" }, p.replace(/\s+/g, " ").slice(0, 90) + "…"))) : null);
+const ok = el("button", { class: "btn small primary", type: "button" }, "Utiliser les pages cochées");
+ok.onclick = () => {
+const sel = [...$("#cvmsg").querySelectorAll("input:checked")].map(x => +x.value);
+if (!sel.length) return;
+setCV(sel.map(i => pages[i]).join("\n\n"), `${name} (p. ${sel.map(i => i + 1).join(", ")})`);
+$("#cvmsg").textContent = "CV importé. Vérifiez les années d'expérience estimées.";
+};
+$("#cvmsg").replaceChildren(el("div", { style: "display:flex;flex-direction:column;gap:6px" },
+el("span", {}, `Ce PDF contient ${pages.length} pages (plusieurs versions de CV ou des lettres ?). Cochez celles qui forment le CV à utiliser :`), ...boxes, el("div", { class: "row" }, ok)));
+}
+$("#cvfile").onchange = e => { const f = e.target.files[0]; if (f) readFile(f); e.target.value = ""; };
+const drop = $("#drop");
+drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); const f = e.dataTransfer.files[0]; if (f) readFile(f); });
+$("#cvedit").onclick = () => { $("#cvbox").hidden = !$("#cvbox").hidden; if (!$("#cvbox").hidden) $("#cvtext").focus(); };
+$("#cvsave").onclick = () => { setCV($("#cvtext").value, S.cvName || "CV collé"); $("#cvbox").hidden = true; $("#cvmsg").textContent = S.cv ? "CV enregistré sur cet appareil." : ""; };
+$("#cvclear").onclick = () => { setCV("", ""); $("#cvbox").hidden = true; $("#cvmsg").textContent = "CV effacé de cet appareil."; };
+// ---------- Claude API (optional, viewer's own key) ----------
+async function pickModel(key) {
+if (S.model) return S.model;
+const r = await fetch("https://api.anthropic.com/v1/models?limit=100", { headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" } });
+if (!r.ok) throw { status: r.status };
+const list = (await r.json()).data || [];
+const m = list.find(x => /sonnet/i.test(x.id)) || list[0];
+if (!m) throw { status: 0 };
+S.model = m.id; store.set("radar.model", S.model); return S.model;
+}
+async function askJSON(prompt, maxTokens = 4000) {
+const key = apiKey(); if (!key) throw { msg: "Aucune clé API active." };
+const model = await pickModel(key);
+const r = await fetch("https://api.anthropic.com/v1/messages", {
+method: "POST",
+headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+body: JSON.stringify({ model, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] })
+});
+if (!r.ok) throw { status: r.status };
+const j = await r.json();
+const text = (j.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+const a = text.search(/[\[{]/), b = Math.max(text.lastIndexOf("}"), text.lastIndexOf("]"));
+try { return JSON.parse(text.slice(a, b + 1)); } catch { throw { msg: "Réponse incomplète de Claude, relancez." }; }
+}
+const apiErr = e => e?.msg || ({ 401: "Clé API refusée : vérifiez-la.", 403: "Cette clé n'a pas accès à l'API.", 429: "Limite d'utilisation atteinte, réessayez plus tard.", 529: "Claude est surchargé, réessayez dans un instant." }[e?.status]) || "Échec de l'appel à Claude" + (e?.status ? ` (erreur ${e.status})` : " (connexion ?)") + ".";
+$("#keysave").onclick = async () => {
+const k = $("#apikey").value.trim(); if (!k) return;
+sessionKey = k; S.model = ""; store.del("radar.model");
+if ($("#keymem").checked) store.set("radar.key", k); else store.del("radar.key");
+$("#keymsg").textContent = "Vérification…";
+try { const m = await pickModel(k); $("#keymsg").textContent = "Clé active (" + m + ")"; $("#apikey").value = ""; }
+catch (e) { sessionKey = ""; store.del("radar.key"); $("#keymsg").textContent = apiErr(e); }
+renderList(); renderDetail();
+};
+$("#keydel").onclick = () => { sessionKey = ""; store.del("radar.key"); store.del("radar.model"); S.model = ""; $("#keymsg").textContent = "Clé retirée."; renderList(); renderDetail(); };
+if (store.get("radar.key")) { $("#keymsg").textContent = "Clé mémorisée sur cet appareil."; $("#keymem").checked = true; }
+const offerBlock = (o, full) => `POSTE : ${o.poste}\nEMPLOYEUR : ${o.entreprise}\nLIEU : ${o.lieu} (${o.region})\nCONTRAT : ${o.contrat} · NIVEAU : ${o.niveau}\nDOMAINES : ${o.domaines.join(", ")}\nRÉSUMÉ DE L'ANNONCE : ${o.resume}` + (full?.trim() ? `\n\nDESCRIPTION COMPLÈTE :\n${full.trim().slice(0, 12000)}` : "");
+const arr = v => Array.isArray(v) ? v : [];
+async function analyse(o, full, out, btn) {
+btn.disabled = true; out.replaceChildren(el("p", { class: "thinking" }, "Claude compare votre CV à l'offre… (jusqu'à une minute)"));
+const prompt = `Tu es conseiller en recrutement spécialisé dans les métiers de l'environnement et de l'écologie en France. Analyse l'adéquation entre le CV et l'offre, puis dis précisément comment adapter le CV. Sois concret et honnête ; n'invente aucune expérience ni diplôme. Rédige en français.
+Réponds UNIQUEMENT avec un objet JSON :
+{"competences": 0-100, "experience": 0-100 (adéquation du niveau ; sur/sous-qualification = moins), "domaine": 0-100,
+"synthese": "2 phrases", "points_forts": ["..."] (3-5),
+"points_a_revoir": [{"sujet": "", "pourquoi": "", "action": "modification précise dans le CV"}] (3-6),
+"mots_cles": ["terme de l'offre à intégrer s'il est vrai"] (5-10), "titre_cv": "", "accroche": "3-4 lignes, uniquement des faits du CV",
+"experiences_a_reformuler": [{"avant": "", "apres": ""}] (2-4), "questions_entretien": ["..."] (3)}
+=== OFFRE ===
+${offerBlock(o, full)}
+=== CV ===
+${S.cv.slice(0, 30000)}`;
+try {
+const r = await askJSON(prompt);
+S.analyses[o.id] = r; store.set("radar.analyses", JSON.stringify(S.analyses));
+if ([r.competences, r.experience, r.domaine].every(v => Number.isFinite(+v))) { S.ai[o.id] = { comp: +r.competences, exp: +r.experience, dom: +r.domaine, detailed: true }; store.set("radar.ai", JSON.stringify(S.ai)); }
+apply(); renderDetail();
+} catch (e) { out.replaceChildren(el("div", { class: "notice" }, el("span", {}, apiErr(e)))); btn.disabled = false; }
+}
+function copyBtn(label, getText) {
+const b = el("button", { class: "btn small", type: "button" }, label);
+b.onclick = async () => { try { await navigator.clipboard.writeText(getText()); b.textContent = "Copié"; } catch { b.textContent = "Copie impossible"; } setTimeout(() => b.textContent = label, 1600); };
+return b;
+}
+function analysisText(r, o) {
+const L = [`CV adapté : ${o.poste} (${o.entreprise})`, o.lien, "", r.synthese || "", "", "Titre : " + (r.titre_cv || ""), "", "Accroche :", r.accroche || "", "", "Points à revoir :", ...arr(r.points_a_revoir).map(x => `- ${x.sujet} : ${x.pourquoi} → ${x.action}`), "", "Mots-clés : " + arr(r.mots_cles).join(", "), "", "Reformulations :", ...arr(r.experiences_a_reformuler).map(x => `- ${x.avant}\n  → ${x.apres}`), "", "Questions d'entretien :", ...arr(r.questions_entretien).map(x => "- " + x)];
+return L.join("\n");
+}
+function renderAnalysis(r, out, o) {
+out.replaceChildren(
+r.synthese ? el("p", { style: "margin:0" }, r.synthese) : null,
+el("div", {}, el("h3", {}, "Points à revoir"), ...arr(r.points_a_revoir).map(x => el("div", { class: "fix", style: "margin-bottom:8px" }, el("b", {}, x.sujet || ""), el("span", { class: "muted" }, x.pourquoi || ""), el("span", { class: "act" }, "→ " + (x.action || ""))))),
+el("div", {}, el("h3", {}, "Points forts"), el("ul", { class: "clean" }, ...arr(r.points_forts).map(x => el("li", {}, x)))),
+arr(r.mots_cles).length ? el("div", {}, el("h3", {}, "Mots-clés à intégrer (s'ils sont vrais)"), el("div", { class: "tagset" }, ...arr(r.mots_cles).map(k => el("span", { class: "pill" }, k)))) : null,
+r.titre_cv ? el("div", {}, el("h3", {}, "Titre de CV proposé"), el("div", { class: "quote" }, r.titre_cv)) : null,
+r.accroche ? el("div", {}, el("div", { class: "row", style: "justify-content:space-between" }, el("h3", {}, "Accroche réécrite"), copyBtn("Copier", () => r.accroche)), el("div", { class: "quote" }, r.accroche)) : null,
+arr(r.experiences_a_reformuler).length ? el("div", {}, el("h3", {}, "Reformulations"), ...arr(r.experiences_a_reformuler).map(x => el("div", { class: "rew" }, el("span", { class: "a" }, x.avant || ""), el("span", {}, x.apres || "")))) : null,
+arr(r.questions_entretien).length ? el("div", {}, el("h3", {}, "Questions d'entretien probables"), el("ul", { class: "clean" }, ...arr(r.questions_entretien).map(x => el("li", {}, x)))) : null,
+el("div", { class: "row" }, copyBtn("Copier toute l'analyse", () => analysisText(r, o))));
+}
+$("#rank").onclick = async () => {
+const btn = $("#rank"), info = $("#rankinfo");
+const todo = S.filtered.filter(o => !S.ai[o.id]?.detailed).slice(0, 160);
+if (!todo.length) return;
+btn.disabled = true; let n = 0, failed = null;
+for (let c = 0; c < todo.length; c += 30) {
+const items = todo.slice(c, c + 30);
+info.dataset.msg = info.textContent = `Claude évalue les offres ${c + 1} à ${c + items.length} sur ${todo.length}…`;
+const list = items.map((o, i) => `${i}. ${o.poste} | ${o.entreprise} | niveau : ${o.niveau || "?"} | domaines : ${o.domaines.join(", ")} | ${o.resume.slice(0, 300)}`).join("\n");
+const prompt = `Tu es recruteur spécialisé dans les métiers de l'environnement en France. Pour chaque offre, note le CV sur 3 critères de 0 à 100, de façon exigeante (50 = moyen) : "comp" compétences, outils, méthodes et diplômes face aux exigences ; "exp" adéquation de l'expérience au niveau demandé ; "dom" proximité des domaines travaillés. Ne note pas le contrat.
+Réponds UNIQUEMENT avec un tableau JSON : [{"i": numéro, "comp": 0-100, "exp": 0-100, "dom": 0-100, "raison": "10 mots max"}]
+=== CV ===
+${S.cv.slice(0, 20000)}
+=== OFFRES ===
+${list}`;
+try {
+const r = await askJSON(prompt, 6000);
+for (const x of arr(r)) { const o = items[+x.i]; if (o && [x.comp, x.exp, x.dom].every(v => Number.isFinite(+v))) { S.ai[o.id] = { comp: +x.comp, exp: +x.exp, dom: +x.dom, raison: String(x.raison || "") }; n++; } }
+store.set("radar.ai", JSON.stringify(S.ai)); apply();
+} catch (e) { failed = e; break; }
+}
+info.dataset.msg = failed ? `${n} offres affinées. ${apiErr(failed)}` : `Indice affiné par Claude pour ${n} offres`;
+btn.disabled = false; apply(); renderDetail();
+};
+// ---------- wiring ----------
+let qt; $("#q").addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { S.q = e.target.value; apply(); }, 120); });
+["#f-region", "#f-contrat", "#f-niveau", "#f-statut", "#f-sort", "#f-min"].forEach(s => $(s).addEventListener("change", apply));
+{ const p = store.get("radar.pref"); if (p !== null) $("#f-pref").value = p; }
+$("#f-pref").addEventListener("change", e => { store.set("radar.pref", e.target.value); apply(); renderDetail(); });
+$("#since").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.since = +b.dataset.v; $("#since").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); apply(); });
+(async () => {
+try { await loadData(); } catch { $("#sync").textContent = "Impossible de lire les offres de ce fichier (navigateur trop ancien ?)."; }
+S.offers = mapOffers(); buildIdf();
+const gen = DATA.genere ? new Date(DATA.genere) : null;
+if (S.offers.length || gen) $("#sync").textContent = `${S.offers.length} offres` + (gen && !isNaN(gen) ? ` · à jour du ${gen.toLocaleDateString("fr-FR")} à ${gen.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}` : "");
+buildFilters();
+if (S.cv) afterCV(); else apply();
+})();
+})();
+</script>
+</body>
+</html>
