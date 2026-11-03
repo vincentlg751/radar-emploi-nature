@@ -1,5 +1,5 @@
 {
- "genere": "2026-11-03T22:10:23+00:00",
+ "genere": "2026-11-03T22:20:38+00:00",
  "jour": "2026-11-03",
  "api_ok": false,
  "total": 10,
@@ -9,18 +9,7 @@
   "payant": 7,
   "inconnu": 0
  },
- "nouvelles": [
-  "sel-photosaintgermain-2026",
-  "sel-petitpalais-visionnaires-prune-nourry",
-  "sel-petitpalais-eva-gonzales",
-  "sel-petitpalais-bruxelles-1900",
-  "sel-grandpalais-cezanne-et-nous",
-  "sel-orsay-mary-cassatt",
-  "sel-orsay-jenny-holzer",
-  "sel-louvre-zurbaran",
-  "sel-louvre-sculpter-la-couleur",
-  "sel-flv-gustave-fayet"
- ],
+ "nouvelles": [],
  "expositions": [
   {
    "id": "sel-photosaintgermain-2026",
