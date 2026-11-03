@@ -38,7 +38,10 @@ jobs:
             echo "Base inchangée."
           else
             git commit -m "Expositions : mise à jour du $(date -u +%F)"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase -X theirs origin "${{ github.ref_name }}" && git push && break
+              sleep $((i * 5))
+            done
           fi
       - name: Republier le site
         env:

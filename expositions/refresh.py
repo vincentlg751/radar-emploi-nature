@@ -13,7 +13,7 @@ Sources :
 Si l'API ne répond pas, les fiches API de la base précédente sont gardées (sauf celles terminées).
 Lancé chaque jour par .github/workflows/expositions.yml. Aucune dépendance hors bibliothèque standard.
 """
-import datetime, json, os, pathlib, re, sys, unicodedata, urllib.parse, urllib.request
+import datetime, json, os, pathlib, re, sys, unicodedata, urllib.error, urllib.parse, urllib.request
 
 HERE = pathlib.Path(__file__).resolve().parent
 DATA = HERE / "data"
@@ -85,12 +85,17 @@ def prix_min(detail):
 
 
 def is_expo(r):
-    tags = plain(" ".join(as_list(r.get("qfap_tags")) + as_list(r.get("tags"))))
-    return "expo" in tags
+    tags = plain(" ".join(as_list(r.get("qfap_tags")) + as_list(r.get("tags")) + as_list(r.get("universe_tags"))))
+    return "expo" in tags or plain(r.get("title")).startswith("expo")
 
 
 def from_api(r, today):
     ll = r.get("lat_lon") or {}
+    if isinstance(ll, str) and "," in ll:  # « lat,lon »
+        la, lo = ll.split(",", 1)
+        ll = {"lat": float(la), "lon": float(lo)}
+    elif isinstance(ll, list) and len(ll) == 2:
+        ll = {"lat": ll[0], "lon": ll[1]}
     detail = strip_html(r.get("price_detail"))
     t = tarif_type(r.get("price_type"))
     tags = as_list(r.get("qfap_tags")) + as_list(r.get("tags"))
@@ -117,12 +122,30 @@ def from_api(r, today):
 
 
 def fetch_api(today):
-    params = {"select": FIELDS, "where": f"date_end >= date'{today}'", "timezone": "Europe/Paris"}
-    url = API + "?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"User-Agent": "radar-expositions/1.0 (GitHub Actions)"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        rows = json.load(r)
-    return [from_api(x, today) for x in rows if is_expo(x)]
+    """Interroge l'API ; si une requête est refusée (champ ou filtre inconnu), réessaie plus simplement
+    et filtre ici. Le motif du refus est affiché dans le journal du robot."""
+    attempts = [
+        {"select": FIELDS, "where": f'date_end >= "{today}"'},
+        {"where": f'date_end >= "{today}"'},
+        {},
+    ]
+    last = None
+    for params in attempts:
+        url = API + "?" + urllib.parse.urlencode(params)
+        req = urllib.request.Request(url, headers={"User-Agent": "radar-expositions/1.0 (GitHub Actions)"})
+        try:
+            with urllib.request.urlopen(req, timeout=300) as r:
+                rows = json.load(r)
+        except urllib.error.HTTPError as exc:
+            last = f"HTTP {exc.code} : {exc.read().decode(errors='replace')[:300]}"
+            print(f"Requête refusée ({', '.join(params) or 'sans filtre'}) -> {last}", file=sys.stderr)
+            continue
+        if not isinstance(rows, list):
+            raise ValueError(f"Réponse inattendue : {str(rows)[:200]}")
+        expos = [from_api(x, today) for x in rows if is_expo(x)]
+        print(f"API : {len(rows)} événements reçus, {len(expos)} expositions retenues")
+        return expos
+    raise RuntimeError(last or "API injoignable")
 
 
 def clean(e):
