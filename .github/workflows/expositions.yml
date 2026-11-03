@@ -1,0 +1,46 @@
+name: Expositions — mise à jour
+
+on:
+  schedule:
+    - cron: "40 5 * * *"   # chaque jour à 5h40 UTC, avant la publication du site (6h15 UTC)
+  push:
+    branches: [main]
+    paths:
+      - "expositions/data/selection.json"
+      - "expositions/app/**"
+      - "expositions/refresh.py"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # pour enregistrer la base mise à jour dans le dépôt
+  actions: write    # pour relancer la publication du site
+
+concurrency:
+  group: expositions
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Renouveler la base et repérer les nouvelles expositions
+        run: python expositions/refresh.py
+      - name: Enregistrer la base
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add expositions/data
+          if git diff --cached --quiet; then
+            echo "Base inchangée."
+          else
+            git commit -m "Expositions : mise à jour du $(date -u +%F)"
+            git push
+          fi
+      - name: Republier le site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run radar.yml --ref "${{ github.ref_name }}"

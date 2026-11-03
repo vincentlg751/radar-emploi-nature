@@ -1,0 +1,207 @@
+"""Renouvelle la base des expositions et détecte les nouvelles.
+
+Sources :
+  1. API Open Data de la Ville de Paris, jeu « Que faire à Paris ? » (sans clé).
+  2. expositions/data/selection.json : sélection tenue à la main (grandes expos, lieux hors API).
+
+Étapes :
+  - lit les deux sources et les ramène au même modèle (voir MODELE.md) ;
+  - retire les expositions terminées ;
+  - compare à la base précédente : les nouvelles reçoivent « vu_le » = aujourd'hui ;
+  - écrit data/expositions.json (la base) et ajoute une ligne à data/journal.json.
+
+Si l'API ne répond pas, les fiches API de la base précédente sont gardées (sauf celles terminées).
+Lancé chaque jour par .github/workflows/expositions.yml. Aucune dépendance hors bibliothèque standard.
+"""
+import datetime, json, os, pathlib, re, sys, unicodedata, urllib.parse, urllib.request
+
+HERE = pathlib.Path(__file__).resolve().parent
+DATA = HERE / "data"
+BASE = DATA / "expositions.json"
+SELECTION = DATA / "selection.json"
+JOURNAL = DATA / "journal.json"
+API = "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/que-faire-a-paris-/exports/json"
+FIELDS = ("id,url,title,lead_text,date_start,date_end,date_description,cover_url,tags,qfap_tags,"
+          "address_name,address_street,address_zipcode,address_city,lat_lon,price_type,price_detail,"
+          "access_link,access_type,pmr")
+
+# Thématiques normalisées : (nom affiché, mots-clés cherchés dans les tags, le titre et le chapeau)
+THEMES = [
+    ("Photographie", ["photo"]),
+    ("Art contemporain", ["art contemporain", "contemporain", "installation", "video", "numerique", "digital"]),
+    ("Beaux-arts", ["peinture", "peintre", "beaux-arts", "beaux arts", "sculpture", "dessin", "gravure", "impressionn",
+                    "maitre", "chef-d'oeuvre", "retrospective"]),
+    ("Histoire & patrimoine", ["histoire", "patrimoine", "archeolog", "memoire", "guerre", "antique", "egypt", "siecle"]),
+    ("Sciences & nature", ["science", "nature", "biodiversite", "climat", "ecolog", "animal", "plante", "jardin",
+                           "environnement", "ocean", "espace"]),
+    ("Design, mode & arts déco", ["design", "mode", "couture", "bijou", "arts decoratifs", "artisanat", "metiers d'art"]),
+    ("Architecture & ville", ["architecture", "urbanisme", "ville", "paysage"]),
+    ("Street art & BD", ["street art", "graffiti", "bande dessinee", "bd", "illustration", "manga"]),
+    ("Société & monde", ["societe", "monde", "voyage", "citoyen", "droits", "feminis", "migration", "cultures"]),
+    ("Jeunesse", ["enfant", "famille", "jeune public", "jeunesse"]),
+]
+
+
+def plain(s):
+    s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"\s+", " ", s)
+
+
+def strip_html(s):
+    s = re.sub(r"<[^>]+>", " ", str(s or ""))
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def as_list(v):
+    if not v:
+        return []
+    if isinstance(v, list):
+        return [str(x) for x in v if x]
+    return [x.strip() for x in re.split(r"[;,]", str(v)) if x.strip()]
+
+
+def themes_for(*texts):
+    t = " " + plain(" ".join(texts)) + " "
+    found = [name for name, keys in THEMES if any(re.search(r"\b" + re.escape(k), t) for k in keys)]
+    return found or ["Autres"]
+
+
+def tarif_type(price_type):
+    p = plain(price_type)
+    if "condition" in p:
+        return "gratuit_sous_condition"
+    if "gratuit" in p:
+        return "gratuit"
+    if "payant" in p:
+        return "payant"
+    return "inconnu"
+
+
+def prix_min(detail):
+    """Plus petit montant en euros cité dans le détail du tarif (0 ignoré), ou None."""
+    nums = [float(n.replace(",", ".")) for n in re.findall(r"(\d+(?:[.,]\d{1,2})?)\s*(?:€|euros?)", str(detail or ""))]
+    nums = [n for n in nums if n > 0]
+    return min(nums) if nums else None
+
+
+def is_expo(r):
+    tags = plain(" ".join(as_list(r.get("qfap_tags")) + as_list(r.get("tags"))))
+    return "expo" in tags
+
+
+def from_api(r, today):
+    ll = r.get("lat_lon") or {}
+    detail = strip_html(r.get("price_detail"))
+    t = tarif_type(r.get("price_type"))
+    tags = as_list(r.get("qfap_tags")) + as_list(r.get("tags"))
+    return {
+        "id": f"qfap-{r.get('id')}",
+        "titre": strip_html(r.get("title")),
+        "resume": strip_html(r.get("lead_text"))[:400],
+        "debut": (r.get("date_start") or "")[:10],
+        "fin": (r.get("date_end") or "")[:10],
+        "horaires": strip_html(r.get("date_description"))[:300],
+        "lieu": strip_html(r.get("address_name")),
+        "adresse": ", ".join(x for x in [strip_html(r.get("address_street")),
+                                         " ".join(x for x in [r.get("address_zipcode"), r.get("address_city")] if x)] if x),
+        "lat": ll.get("lat"), "lon": ll.get("lon"),
+        "thematiques": themes_for(" ".join(tags), r.get("title") or "", r.get("lead_text") or ""),
+        "tarif": {"type": t, "detail": detail[:300], "prix_min": prix_min(detail) if t == "payant" else 0 if t.startswith("gratuit") else None,
+                  "reservation": plain(r.get("access_type")) in ("reservation", "conseillee", "obligatoire") or None,
+                  "billetterie": r.get("access_link") or None},
+        "image": r.get("cover_url") or None,
+        "lien": r.get("url") or None,
+        "accessible": bool(r.get("pmr")) or None,
+        "source": "Que faire à Paris (Open Data Ville de Paris)",
+    }
+
+
+def fetch_api(today):
+    params = {"select": FIELDS, "where": f"date_end >= date'{today}'", "timezone": "Europe/Paris"}
+    url = API + "?" + urllib.parse.urlencode(params)
+    req = urllib.request.Request(url, headers={"User-Agent": "radar-expositions/1.0 (GitHub Actions)"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        rows = json.load(r)
+    return [from_api(x, today) for x in rows if is_expo(x)]
+
+
+def clean(e):
+    e = {k: v for k, v in e.items() if v not in (None, "", [], {})}
+    if "tarif" in e:
+        e["tarif"] = {k: v for k, v in e["tarif"].items() if v not in (None, "")}
+    return e
+
+
+def load(path, default):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return default
+
+
+def main():
+    today = os.environ.get("EXPOS_TODAY") or datetime.date.today().isoformat()
+    previous = {e["id"]: e for e in load(BASE, {}).get("expositions", [])}
+    selection = load(SELECTION, {}).get("expositions", [])
+    for e in selection:
+        e.setdefault("source", "Sélection manuelle")
+        if not e.get("thematiques"):
+            e["thematiques"] = themes_for(e.get("titre", ""), e.get("resume", ""))
+
+    api_ok, api_error = True, None
+    try:
+        api = fetch_api(today)
+        print(f"API Que faire à Paris : {len(api)} expositions en cours ou à venir")
+    except Exception as exc:  # réseau, quota, format : on garde la base précédente
+        api_ok, api_error = False, f"{type(exc).__name__}: {exc}"
+        api = [e for e in previous.values() if e["id"].startswith("qfap-")]
+        print(f"::warning::API Que faire à Paris indisponible ({api_error}). Base précédente conservée.", file=sys.stderr)
+
+    merged = {}
+    for e in api + selection:  # la sélection manuelle prime sur l'API pour un même id
+        if e.get("fin") and e["fin"] < today:
+            continue
+        if not e.get("titre"):
+            continue
+        merged[e["id"]] = clean(e)
+
+    added, kept = [], 0
+    for id_, e in merged.items():
+        old = previous.get(id_)
+        if old and old.get("vu_le"):
+            e["vu_le"] = old["vu_le"]
+            kept += 1
+        else:
+            e["vu_le"] = today
+            added.append(id_)
+    removed = [id_ for id_ in previous if id_ not in merged]
+
+    expos = sorted(merged.values(), key=lambda e: (e.get("fin") or "9999", e["titre"]))
+    counts = {t: sum(1 for e in expos if e.get("tarif", {}).get("type") == t)
+              for t in ("gratuit", "gratuit_sous_condition", "payant", "inconnu")}
+    base = {"genere": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+            "jour": today, "api_ok": api_ok, "total": len(expos), "par_tarif": counts,
+            "nouvelles": added, "expositions": expos}
+    DATA.mkdir(parents=True, exist_ok=True)
+    BASE.write_text(json.dumps(base, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+    journal = load(JOURNAL, [])
+    journal = [j for j in journal if j.get("jour") != today]
+    journal.append({"jour": today, "total": len(expos), "ajoutees": len(added), "retirees": len(removed),
+                    "api_ok": api_ok, **({"erreur": api_error} if api_error else {}),
+                    "titres_ajoutes": [merged[i]["titre"] for i in added][:50]})
+    JOURNAL.write_text(json.dumps(journal[-90:], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+    lines = [f"## Expositions — {today}", "",
+             f"- Total : **{len(expos)}** (gratuites {counts['gratuit'] + counts['gratuit_sous_condition']}, payantes {counts['payant']}, tarif inconnu {counts['inconnu']})",
+             f"- Nouvelles : **{len(added)}** · retirées (terminées) : {len(removed)} · API : {'OK' if api_ok else 'indisponible'}", ""]
+    lines += [f"  - {merged[i]['titre']} — {merged[i].get('lieu', '')}" for i in added[:40]]
+    report = "\n".join(lines)
+    print(report)
+    if os.environ.get("GITHUB_STEP_SUMMARY"):
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+            f.write(report + "\n")
+
+
+if __name__ == "__main__":
+    main()

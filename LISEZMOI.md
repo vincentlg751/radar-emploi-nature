@@ -52,3 +52,41 @@ Cette adresse ne change plus. Ouvrez-la sur ordinateur ou téléphone, sans comp
 - **Indice de compatibilité :** il est calculé localement à partir des mots-clés du CV et de l'offre, du niveau demandé, du domaine et du type de contrat.
 - **Analyse rédigée (facultatif) :** pour obtenir les points à revoir, l'accroche et les reformulations, ajoutez votre propre clé API Anthropic dans le bloc « Mon CV ».
 - **En cas d'échec du robot :** GitHub vous envoie un e-mail. La cause la plus fréquente est que l'intégration n'est plus connectée à la base (refaites l'étape 1.4).
+
+---
+
+# Expos du moment — application iPhone
+
+Une seconde page, publiée au même endroit, à l'adresse `https://VOTRE-NOM-GITHUB.github.io/radar-emploi-nature/expositions/`. Elle regroupe les expositions en cours à Paris et en Île-de-France.
+
+- **Onglets Gratuites / Payantes / Toutes**, recherche, filtres par **thématique**, « Nouveautés », « Finit bientôt » et favoris.
+- **Carte** des lieux et **Près de moi** (tri par distance, avec votre position).
+- Fiche détaillée avec dates, adresse, tarif, bouton **Itinéraire** (ouvre Plans) et lien vers le site ou la billetterie.
+- Fonctionne hors connexion avec la dernière liste chargée.
+
+## L'installer sur l'iPhone
+
+1. Ouvrez l'adresse ci-dessus dans **Safari**.
+2. Touchez **Partager**, puis **Sur l'écran d'accueil**.
+3. L'icône « Expos » s'ouvre ensuite en plein écran, comme une application.
+
+## Renouvellement automatique de la base
+
+Chaque jour à 5h40 UTC, le robot `.github/workflows/expositions.yml` :
+
+1. lit l'API ouverte **Que faire à Paris** de la Ville de Paris (sans clé) et la sélection manuelle `expositions/data/selection.json` ;
+2. retire les expositions terminées ;
+3. compare avec la veille. Les nouvelles reçoivent la date du jour (`vu_le`) et apparaissent avec l'étiquette **Nouveau** dans l'app pendant 7 jours ;
+4. enregistre la base (`expositions/data/expositions.json`) et le journal (`expositions/data/journal.json`) dans le dépôt, puis relance la publication du site.
+
+Le résumé de chaque passage (total, nouvelles, retirées) s'affiche dans l'onglet **Actions** de GitHub. L'app signale aussi les expositions apparues depuis votre dernière visite.
+
+| Fichier | Rôle |
+|---|---|
+| `expositions/app/` | L'application (page, icônes, mode hors connexion, carte Leaflet) |
+| `expositions/refresh.py` | Renouvelle la base et détecte les nouvelles expositions |
+| `expositions/build.py` | Copie l'app et la base dans `site/expositions/` avant publication |
+| `expositions/data/selection.json` | Expositions ajoutées à la main (grandes expos, lieux absents de l'API) |
+| `expositions/MODELE.md` | Le modèle de données (gratuites puis payantes) |
+
+**Ajouter une exposition à la main :** copiez une fiche dans `selection.json`, modifiez-la, puis cliquez sur **Commit changes**. Le robot se relance tout seul.

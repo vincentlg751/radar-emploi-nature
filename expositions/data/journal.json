@@ -1,0 +1,22 @@
+[
+ {
+  "jour": "2026-11-03",
+  "total": 10,
+  "ajoutees": 10,
+  "retirees": 0,
+  "api_ok": false,
+  "erreur": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+  "titres_ajoutes": [
+   "Festival PhotoSaintGermain 2026",
+   "Visionnaires — Prune Nourry",
+   "Eva Gonzalès, parcours d'une artiste",
+   "Bruxelles 1900",
+   "Cézanne et nous",
+   "Mary Cassatt, l'indépendante",
+   "Jenny Holzer au musée d'Orsay",
+   "Zurbarán (1598–1664)",
+   "Sculpter la couleur",
+   "Gustave Fayet, collectionneur-créateur"
+  ]
+ }
+]
