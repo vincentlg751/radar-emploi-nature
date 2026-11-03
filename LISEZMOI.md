@@ -9,7 +9,7 @@ Chaque matin vers 7h15 (heure de Paris), GitHub relit la base Notion et régén�
 | Fichier | Rôle |
 |---|---|
 | `radar-template.html` | La page (recherche, filtres, CV, indice), sans les données |
-| `scripts/build.py` | Lit la base Notion avec l'API officielle et produit `site/index.html` |
+| `scripts/build.py` | Lit la base Notion avec l'API officielle et produit `site/index.html` et `site/offres.json` (utilisé par les applications) |
 | `.github/workflows/radar.yml` | Lance la génération chaque jour et publie sur GitHub Pages |
 
 ## Mise en place (environ 15 minutes, une seule fois)
@@ -90,3 +90,35 @@ Le résumé de chaque passage (total, nouvelles, retirées) s'affiche dans l'ong
 | `expositions/MODELE.md` | Le modèle de données (gratuites puis payantes) |
 
 **Ajouter une exposition à la main :** copiez une fiche dans `selection.json`, modifiez-la, puis cliquez sur **Commit changes**. Le robot se relance tout seul.
+
+---
+
+# Radar Emploi — application Android et iPhone
+
+La page Radar Emploi Nature (recherche, filtres, CV, indice de compatibilité, analyse et prompts Claude) existe aussi en application. Deux façons de l'installer :
+
+## 1. Application installable depuis le navigateur (immédiat, sans store)
+
+Ouvrez `https://VOTRE-NOM-GITHUB.github.io/radar-emploi-nature/` sur le téléphone.
+
+- **iPhone :** dans **Safari**, touchez **Partager**, puis **Sur l'écran d'accueil**.
+- **Android :** dans **Chrome**, touchez **⋮**, puis **Installer l'application** (ou **Ajouter à l'écran d'accueil**).
+
+L'icône « Radar Emploi » s'ouvre en plein écran. La liste des offres est relue à chaque ouverture, et la dernière liste reste consultable hors connexion. Le CV et la clé API restent sur le téléphone.
+
+## 2. Application native (APK Android, projet Xcode pour iOS)
+
+Le dossier `mobile/` contient un projet [Capacitor](https://capacitorjs.com) qui emballe la même page. Le robot `.github/workflows/mobile.yml` le compile à chaque modification (ou via **Actions → Application mobile → Run workflow**) :
+
+- **Android :** téléchargez l'artefact **RadarEmploi-android** en bas de la page du passage, dézippez-le, puis ouvrez `RadarEmploi.apk` sur le téléphone. Autorisez l'installation depuis cette source quand Android le demande.
+- **iOS :** Apple impose un Mac et un compte développeur pour installer une app native. Téléchargez **RadarEmploi-ios-xcode**, ou sur un Mac lancez `cd mobile && npm install && npm run ios && npx cap open ios`. Dans Xcode, choisissez votre équipe (**Signing & Capabilities**), branchez l'iPhone, puis cliquez sur **▶**. Pour la publier sur l'App Store ou TestFlight, utilisez **Product → Archive**.
+
+L'application native intègre la liste d'offres du jour de sa compilation et relit `offres.json` sur GitHub Pages à chaque ouverture : elle reste à jour sans réinstallation.
+
+| Fichier | Rôle |
+|---|---|
+| `radar-app/` | Manifeste, mode hors connexion et icônes de l'application installable (`make_icons.py` redessine les icônes) |
+| `mobile/prepare.py` | Produit `mobile/www/` à partir de `radar-template.html` et de la liste d'offres |
+| `mobile/capacitor.config.json` | Nom (« Radar Emploi ») et identifiant de l'application native |
+| `mobile/assets/` | Icône et écran de démarrage des apps natives |
+| `.github/workflows/mobile.yml` | Compile l'APK Android et vérifie le projet iOS |

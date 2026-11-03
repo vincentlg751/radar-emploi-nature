@@ -1,0 +1,21 @@
+{
+  "name": "radar-emploi-nature-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Application Android et iOS de Radar Emploi Nature (Capacitor).",
+  "scripts": {
+    "www": "python3 prepare.py",
+    "android": "npm run www && (test -d android || npx cap add android) && npx capacitor-assets generate --android && npx cap sync android",
+    "ios": "npm run www && (test -d ios || npx cap add ios) && npx capacitor-assets generate --ios && npx cap sync ios",
+    "apk": "npm run android && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/ios": "^8.6.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.0"
+  }
+}

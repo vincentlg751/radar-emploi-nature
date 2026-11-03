@@ -3,7 +3,7 @@
 Utilise l'API officielle de Notion avec le secret d'intégration NOTION_TOKEN.
 Lancé chaque matin par GitHub Actions (voir .github/workflows/radar.yml).
 """
-import base64, datetime, gzip, json, os, pathlib, sys, urllib.request, urllib.error
+import base64, datetime, gzip, json, os, pathlib, shutil, sys, urllib.request, urllib.error
 
 DATABASE_ID = os.environ.get("NOTION_DATABASE_ID", "650d2e7e59c74a239cfe04291fbcfed5")
 DATA_SOURCE_ID = os.environ.get("NOTION_DATA_SOURCE_ID", "7d5552ba-961d-4a01-a94d-af4343774545")
@@ -77,6 +77,15 @@ def build(pages, out_dir):
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "index.html").write_text(html, encoding="utf-8")
     (out_dir / ".nojekyll").write_text("")
+    # Application installable (Android, iPhone) et application native : liste des offres à part,
+    # relue à chaque ouverture pour afficher les nouvelles offres sans réinstaller.
+    (out_dir / "offres.json").write_bytes(raw)
+    app = ROOT / "radar-app"
+    shutil.copy2(app / "manifest.webmanifest", out_dir / "manifest.webmanifest")
+    shutil.copy2(app / "sw.js", out_dir / "sw.js")
+    (out_dir / "icons").mkdir(exist_ok=True)
+    for icon in ("icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png"):
+        shutil.copy2(app / "icons" / icon, out_dir / "icons" / icon)
     print(f"{len(offres)} offres -> {out_dir / 'index.html'} ({len(html.encode()) // 1024} Kio)")
 
 
