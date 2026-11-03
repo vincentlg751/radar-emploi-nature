@@ -28,7 +28,12 @@ jobs:
       - name: Générer la page depuis Notion
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-        run: python scripts/build.py
+        run: |
+          if [ -z "$NOTION_TOKEN" ]; then
+            echo "::warning::Secret NOTION_TOKEN absent : la page Radar emploi n'est pas générée (voir LISEZMOI.md, étape 3)."
+          else
+            python scripts/build.py
+          fi
       - name: Ajouter l'application Expositions
         run: python expositions/build.py
       - uses: actions/configure-pages@v5
