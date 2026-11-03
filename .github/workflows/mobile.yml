@@ -1,0 +1,79 @@
+name: Application mobile (Android et iOS)
+
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - "mobile/**"
+      - "radar-template.html"
+      - "radar-app/**"
+      - ".github/workflows/mobile.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Intégrer les offres du jour (si la clé Notion est configurée)
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: if [ -n "$NOTION_TOKEN" ]; then python scripts/build.py; fi
+      - name: Construire l'APK
+        working-directory: mobile
+        run: |
+          npm ci
+          npm run apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk ../RadarEmploi.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RadarEmploi-android
+          path: RadarEmploi.apk
+
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - name: Intégrer les offres du jour (si la clé Notion est configurée)
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: if [ -n "$NOTION_TOKEN" ]; then python3 scripts/build.py; fi
+      - name: Générer le projet Xcode
+        working-directory: mobile
+        run: |
+          npm ci
+          npm run ios
+      - name: Vérifier la compilation (simulateur, sans signature)
+        working-directory: mobile/ios/App
+        run: |
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build | tail -20
+      - name: Emballer le projet Xcode
+        run: cd mobile && zip -qr ../RadarEmploi-ios-xcode.zip ios -x "ios/App/build/*" "*/DerivedData/*"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RadarEmploi-ios-xcode
+          path: RadarEmploi-ios-xcode.zip

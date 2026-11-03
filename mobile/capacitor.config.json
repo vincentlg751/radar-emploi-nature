@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.vincentlg751.radaremploi",
+  "appName": "Radar Emploi",
+  "webDir": "www",
+  "backgroundColor": "#F1F4EF",
+  "android": { "allowMixedContent": false },
+  "ios": { "contentInset": "never", "scrollEnabled": true }
+}
