@@ -1,12 +1,12 @@
 {
- "genere": "2026-11-03T22:41:31+00:00",
+ "genere": "2026-11-03T22:42:47+00:00",
  "jour": "2026-11-03",
  "api_ok": true,
- "total": 388,
+ "total": 299,
  "par_tarif": {
-  "gratuit": 232,
-  "gratuit_sous_condition": 16,
-  "payant": 140,
+  "gratuit": 176,
+  "gratuit_sous_condition": 13,
+  "payant": 110,
   "inconnu": 0
  },
  "nouvelles": [],
@@ -140,80 +140,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-126606",
-   "titre": "Vernissage de l'exposition « POP immigrART » de MëLL avec la participation photographique de Paula Delic",
-   "resume": "Une fenêtre ouverte sur le regard queer pop et immigré d’un artiste-musicien argentin, dans le cadre du festival des fiertés.",
-   "debut": "2026-11-05",
-   "fin": "2026-11-05",
-   "horaires": "Le jeudi 05 novembre 2026 de 19h00 à 22h00",
-   "lieu": "Centre Paris Anim' Bessie Smith( ex Reuilly)",
-   "adresse": "19 rue Antoine Julien Hénard, 75012 Paris",
-   "lat": 48.842385,
-   "lon": 2.389516,
-   "thematiques": [
-    "Photographie",
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "billetterie": "https://claje.asso.fr/expo-pop-immigrart-de-mell/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/26/huge-c9af55c2670719b7fe45a6cf428545e8.jpg",
-   "lien": "https://www.paris.fr/evenements/vernissage-de-l-exposition-pop-immigrart-de-mell-avec-la-participation-photographique-de-paula-delic-126606",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-116650",
-   "titre": "Visite guidée de l'exposition Simone Veil. Mes sœurs et moi",
-   "resume": "Découvrez la nouvelle exposition du Mémorial de la Shoah Simone Veil. Mes sœurs et moi Visite guidée pour Adultes",
-   "debut": "2026-11-05",
-   "fin": "2026-11-05",
-   "horaires": "Le jeudi 05 novembre 2026 de 19h00 à 21h00",
-   "lieu": "Mémorial de la Shoah",
-   "adresse": "17 rue Geoffroy l'Asnier, 75004 Paris",
-   "lat": 48.8548509957524,
-   "lon": 2.35631399897687,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit_sous_condition",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/04/15/huge-59f47b880330a5fc7bd34a2ff61d2ea1.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-guidee-de-l-exposition-simone-veil-mes-soeurs-et-moi-116650",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-126897",
-   "titre": "Dédicace - Irène Jonas, «Soviet à l’Atelier» à la Galerie Taylor",
-   "resume": "À l’occasion de la parution de son nouveau livre Soviet, la photographe dédicacera son livre et présentera quelques photographies à l’Atelier Galerie Taylor vendredi 6 novembre à partir de 18h.",
-   "debut": "2026-11-06",
-   "fin": "2026-11-06",
-   "horaires": "Le vendredi 06 novembre 2026 de 18h00 à 23h59",
-   "lieu": "Atelier/Galerie Taylor",
-   "adresse": "7 rue Taylor, 75010 Paris",
-   "lat": 48.8697810093266,
-   "lon": 2.35913400648121,
-   "thematiques": [
-    "Photographie"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/31/huge-0d0c99d9e49d93ed822e54ca1db4a3bc.png",
-   "lien": "https://www.paris.fr/evenements/dedicace-irene-jonas-soviet-a-l-atelier-galerie-taylor-126897",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-123635",
    "titre": "Exposition \"Mosaïque d'atelier\"",
    "resume": "À l'occasion de ses vingt ans, le Groupe d'Entraide Mutuelle (GEM) Connexion Plus expose les créations de ses adhérentes et adhérents.",
@@ -305,60 +231,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/09/30/huge-2b67245ae70dc0c6575d561bb1e06435.png",
    "lien": "https://www.paris.fr/evenements/exposition-portraits-de-france-125204",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-126157",
-   "titre": "Soirée «Queer et fiers face à l'extrême droite»",
-   "resume": "Pour ouvrir le Festival des fiertés, la Mairie du 12e vous accueille en salle des fêtes avec une soirée festive autour d'une table ronde, d'un cabaret avec la Bouche qui se clôturera par un dj-set !",
-   "debut": "2026-11-06",
-   "fin": "2026-11-06",
-   "horaires": "Le vendredi 06 novembre 2026 de 19h00 à 22h30",
-   "lieu": "Salle des Fêtes de la Mairie du 12e",
-   "adresse": "130 avenue Daumesnil, 75012 Paris",
-   "lat": 48.8411040039925,
-   "lon": 2.38833697623963,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://mairie12.paris.fr/pages/festival-des-fiertes-2026-36625"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/15/huge-7808d57a2e9425ecea51c07f5a7ac84f.jpeg",
-   "lien": "https://www.paris.fr/evenements/temps-fort-de-la-mairie-du-12e-queer-et-fier-es-face-a-l-extreme-droite-126157",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-125855",
-   "titre": "Atelier de pratique en famille Motif & Couture — Cyanotype avec Brenda Hoffman",
-   "resume": "Les Ateliers de pratique permettent de partager en famille la découverte d’une technique ou d’une approche photographique. Accompagné·es par un·e artiste photographe, laissez votre créativité s’exprimer !",
-   "debut": "2026-11-07",
-   "fin": "2026-11-07",
-   "horaires": "Le samedi 07 novembre 2026 de 14h30 à 17h30",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Design, mode & arts déco",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Les ateliers de la MEP En famille, à partir de 6 ans Nombre de participant·es : 10 maximum Durée de l’atelier de pratique : 3h Tarifs : Adulte : 30€ | Enfant : 10€ Au-delà de trois enfants, merci de prévoir un·e second·e adulte accompagnateur·ice. Réservation obligatoire",
-    "prix_min": 10.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/atelier-de-pratique-en-famille-motif-couture-cyanotype-avec-brenda-hoffman.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-cad09a272758ecfb272fc2405d0febea.png",
-   "lien": "https://www.paris.fr/evenements/atelier-de-pratique-en-famille-motif-couture-cyanotype-avec-brenda-hoffman-125855",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -696,56 +568,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-116652",
-   "titre": "Visite en langue des signes française de l'exposition Images de la rafle du « billet vert »",
-   "resume": "Le guide du Mémorial est accompagné d’un traducteur en langue des signes française (LSF). Durée : 1 h 30.",
-   "debut": "2026-11-08",
-   "fin": "2026-11-08",
-   "horaires": "Le dimanche 08 novembre 2026 de 11h00 à 12h15",
-   "lieu": "Mémorial de la Shoah",
-   "adresse": "17 rue Geoffroy l'Asnier, 75004 Paris",
-   "lat": 48.8548509957524,
-   "lon": 2.35631399897687,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/07/17/huge-479caafe6f541c191a26f9b9f75dd259.png",
-   "lien": "https://www.paris.fr/evenements/visite-en-langue-des-signes-francaise-de-l-exposition-images-de-la-rafle-du-billet-vert-116652",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124785",
-   "titre": "Ouverture exceptionnelle et visite guidée – Photo Days 2026 - Exposition Grands Lacs - L’horizon commun des mers intérieures",
-   "resume": "Comme partenaire de cette 7eme édition de Photo Days, le Centre culturel vous invite à découvrir l’exposition \"Grands Lacs – L’horizon commun des mers intérieures\" en accès libre jusqu’à 21h et propose une visite guidée sur réservation assurée par Catherine Bédard, commissaire de l’exposition.",
-   "debut": "2026-11-09",
-   "fin": "2026-11-09",
-   "horaires": "Le lundi 09 novembre 2026 de 17h00 à 21h00",
-   "lieu": "Centre culturel canadien à Paris",
-   "adresse": "130 rue du Faubourg Saint-Honoré, 75008 Paris",
-   "lat": 48.8723990129644,
-   "lon": 2.3124140325526,
-   "thematiques": [
-    "Photographie",
-    "Sciences & nature"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/10/huge-4d077463f676ad7ab79461b10fc88ef9.jpg",
-   "lien": "https://www.paris.fr/evenements/ouverture-exceptionnelle-et-visite-guidee-photo-days-2026-exposition-grands-lacs-l-horizon-commun-des-mers-interieures-124785",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-117240",
    "titre": "Exposition 10 000 ans de voyage gustatif",
    "resume": "Organisée conjointement par le Centre culturel de Chine à Paris et le Musée national de Chine, cette exposition vous invite voyager à travers 10 000 ans de gastronomie chinoise.",
@@ -900,35 +722,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-126956",
-   "titre": "Soirée-rencontre : Jacques Villeglé au travail. De la photographie au film documentaire",
-   "resume": "À l'occasion de l'exposition « Paris à l'arraché. Jacques Villeglé et l'art urbain », le musée Carnavalet - Histoire de Paris propose une soirée-rencontre pour découvrir la démarche singulière de l'artiste Jacques Villeglé, caractérisée par le prélèvement d’affiches dans l’espace urbain.",
-   "debut": "2026-11-12",
-   "fin": "2026-11-12",
-   "horaires": "Le jeudi 12 novembre 2026 de 19h00 à 20h30",
-   "lieu": "Orangerie du musée Carnavalet - Histoire de Paris",
-   "adresse": "14 rue Payenne, 75003 Paris",
-   "lat": 48.8583669945869,
-   "lon": 2.36264099476983,
-   "thematiques": [
-    "Photographie",
-    "Art contemporain",
-    "Histoire & patrimoine",
-    "Architecture & ville"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Plein tarif : 5 € Tarif réduit : 3 €",
-    "prix_min": 3.0,
-    "reservation": true,
-    "billetterie": "https://www.carnavalet.paris.fr/evenements-et-activites/agenda/soiree-rencontre-jacques-villegle-au-travail-de-la-photographie-au"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/11/02/huge-7c37d741dc178d0084e814743031e170.jpeg",
-   "lien": "https://www.paris.fr/evenements/soiree-rencontre-jacques-villegle-au-travail-de-la-photographie-au-film-documentaire-126956",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-111589",
    "titre": "EXPOSITION | \"Grands Lacs – L’horizon commun des mers intérieures\", Robert Burley",
    "resume": "À travers un corpus inédit consacré au bassin des Grands Lacs, le photographe canadien Robert Burley explore ce territoire immense, à la fois frontière, lieu de vie, espace d’échanges et zone de vulnérabilité.",
@@ -976,31 +769,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/10/29/huge-ab270d48297c22c3bde670df0732911c.jpg",
    "lien": "https://www.paris.fr/evenements/gulliver-300-au-centre-culturel-irlandais-126805",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-126342",
-   "titre": "Boum Tschak",
-   "resume": "Boum Tschak explore de nouveaux horizons sonores à partir d’objets loufoques !",
-   "debut": "2026-11-14",
-   "fin": "2026-11-14",
-   "horaires": "Le samedi 14 novembre 2026 de à",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/boum-tschak/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/20/huge-4e09436d6b409107425bcef47d65c87a.png",
-   "lien": "https://www.paris.fr/evenements/boum-tschak-126342",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -1107,59 +875,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-123195",
-   "titre": "Soirée mode avion au Musée de l'Air et de l'Espace",
-   "resume": "Une soirée mode avion au Musée de l'Air et de l'Espace.",
-   "debut": "2026-11-14",
-   "fin": "2026-11-14",
-   "horaires": "Le samedi 14 novembre 2026 de 19h30 à 23h30",
-   "lieu": "Musée de l'Air et de l'Espace du Bourget",
-   "adresse": "Aéroport de Paris-Le Bourget, 93352 Le Bourget",
-   "lat": 48.9434339365408,
-   "lon": 2.43062262604849,
-   "thematiques": [
-    "Sciences & nature",
-    "Design, mode & arts déco"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 10 à 23 euros.",
-    "prix_min": 23.0,
-    "reservation": true,
-    "billetterie": "https://www.museeairespace.fr/agenda/soiree-mode-avion-14-novembre-2026/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/09/huge-62c7311ea31723100a50b60d8d8c4e2a.jpg",
-   "lien": "https://www.paris.fr/evenements/soiree-mode-avion-au-musee-de-l-air-et-de-l-espace-123195",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124082",
-   "titre": "TaxiTram novembre 2026",
-   "resume": "Tout au long de l’année, le réseau tram vous propose des parcours à la découverte des centres d’art contemporain d’Île-de-France. Une façon conviviale et originale de visiter plusieurs expositions, de rencontrer les artistes et les équipes des lieux, et de partager une expérience culturelle unique.",
-   "debut": "2026-11-14",
-   "fin": "2026-11-14",
-   "horaires": "Le samedi 14 novembre 2026 de 13h30 à 18h00",
-   "lieu": "Départ devant le RER Denfert-Rochereau",
-   "adresse": "Esplanade Charles-Axel Guillaumot, 75014 Paris",
-   "lat": 48.8327638,
-   "lon": 2.324743,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 6 à 10 euros. Gratuit pour les personnes en situation de handicap et leur accompagnant·e.",
-    "prix_min": 10.0,
-    "reservation": true,
-    "billetterie": "https://www.helloasso.com/associations/tram-reseau-art-contemporain/evenements/taxitram-samedi-14-novembre-2026-1"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-3dce9fe2a5b8dfe1bc32b9837d80c680.jpeg",
-   "lien": "https://www.paris.fr/evenements/taxitram-novembre-2026-124082",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-118192",
    "titre": "Une exposition où s’entremêlent héritages, mémoires et migrations",
    "resume": "\"Des gestes de nos mondes\" réunit des œuvres de la collection du Frac Île-de-France et des créations d’artistes basés en Tunisie ou originaires de la rive sud de la Méditerranée.",
@@ -1186,58 +901,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-112369",
-   "titre": "Visite Chaillot",
-   "resume": "Explorez les coulisses du théâtre et découvrez les œuvres Art déco qui parsèment le parcours. Les visites de Chaillot vous feront passer derrière le rideau et arpenter les espaces scéniques réservés aux artistes et à ceux qui font vibrer Chaillot.",
-   "debut": "2026-11-14",
-   "fin": "2026-11-14",
-   "horaires": "Le samedi 14 novembre 2026 de 11h00 à 13h00",
-   "lieu": "Chaillot - Théâtre national de la Danse",
-   "adresse": "1, place du Trocadéro et du 11 novembre, 75016 Paris",
-   "lat": 48.8629049988756,
-   "lon": 2.28834196100399,
-   "thematiques": [
-    "Sciences & nature"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 8 à 13 euros.",
-    "prix_min": 13.0,
-    "reservation": true,
-    "billetterie": "https://indiv.themisweb.fr/0218/fChoixSeanceWidget.aspx?idstructure=0218&EventId=1757&request=QcE+w0WHSuBQMpsjSY4ol/xOunNtETpTx/mW/8FxMdWO0DO9dUurVpVh2CSPJcggq9FA2VnQ/kegU5q7XYXMhIzZDfl44OKI"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/05/26/huge-dc4092aa9dd3bbb03c54a7e3036b414a.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-chaillot-112369",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-112370",
-   "titre": "Visite Famille",
-   "resume": "Découvrez Chaillot en Famille ! Plongez au cœur du Théâtre national de la Danse avec une visite spécialement conçue pour le jeune public.",
-   "debut": "2026-11-14",
-   "fin": "2026-11-14",
-   "horaires": "Le samedi 14 novembre 2026 de 15h00 à 16h00",
-   "lieu": "Chaillot - Théâtre national de la Danse",
-   "adresse": "1, place du Trocadéro et du 11 novembre, 75016 Paris",
-   "lat": 48.8629049988756,
-   "lon": 2.28834196100399,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 8 à 13 euros.",
-    "prix_min": 13.0,
-    "reservation": true,
-    "billetterie": "https://indiv.themisweb.fr/0218/fChoixSeanceWidget.aspx?idstructure=0218&EventId=1748&request=QcE+w0WHSuBQMpsjSY4ol/xOunNtETpTfrggmmXfKJW/jA9nhimA1bVONAuANSx9FKtxmpRrGoOHc43iz7a2xw=="
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/05/26/huge-dc4092aa9dd3bbb03c54a7e3036b414a.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-famille-112370",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-126866",
    "titre": "A Wider Gaze - FOTODOK x Atelier Néerlandais",
    "resume": "À l’invitation de l’ambassade des Pays-Bas en France, FOTODOK présentera, pendant la semainde Paris Photo, l’exposition collective A Wider Gaze à l’Atelier Néerlandais. À travers leurs œuvres, les artistes y explorent la question : que signifie être Européen aujourd’hui ?",
@@ -1259,31 +922,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/10/30/huge-bbe609c61cc48b05424fdf1da4b87e38.jpg",
    "lien": "https://www.paris.fr/evenements/a-wider-gaze-fotodok-x-atelier-neerlandais-126866",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-125831",
-   "titre": "Atelier d'écriture en lien avec l'exposition \"Cezanne et nous\"",
-   "resume": "Un atelier d'écriture construit sur mesure à partir de l'exposition \"Cezanne et nous\"",
-   "debut": "2026-11-15",
-   "fin": "2026-11-15",
-   "horaires": "Le dimanche 15 novembre 2026 de 10h00 à 12h00",
-   "lieu": "Montparnasse",
-   "adresse": "bd du Montparnasse, 75006 Paris",
-   "lat": 48.8447069616954,
-   "lon": 2.32139115837824,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Informations et réservation : www.latelierdecriture.com&nbsp;",
-    "reservation": true,
-    "billetterie": "https://latelierdecriture.com/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-6b1199c98e24e818e91f00b4ba0bbd95.jpg",
-   "lien": "https://www.paris.fr/evenements/atelier-d-ecriture-en-lien-avec-l-exposition-cezanne-et-nous-125831",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -1546,33 +1184,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-123206",
-   "titre": "Vernissage - Exposition sur la victimisation secondaire",
-   "resume": "L'association The Witches' Society organise le vernissage de l'exposition photo intitulée \"Mais est-ce que t'avais dit non?\". Ces photos seront accompagnées des créations réalisées lors d'ateliers d'art exutoire.",
-   "debut": "2026-11-17",
-   "fin": "2026-11-17",
-   "horaires": "Le mardi 17 novembre 2026 de 19h00 à 20h00",
-   "lieu": "Maison de la Vie Associative et Citoyenne du 13e arrondissement",
-   "adresse": "31 rue Bobillot, 75013 Paris",
-   "lat": 48.829136,
-   "lon": 2.353732,
-   "thematiques": [
-    "Photographie",
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://thewitchessociety.fr/inscription"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/05/huge-e270e8978bb2cfa8b0c65bd7cb838d8b.jpg",
-   "lien": "https://www.paris.fr/evenements/vernissage-exposition-sur-la-victimisation-secondaire-123206",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-125773",
    "titre": "exposition & cabaret : LA BANDE À BAS NYLON",
    "resume": "Le collectif de Cabaret Artistique « Les Nuits Bas Nylon » vous ouvre les portes de leurs loges !",
@@ -1594,58 +1205,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/09/huge-a6369ecc3310991e39c8983e1909638a.jpg",
    "lien": "https://www.paris.fr/evenements/exposition-cabaret-la-bande-a-bas-nylon-125773",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-116666",
-   "titre": "Visite guidée de l'exposition Images de la rafle du « billet vert »",
-   "resume": "Découvrez la nouvelle exposition Images de la rafle du « billet vert » du Mémorial de la Shoah.",
-   "debut": "2026-11-19",
-   "fin": "2026-11-19",
-   "horaires": "Le jeudi 19 novembre 2026 de 19h30 à 21h00",
-   "lieu": "Mémorial de la Shoah",
-   "adresse": "17 rue Geoffroy l'Asnier, 75004 Paris",
-   "lat": 48.8548509957524,
-   "lon": 2.35631399897687,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/07/17/huge-479caafe6f541c191a26f9b9f75dd259.png",
-   "lien": "https://www.paris.fr/evenements/visite-guidee-de-l-exposition-images-de-la-rafle-du-billet-vert-116666",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-118487",
-   "titre": "Atelier tactile autour de l'exposition \"L'école de Paris\" au Musée d'art et d'histoire du Judaïsme",
-   "resume": "La médiathèque, le Musée d'art et d'histoire du Judaïsme et la Fédération des aveugles de France s'associent et vous invitent à un atelier dédié aux déficients visuels autour de l'exposition \"L'Ecole de Paris\"",
-   "debut": "2026-11-20",
-   "fin": "2026-11-20",
-   "horaires": "Le vendredi 20 novembre 2026 de 14h30 à 16h00",
-   "lieu": "Médiathèque Marguerite Yourcenar",
-   "adresse": "41, rue d'Alleray, 75015 Paris",
-   "lat": 48.836807,
-   "lon": 2.303481,
-   "thematiques": [
-    "Beaux-arts",
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "detail": "Sur réservation auprès des bibliothécaires à partir du 20 octobre",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/11/huge-5428c80439cb67abbfd56fc58db13257.jpg",
-   "lien": "https://www.paris.fr/evenements/atelier-tactile-autour-de-l-exposition-l-ecole-de-paris-au-musee-d-art-et-d-histoire-du-judaisme-118487",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -1905,34 +1464,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-125858",
-   "titre": "Philo en famille – S’habiller : une nécessité, un art ou un jeu ?",
-   "resume": "Profitez d’un moment en famille à la MEP pour partager et échanger ensemble autour d’une thématique philosophique liée aux expositions, et accessible aux plus jeunes.",
-   "debut": "2026-11-21",
-   "fin": "2026-11-21",
-   "horaires": "Le samedi 21 novembre 2026 de 14h30 à 16h00",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Les ateliers de la MEP Parents / Enfants À partir de 7 ans Nombre de participant·es : 15 maximum Durée de l’atelier : 1h30&nbsp; Tarifs :&nbsp; Adulte : 15 € | Enfant : 5 €&nbsp; Réservation obligatoire.",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/atelier-philo-en-famille-shabiller-une-necessite-un-art-ou-un-jeu.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-f5ae3de1ce776d3d701bacc1edc27444.png",
-   "lien": "https://www.paris.fr/evenements/philo-en-famille-s-habiller-une-necessite-un-art-ou-un-jeu-125858",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-123834",
    "titre": "Salon Artisans d'Excellence 3e Edition",
    "resume": "Trois jours face aux gestes rares - le salon des métiers des arts décoratifs revient à Paris pour une troisième édition.",
@@ -1985,59 +1516,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/10/14/huge-7fbc5f398579ff7c5264b5a6e1bf02f4.png",
    "lien": "https://www.paris.fr/evenements/th-y-tien-nguy-n-quel-mois-sommes-nous-mon-amour-126034",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-125898",
-   "titre": "Visite dansée en famille",
-   "resume": "Les visites dansées en famille offrent une nouvelle expérience de visite pour dialoguer avec les œuvres exposées par le biais de jeux chorégraphiés.",
-   "debut": "2026-11-21",
-   "fin": "2026-11-21",
-   "horaires": "Le samedi 21 novembre 2026 de 10h30 à 12h00",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Parents / Enfants À partir de 6 ans Nombre de participant·es : 15 maximum Durée de l’atelier : 1h30 Tarifs : Adulte : 15 € | Enfant : 5 € Réservation obligatoire.",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/visite-dansee-en-famille.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-8741550126d6efa7f17ea88455d1ca53.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-dansee-en-famille-125898",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123937",
-   "titre": "Visites performées Créoles 2026",
-   "resume": "Laissez-vous porter par une expérience immersive au cœur des imaginaires créoles.",
-   "debut": "2026-11-18",
-   "fin": "2026-11-21",
-   "horaires": "Du mercredi 18 novembre 2026 au samedi 21 novembre 2026 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-performees-creoles-2026/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-c69f0df349198f171b269257f5028c30.png",
-   "lien": "https://www.paris.fr/evenements/visites-performees-creoles-2026-123937",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -2217,33 +1695,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/22/huge-e55f57b3a344eb5e4e4a79b2efab03aa.png",
    "lien": "https://www.paris.fr/evenements/vivant-e-un-festival-d-art-engage-pour-faire-fleurir-de-nouveaux-imaginaires-126423",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-126650",
-   "titre": "Concert · Sonic Tapestry",
-   "resume": "Finissage de l'exposition Common Threads.",
-   "debut": "2026-11-25",
-   "fin": "2026-11-25",
-   "horaires": "Le mercredi 25 novembre 2026 de 19h00 à 20h00",
-   "lieu": "Fondation des États-Unis",
-   "adresse": "15, boulevard Jourdan, 75014 Paris",
-   "lat": 48.819816987412,
-   "lon": 2.33972797279233,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "gratuit_sous_condition",
-    "detail": "Mercredi 25 novembre, de 19h à 20h30 · En français Fondation des États-Unis, 15 boulevard Jourdan, Paris 14e Entrée libre sur inscription.&nbsp;",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://www.helloasso.com/associations/fondation-des-etats-unis/evenements/concert-finissage-common-threads"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/27/huge-d8e547346bae98d16a682c0b9ea12264.png",
-   "lien": "https://www.paris.fr/evenements/concert-sonic-tapestry-126650",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -2432,34 +1883,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-125863",
-   "titre": "Atelier de pratique en famille — Le coin des portraits avec Claire Pathé",
-   "resume": "Les Ateliers de pratique permettent de partager en famille la découverte d’une technique ou d’une approche photographique. Accompagné·es par un·e artiste photographe, laissez votre créativité s’exprimer !",
-   "debut": "2026-11-28",
-   "fin": "2026-11-28",
-   "horaires": "Le samedi 28 novembre 2026 de 14h30 à 17h30",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Les ateliers de la MEP En famille, à partir de 6 ans Nombre de participant·es : 10 maximum Durée de l’atelier de pratique : 3h Tarifs : Adulte : 30€ | Enfant : 10€ Au-delà de trois enfants, merci de prévoir un·e second·e adulte accompagnateur·ice. Réservation obligatoire",
-    "prix_min": 10.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/atelier-de-pratique-en-famille-le-coin-des-portraits-avec-claire-pathe.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-5796d1a30a6d682f743a19187a12590f.jpeg",
-   "lien": "https://www.paris.fr/evenements/atelier-de-pratique-en-famille-le-coin-des-portraits-avec-claire-pathe-125863",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-115627",
    "titre": "Exposition \"Chaussez vos bottes\" avec Chloé du Colombier",
    "resume": "à l'occasion de l'automne de la science consacrée au thème de la nature, une exposition originale concoctée par l'artiste",
@@ -2602,30 +2025,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/10/29/huge-2ca89ed7c7099c2b8c9b38569bceeec0.png",
    "lien": "https://www.paris.fr/evenements/saturation-s-une-exposition-photo-a-tendance-19-126828",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124352",
-   "titre": "Visite du Musée national Jean-Jacques Henner",
-   "resume": "Samedi 28 novembre à 13h45 sur inscription",
-   "debut": "2026-11-28",
-   "fin": "2026-11-28",
-   "horaires": "Le samedi 28 novembre 2026 de 13h45 à 15h15",
-   "lieu": "Musée national Jean-Jacques Henner",
-   "adresse": "43 avenue de Villiers, 75017 Paris",
-   "lat": 48.8830410125121,
-   "lon": 2.30771103049989,
-   "thematiques": [
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/18/huge-ae1e7267fb99241a795413c6484f67ee.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-du-musee-national-jean-jacques-henner-124352",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -2954,33 +2353,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-126873",
-   "titre": "Workshop de création collective avec Anne Corté",
-   "resume": "Le workshop propose une découverte unique de « Remember Me » à travers des jeux d'écriture, de voix et de création collective.",
-   "debut": "2026-11-20",
-   "fin": "2026-12-04",
-   "horaires": "Le vendredi 04 décembre 2026 de 18h30 à 20h30 Le vendredi 20 novembre 2026 de 18h30 à 20h30",
-   "lieu": "Bourse de commerce - Pinault Collection",
-   "adresse": "2, rue de Viarmes, 75001 Paris",
-   "lat": 48.8629459863822,
-   "lon": 2.34240003970564,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Atelier réservé aux adhérents du programme Super Cercle : 5 €",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie-cercle.pinaultcollection.com/selection/timeslotpass?productId=10230096531371"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/30/huge-35c9f40280904a455cf89ccfb6c43041.jpeg",
-   "lien": "https://www.paris.fr/evenements/workshop-de-creation-collective-avec-anne-corte-126873",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-117595",
    "titre": "Exposition de cartes pop-up et capsules sonores",
    "resume": "Découvrez la recette du bonheur : bien mélanger des bibliothécaires, des personnes vivant en structures d’hébergement, des associations solidaires, des artistes, vous, et les plats sont prêts !",
@@ -3082,60 +2454,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-125904",
-   "titre": "Philo en famille – Les vêtements ont-ils un pouvoir ?",
-   "resume": "Profitez d’un moment en famille à la MEP pour partager et échanger ensemble autour d’une thématique philosophique liée aux expositions, et accessible aux plus jeunes.",
-   "debut": "2026-12-05",
-   "fin": "2026-12-05",
-   "horaires": "Le samedi 05 décembre 2026 de 14h30 à 16h00",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Parents / Enfants À partir de 7 ans Nombre de participant·es : 15 maximum Durée de l’atelier : 1h30&nbsp; Tarifs :&nbsp; Adulte : 15 € | Enfant : 5 €&nbsp; Réservation obligatoire.",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/atelier-philo-en-famille-les-vetements-ont-ils-un-pouvoir.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-f5ae3de1ce776d3d701bacc1edc27444.png",
-   "lien": "https://www.paris.fr/evenements/copie-de-philo-en-famille-les-vetements-ont-ils-un-pouvoir-125904",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124094",
-   "titre": "TaxiTram décembre 2026",
-   "resume": "Tout au long de l’année, le réseau tram vous propose des parcours à la découverte des centres d’art contemporain d’Île-de-France. Une façon conviviale et originale de visiter plusieurs expositions, de rencontrer les artistes et les équipes des lieux, et de partager une expérience culturelle unique.",
-   "debut": "2026-12-05",
-   "fin": "2026-12-05",
-   "horaires": "Le samedi 05 décembre 2026 de 14h00 à 18h00",
-   "lieu": "Départ à la Porte Maillot",
-   "adresse": "15, boulevard Pershing, 75017 Paris",
-   "lat": 48.8800430152938,
-   "lon": 2.28352203140199,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 6 à 10 euros. Gratuit pour les personnes en situation de handicap et leur accompagnant·e.",
-    "prix_min": 10.0,
-    "reservation": true,
-    "billetterie": "https://www.helloasso.com/associations/tram-reseau-art-contemporain/evenements/taxitram-samedi-5-decembre-2026-2"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-e7c2ce8d78f58dd3a111614bde78f69d.jpeg",
-   "lien": "https://www.paris.fr/evenements/taxitram-decembre-2026-124094",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-126908",
    "titre": "Griffe II - Dandy Diwangkara et YSH : une même fascination pour le monde animal",
    "resume": "Dandy Diwangkara et YSH ont choisi de partager, à travers leurs œuvres, leur sensibilité et leur regard singulier sur le monde animal. À travers leurs créations, les deux artistes explorent la beauté, la diversité et la richesse du vivant. Leurs œuvres témoignent d'un attachement profond à la nature et invitent chacun à porter un regard différent sur les animaux qui peuplent notre monde.",
@@ -3182,85 +2500,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/05/huge-51b38e1ac73eb57494619d93727a507d.jpg",
    "lien": "https://www.paris.fr/evenements/pull-d-artiste-atelier-textile-autour-de-l-exposition-l-etoffe-de-l-artiste-125426",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-125899",
-   "titre": "Visite dansée en famille",
-   "resume": "Les visites dansées en famille offrent une nouvelle expérience de visite pour dialoguer avec les œuvres exposées par le biais de jeux chorégraphiés.",
-   "debut": "2026-12-06",
-   "fin": "2026-12-06",
-   "horaires": "Le dimanche 06 décembre 2026 de 10h30 à 12h00",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Parents / Enfants À partir de 6 ans Nombre de participant·es : 15 maximum Durée de l’atelier : 1h30 Tarifs : Adulte : 15 € | Enfant : 5 € Réservation obligatoire.",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/visite-dansee-en-famille.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-8741550126d6efa7f17ea88455d1ca53.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-dansee-en-famille-125899",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117421",
-   "titre": "Visite guidée de l'exposition Images de la rafle du « billet vert »",
-   "resume": "Découvrez la nouvelle exposition Images de la rafle du « billet vert » du Mémorial de la Shoah.",
-   "debut": "2026-12-10",
-   "fin": "2026-12-10",
-   "horaires": "Le jeudi 10 décembre 2026 de 19h30 à 21h00",
-   "lieu": "Mémorial de la Shoah",
-   "adresse": "17 rue Geoffroy l'Asnier, 75004 Paris",
-   "lat": 48.8548509957524,
-   "lon": 2.35631399897687,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit_sous_condition",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/04/15/huge-c57b311cf9866a61513dd070d8382fe5.png",
-   "lien": "https://www.paris.fr/evenements/visite-guidee-de-l-exposition-images-de-la-rafle-du-billet-vert-117421",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123196",
-   "titre": "BOUM 1986 avec Thomas Jolly",
-   "resume": "Pour ses 40 ans, le musée d’Orsay remet les clés de la fête à Thomas Jolly. Sous la nef, une nuit de danse, de surprises et de joie collective se dessine. Mais pour le reste, nous ne vous révélerons rien — ou presque — de ce qui vous attend. Car les plus belles surprises sont celles que l'on découvre ensemble !",
-   "debut": "2026-12-12",
-   "fin": "2026-12-12",
-   "horaires": "Le samedi 12 décembre 2026 de 19h00 à 00h00",
-   "lieu": "Musée d'Orsay",
-   "adresse": "Esplanade Valéry Giscard d'Estaing, 75007 Paris",
-   "lat": 48.8603522858312,
-   "lon": 2.32675478488623,
-   "thematiques": [
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Billetterie bientôt disponible.",
-    "reservation": true,
-    "billetterie": "https://www.musee-orsay.fr/fr/programme/agenda/evenements/boum-1986-avec-thomas-jolly#prochaines-dates"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/04/huge-40569a0cc409dd66fc824f8a99bdeca3.jpg",
-   "lien": "https://www.paris.fr/evenements/boum-1986-avec-thomas-jolly-123196",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -3316,30 +2555,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-112450",
-   "titre": "Visite + Chaillot Expérience",
-   "resume": "Découvrez un lieu chargé d’histoire, face à la tour Eiffel. Lors d’un parcours vivant et interactif de 45 minutes, petits et grands perceront les secrets du bâtiment construit en 1878, découvriront le mouvement Art déco ainsi que les œuvres présentes dans le théâtre et apprendront des anecdotes sur ce lieu mythique aujourd’hui dédié à la danse !",
-   "debut": "2026-12-12",
-   "fin": "2026-12-12",
-   "horaires": "Le samedi 12 décembre 2026 de à",
-   "lieu": "Chaillot - Théâtre national de la Danse",
-   "adresse": "1, place du Trocadéro et du 11 novembre, 75016 Paris",
-   "lat": 48.8629049988756,
-   "lon": 2.28834196100399,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "billetterie": "https://indiv.themisweb.fr/0218/fChoixSeanceWidget.aspx?idstructure=0218&EventId=1747&request=QcE+w0WHSuBQMpsjSY4ol/xOunNtETpTl2k2oVblpdloAJtGTiX8bYxVXG0Hp6DLBUzntbfZldjk6n0qTD3q8tIBjXxYpacK5zzimqgL8d4="
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/05/26/huge-dc4092aa9dd3bbb03c54a7e3036b414a.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-chaillot-experience-112450",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-125427",
    "titre": "Blouses brodées : atelier textile autour de l'exposition « L’étoffe de l’artiste »",
    "resume": "Après une découverte de l'exposition \"L'étoffe de l'artiste\", brodez des motifs sur votre chemise",
@@ -3389,32 +2604,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/02/06/huge-96721eca153c7619400289f0a46b786c.jpeg",
    "lien": "https://www.paris.fr/evenements/chaim-kaliski-jim-d-etterbeek-105923",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117426",
-   "titre": "Conférence inaugurale de l'exposition \"Histoire des Juifs de la banlieue du nord-est parisien\"",
-   "resume": "Dans le cadre de l’exposition Histoire des Juifs de la banlieue du nord-est parisien : entre intégration et persécutions (1859-1960)",
-   "debut": "2026-12-13",
-   "fin": "2026-12-13",
-   "horaires": "Le dimanche 13 décembre 2026 de 16h15 à 18h00",
-   "lieu": "Mémorial de la Shoah de Drancy",
-   "adresse": "110-112, avenue Jean Jaurès, 93700 Drancy",
-   "lat": 48.918788,
-   "lon": 2.45345,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "detail": "&nbsp; NAVETTE PARIS-DRANCY PROPOSÉE CE JOUR-LÀ 13 h : départ du Mémorial de la Shoah à Paris 17 h 45 : retour pour le Mémorial de la Shoah à Paris Tarif : gratuit, dans la limite des places disponibles.",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/08/06/huge-6221639ffed7a067c342d6455ddbbf79.png",
-   "lien": "https://www.paris.fr/evenements/visite-guidee-de-drancy-117426",
-   "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -3594,29 +2783,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-123673",
-   "titre": "Vernissage exposition photo « Métamorphoses silencieuses (Infiniment petit) »",
-   "resume": "La photographe Charlotte Schousboe, travaille autour du vivant, des fruits et des légumes, et de leurs transformations lentes – parfois sur plusieurs mois. À travers ces matières du quotidien, elle explore les cycles de la vie, les instants où la forme se défait pour mieux se réinventer.",
-   "debut": "2026-10-13",
-   "fin": "2026-12-15",
-   "horaires": "Le samedi 21 novembre 2026 de 13h30 à 16h30 Du mardi 13 octobre 2026 au mardi 15 décembre 2026 : samedi, dimanche de 13h30 à 17h00 mardi, mercredi, jeudi, vendredi de 13h30 à 17h30",
-   "lieu": "Maison du jardinage et du compostage",
-   "adresse": "41, rue Paul-Belmondo - Parc de Bercy, 75012 Paris",
-   "lat": 48.835808,
-   "lon": 2.383506,
-   "thematiques": [
-    "Photographie"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/05/huge-d065dfaea650462a7b8d7fe4cbdba355.png",
-   "lien": "https://www.paris.fr/evenements/vernissage-exposition-photo-metamorphoses-silencieuses-infiniment-petit-123673",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-126426",
    "titre": "\"Totalement composite\", une exposition de Sara Domenach et l'Association Parcours",
    "resume": "Du 16 novembre au 15 décembre, la Ville de Paris, l'association Parcours et l'artiste Sara Domenach souhaitent inviter les Parisiennes et Parisiens à découvrir une société française contemporaine, diverse et plurielle, et à ouvrir un dialogue entre patrimoine, institutions et société multiculturelle.",
@@ -3640,32 +2806,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/22/huge-40c3af9cc522149ae913c7f6ad3217f3.jpg",
    "lien": "https://www.paris.fr/evenements/totalement-composite-une-exposition-de-sara-domenach-et-l-association-parcours-126426",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117592",
-   "titre": "Conférence autour de l'exposition \"Andy Warhol. La ligne et l'image\" LSF/FR.",
-   "resume": "Présentation de l'exposition du Musée du Luxembourg \"Andy Warhol. La ligne et l'image\" par un guide conférencier du musée.",
-   "debut": "2026-12-17",
-   "fin": "2026-12-17",
-   "horaires": "Le jeudi 17 décembre 2026 de 19h00 à 21h00",
-   "lieu": "Bibliothèque André Malraux",
-   "adresse": "112 rue de Rennes, 75006 Paris",
-   "lat": 48.847914,
-   "lon": 2.327471,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "detail": "Réservation au&nbsp; 01 45 44 53 85 ou&nbsp; bibliotheque.andre-malraux@paris.fr",
-    "prix_min": 0,
-    "reservation": true
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/02/huge-2aee5244f4a26d92c8a5f17f5534e6ad.jpg",
-   "lien": "https://www.paris.fr/evenements/conference-autour-de-l-exposition-leonora-carrington-en-partenariat-avec-le-musee-du-luxembourg-117592",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -3816,34 +2956,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/06/20/huge-a65a4e74b75fa0c8a4990929dadd2b70.png",
    "lien": "https://www.paris.fr/evenements/exposition-les-imprimes-du-cinema-vidocq-fantomas-james-bond-et-autres-univers-transmediatiques-114754",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117029",
-   "titre": "Visites-conférences pour les collections permanentes",
-   "resume": "Découvrez l'histoire du musée Bourdelle et les chefs-d'œuvre de ses collections permanentes.",
-   "debut": "2026-08-09",
-   "fin": "2026-12-19",
-   "horaires": "Le samedi 19 décembre 2026 de 14h00 à 15h30 Le samedi 28 novembre 2026 de 14h00 à 15h30",
-   "lieu": "Musée Bourdelle",
-   "adresse": "18, rue Antoine Bourdelle, 75015 Paris",
-   "lat": 48.842975,
-   "lon": 2.318588,
-   "thematiques": [
-    "Art contemporain",
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Plein tarif : 7 € Tarif réduit : 5 €",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://www.billetterie-parismusees.paris.fr/selection/timeslotpass?productId=10229812496195"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/07/27/huge-a42e68b5680b3f27902b8106a111bd94.png",
-   "lien": "https://www.paris.fr/evenements/visites-conferences-pour-les-collections-permanentes-117029",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -4388,33 +3500,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-125432",
-   "titre": "Visites guidées de l'exposition « L’étoffe de l’artiste »",
-   "resume": "Une visite à la découverte de l'exposition temporaire « L’étoffe de l’artiste » au musée Bourdelle",
-   "debut": "2026-10-06",
-   "fin": "2026-12-30",
-   "horaires": "Le mercredi 30 décembre 2026 de 16h00 à 17h30 Le mercredi 30 décembre 2026 de 14h30 à 16h00 Le mardi 29 décembre 2026 de 16h00 à 17h30 Le mardi 29 décembre 2026 de 14h00 à 15h30 Le dimanche 27 décembre 2026 de 14h00 à 15h30 Le dimanche 27 décembre 2026 de 11h00 à 12h30 Le mardi 22 décembre 2026 de 1",
-   "lieu": "Musée Bourdelle",
-   "adresse": "18, rue Antoine Bourdelle, 75015 Paris",
-   "lat": 48.842975,
-   "lon": 2.318588,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Plein tarif : 7 € + billet de l'exposition Tarif réduit : 5 € + billet de l'exposition&nbsp;&nbsp;",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://www.billetterie-parismusees.paris.fr/selection/timeslotpass?productId=10229967371079"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/05/huge-9c76ad228639e1e619f4c0ee06f777f4.png",
-   "lien": "https://www.paris.fr/evenements/visites-guidees-de-l-exposition-l-etoffe-de-l-artiste-125432",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-117593",
    "titre": "\"Bon appétit les animaux !\" un album des éditions du Ricochet",
    "resume": "une exposition de planches de l'album de Capucine Mazille dans le cadre du temps fort \"Manger, être mangé\"",
@@ -4742,33 +3827,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-126331",
-   "titre": "Balade en mer",
-   "resume": "Laissez-vous guider jusqu'au bord de mer, en compagnie d'un·e médiateur·trice !",
-   "debut": "2026-10-22",
-   "fin": "2027-01-01",
-   "horaires": "Du mercredi 21 octobre 2026 au vendredi 01 janvier 2027 : jeudi, vendredi, samedi de 17h00 à 17h45",
-   "lieu": "Lafayette Anticipations",
-   "adresse": "9 rue du Plâtre, 75004 Paris",
-   "lat": 48.8591980183773,
-   "lon": 2.35484196914121,
-   "thematiques": [
-    "Art contemporain",
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://billetterie.lafayetteanticipations.com/balade-en-mer-visite-css5-lafayetteanticipationsweb-pg51-ei1136587.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/20/huge-f2e84f768c0dc4c4d5ba3c675f3802e2.jpeg",
-   "lien": "https://www.paris.fr/evenements/balade-en-mer-126331",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-126213",
    "titre": "Toits émois : exposition",
    "resume": "\"La fenêtre est au cœur de ma peinture, seuil fragile entre mon monde intérieur et l’agitation de la ville. Elle est à la fois ouverture et frontière, lieu d’observation et espace de rêverie….",
@@ -4792,33 +3850,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/16/huge-f5fca12f00ea9aa9cc8114c0d884efc4.jpg",
    "lien": "https://www.paris.fr/evenements/toits-emois-exposition-126213",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-126332",
-   "titre": "Balade olfactive",
-   "resume": "Découvrez les peintures de Yu Nishimura à travers une expérience sensorielle !",
-   "debut": "2026-10-24",
-   "fin": "2027-01-03",
-   "horaires": "Du samedi 24 octobre 2026 au dimanche 03 janvier 2027 : samedi, dimanche de 17h00 à 17h45",
-   "lieu": "Lafayette Anticipations",
-   "adresse": "9 rue du Plâtre, 75004 Paris",
-   "lat": 48.856578,
-   "lon": 2.351828,
-   "thematiques": [
-    "Art contemporain",
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://billetterie.lafayetteanticipations.com/balade-olfactive-visite-css5-lafayetteanticipationsweb-pg51-ei1136601.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/20/huge-30854d26388423bc21e5cc382ea728a8.jpeg",
-   "lien": "https://www.paris.fr/evenements/balade-olfactive-126332",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
@@ -5614,34 +4645,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-125900",
-   "titre": "Visite dansée en famille",
-   "resume": "Les visites dansées en famille offrent une nouvelle expérience de visite pour dialoguer avec les œuvres exposées par le biais de jeux chorégraphiés.",
-   "debut": "2027-01-10",
-   "fin": "2027-01-10",
-   "horaires": "Le dimanche 10 janvier 2027 de 10h30 à 12h00",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Parents / Enfants À partir de 6 ans Nombre de participant·es : 15 maximum Durée de l’atelier : 1h30 Tarifs : Adulte : 15 € | Enfant : 5 € Réservation obligatoire.",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/visite-dansee-en-famille.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-8741550126d6efa7f17ea88455d1ca53.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-dansee-en-famille-125900",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-102409",
    "titre": "Zeus, le cheval métallique au MuAM - L'installation",
    "resume": "Le Musée des Arts et Métiers accueille sur son parvis du 17 décembre 2025 au 10 janvier 2027 le cheval métallique Zeus, œuvre monumentale qui a marqué les esprits lors de la cérémonie d’ouverture des Jeux Olympiques et Paralympiques de Paris 2024.",
@@ -5771,35 +4774,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-117943",
-   "titre": "Cézanne et nous",
-   "resume": "Une exposition inédite consacrée à Paul Cezanne (1839-1906) et à son héritage artistique. De Paul Gauguin à Henri Matisse, Pablo Picasso, Piet Mondrian, Joan Mitchell, Bridget Riley et Peter Doig, près de 180 œuvres retracent la manière dont son travail a été découvert, interprété et transformé, de la fin du 19e siècle à aujourd’hui.",
-   "debut": "2026-09-23",
-   "fin": "2027-01-17",
-   "horaires": "Du mercredi 23 septembre 2026 au dimanche 17 janvier 2027 : vendredi de 10h00 à 22h00 mardi, mercredi, jeudi, samedi, dimanche de 10h00 à 19h30",
-   "lieu": "Grand Palais",
-   "adresse": "Avenue Winston Churchill, 75008 Paris",
-   "lat": 48.8659118578112,
-   "lon": 2.31382085611823,
-   "thematiques": [
-    "Beaux-arts",
-    "Histoire & patrimoine",
-    "Sciences & nature"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 0 à 19 euros.",
-    "prix_min": 19.0,
-    "reservation": true,
-    "billetterie": "https://www.grandpalais.fr/fr/programme/cezanne-et-nous"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-8712ddf71774cfa8bb258d806081d969.jpg",
-   "lien": "https://www.paris.fr/evenements/cezanne-et-nous-117943",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "sel-grandpalais-cezanne-et-nous",
    "titre": "Cézanne et nous",
    "resume": "La filiation de Cézanne avec les artistes du XXe siècle, en coproduction avec le Centre Pompidou.",
@@ -5821,6 +4795,8 @@
    },
    "lien": "https://www.grandpalais.fr/",
    "source": "Sélection manuelle",
+   "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-8712ddf71774cfa8bb258d806081d969.jpg",
+   "horaires": "Du mercredi 23 septembre 2026 au dimanche 17 janvier 2027 : vendredi de 10h00 à 22h00 mardi, mercredi, jeudi, samedi, dimanche de 10h00 à 19h30",
    "vu_le": "2026-11-03"
   },
   {
@@ -5898,33 +4874,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/18/huge-eca00dea99ecc2e8ad96c9ee3dcdd781.png",
    "lien": "https://www.paris.fr/evenements/premieres-nations-arts-et-cultures-du-nord-ouest-de-l-amerique-117759",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124597",
-   "titre": "Visite en famille à la Bourse de Commerce — Pinault Collection",
-   "resume": "Conçue en lien avec les expositions de la Bourse de Commerce et guidée par un médiateur, la visite propose aux petits et aux grands d’explorer le musée main dans la main.",
-   "debut": "2026-10-11",
-   "fin": "2027-01-17",
-   "horaires": "Le vendredi 01 janvier 2027 de 16h00 à 17h00 Du samedi 19 décembre 2026 au samedi 02 janvier 2027 : lundi, mercredi, samedi de 16h00 à 17h00 Du dimanche 11 octobre 2026 au dimanche 17 janvier 2027 : dimanche de 11h15 à 12h15",
-   "lieu": "Bourse de Commerce — Pinault Collection",
-   "adresse": "2, rue de Viarmes, 75001 Paris",
-   "lat": 48.8629459863822,
-   "lon": 2.34240003970564,
-   "thematiques": [
-    "Art contemporain",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Billet d'entrée + 5€ par participant (enfants et adultes) / gratuit avec la carte Membership Pinault Collection",
-    "prix_min": 5.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.pinaultcollection.com/selection/timeslotpass?productId=10229577527325&gtmStepTracking=true"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/30/huge-0a570104d5db0ae1a130039838ea6b4c.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-en-famille-a-la-bourse-de-commerce-pinault-collection-124597",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -6060,32 +5009,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-124096",
-   "titre": "TaxiTram janvier 2027",
-   "resume": "Tout au long de l’année, le réseau tram vous propose des parcours à la découverte des centres d’art contemporain d’Île-de-France. Une façon conviviale et originale de visiter plusieurs expositions, de rencontrer les artistes et les équipes des lieux, et de partager une expérience culturelle unique.",
-   "debut": "2027-01-23",
-   "fin": "2027-01-23",
-   "horaires": "Le samedi 23 janvier 2027 de 14h00 à 19h00",
-   "lieu": "Centre Wallonie-Bruxelles | Paris",
-   "adresse": "127-129, rue Saint-Martin, 75004 Paris",
-   "lat": 48.8610000018315,
-   "lon": 2.35126096864755,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 6 à 10 euros. Gratuit pour les personnes en situation de handicap et leur accompagnant·e.",
-    "prix_min": 10.0,
-    "reservation": true,
-    "billetterie": "https://www.helloasso.com/associations/tram-reseau-art-contemporain/evenements/taxitram-samedi-23-janvier-2027-2"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-7f5643465c201e53a69351b49b9ca065.jpeg",
-   "lien": "https://www.paris.fr/evenements/taxitram-janvier-2027-124096",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "sel-petitpalais-eva-gonzales",
    "titre": "Eva Gonzalès, parcours d'une artiste",
    "resume": "Exposition consacrée à la peintre Eva Gonzalès.",
@@ -6106,34 +5029,8 @@
    "a_verifier": true,
    "lien": "https://www.petitpalais.paris.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117937",
-   "titre": "Eva Gonzalès. Parcours d'une artiste libre",
-   "resume": "Le Petit Palais présente une monographie inédite consacrée à la peintre Eva Gonzalès (1847-1883), avant une étape au Van Gogh Museum d’Amsterdam en février 2027. Contemporaine de Mary Cassatt et de Berthe Morisot, auxquelles elle est souvent associée, Eva Gonzalès n’a pourtant jamais fait l’objet d’une rétrospective d’envergure, ni en France ni à l’international.",
-   "debut": "2026-09-15",
-   "fin": "2027-01-24",
-   "horaires": "Du mardi 15 septembre 2026 au dimanche 24 janvier 2027 : vendredi, samedi de 10h00 à 20h00 mardi, mercredi, jeudi, dimanche de 10h00 à 18h00",
-   "lieu": "Petit Palais - Musée des beaux-arts de la Ville de Paris",
-   "adresse": "2 avenue Winston-Churchill, 75008 Paris",
-   "lat": 48.866246,
-   "lon": 2.313855,
-   "thematiques": [
-    "Art contemporain",
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 0 à 14 euros.",
-    "prix_min": 14.0,
-    "reservation": true,
-    "billetterie": "https://www.petitpalais.paris.fr/expositions/eva-gonzal%C3%A8s"
-   },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-11b9ea9a94d0166d2e65a1b99f8fb042.png",
-   "lien": "https://www.paris.fr/evenements/eva-gonzales-parcours-d-une-artiste-libre-117937",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
+   "horaires": "Du mardi 15 septembre 2026 au dimanche 24 janvier 2027 : vendredi, samedi de 10h00 à 20h00 mardi, mercredi, jeudi, dimanche de 10h00 à 18h00",
    "vu_le": "2026-11-03"
   },
   {
@@ -6424,31 +5321,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-124046",
-   "titre": "Spectacle : AYA+TOLI – topologie de la maladresse",
-   "resume": "AYA+TOLI expose une géographie sensible du fil, liée à l’expérience de la (prise) de parole.",
-   "debut": "2027-01-28",
-   "fin": "2027-01-30",
-   "horaires": "Du jeudi 28 janvier 2027 au samedi 30 janvier 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/ayatoli-topologie-de-la-maladresse/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-c8ce81ec8507c5f0f4f5661a9acec16b.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-aya-toli-topologie-de-la-maladresse-124046",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-117930",
    "titre": "Auguste Bartholdi. La Liberté éclairant le monde",
    "resume": "Du 15 septembre 2026 au 31 janvier 2027 le musée d’Orsay consacre une exposition ainsi qu’une expérience immersive en réalité virtuelle à Auguste Bartholdi, figure majeure de la sculpture française du XIXe siècle et auteur d’œuvres emblématiques, ainsi qu'à son chef d'œuvre « La Liberté éclairant le monde ».",
@@ -6553,33 +5425,8 @@
    },
    "lien": "https://www.musee-orsay.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117933",
-   "titre": "Mary Cassatt. L'indépendante",
-   "resume": "Pour marquer le centième anniversaire de la mort de l’artiste, le musée d’Orsay organise une grande exposition consacrée à Mary Cassatt (1844-1926). Il s’agit, en France, d’un événement attendu : les musées nationaux n’ont encore jamais dédié d’exposition majeure à Mary Cassatt, membre actif du groupe impressionniste et l’un de ses piliers. Son centenaire invite à examiner la place centrale de cet",
-   "debut": "2026-10-06",
-   "fin": "2027-01-31",
-   "horaires": "Du mardi 06 octobre 2026 au dimanche 31 janvier 2027 : jeudi de 09h30 à 21h45 mardi, mercredi, vendredi, samedi, dimanche de 09h30 à 18h00",
-   "lieu": "Musée d'Orsay",
-   "adresse": "Esplanade Valéry Giscard d'Estaing, 75007 Paris",
-   "lat": 48.8603522858312,
-   "lon": 2.32675478488623,
-   "thematiques": [
-    "Beaux-arts",
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 0 à 16 euros.",
-    "prix_min": 16.0,
-    "reservation": true,
-    "billetterie": "https://www.musee-orsay.fr/fr/programme/agenda/expositions/mary-cassatt-lindependante"
-   },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-0066fdb5b77c183fab979b53a0857b04.jpg",
-   "lien": "https://www.paris.fr/evenements/mary-cassatt-l-independante-117933",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
+   "horaires": "Du mardi 06 octobre 2026 au dimanche 31 janvier 2027 : jeudi de 09h30 à 21h45 mardi, mercredi, vendredi, samedi, dimanche de 09h30 à 18h00",
    "vu_le": "2026-11-03"
   },
   {
@@ -6840,31 +5687,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/07/21/huge-bd7eb9277721936f7606a0130e156029.png",
    "lien": "https://www.paris.fr/evenements/kurt-schwitters-le-chaos-monde-1918-1948-116798",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124047",
-   "titre": "Spectacle : Tout comme moi",
-   "resume": "Un spectacle visuel, mêlant écriture et interactions avec le public.",
-   "debut": "2027-02-06",
-   "fin": "2027-02-10",
-   "horaires": "Du samedi 06 février 2027 au mercredi 10 février 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/tout-comme-moi/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-7cfc348a697a9a0760850f496f25f3a6.jpg",
-   "lien": "https://www.paris.fr/evenements/spectacle-tout-comme-moi-124047",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -7190,60 +6012,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-125850",
-   "titre": "Stage vacances enfants 6-11 ans — I comme Image avec Cynthia Mancuso",
-   "resume": "Du 21 au 23 octobre 2026, le stage avec l'artiste photographe Cynthia Mancuso invite les enfants de 6 à 11 ans à un voyage entre les mots et les images.",
-   "debut": "2027-02-17",
-   "fin": "2027-02-17",
-   "horaires": "Du lundi 15 février 2027 au mercredi 17 février 2027 : vendredi de 13h00 à 16h00 mercredi, jeudi, vendredi de 10h00 à 16h00",
-   "lieu": "Maison Européenne de la Photographie",
-   "adresse": "5/7 rue de fourcy, 75004 Paris",
-   "lat": 48.85508,
-   "lon": 2.359244,
-   "thematiques": [
-    "Photographie",
-    "Société & monde",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Tarif : 114 € Réservation en ligne obligatoire",
-    "prix_min": 114.0,
-    "reservation": true,
-    "billetterie": "https://billetterie.mep-fr.org/stage-vacances-enfants-6-11-ans-i-comme-image-avec-cynthia-mancuso.html"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-724d0e48c0066ff88f2643367f3b64ef.jpg",
-   "lien": "https://www.paris.fr/evenements/stage-vacances-enfants-6-11-ans-i-comme-image-avec-cynthia-mancuso-125850",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124050",
-   "titre": "Spectacle : KiLLT – La Mare à sorcières",
-   "resume": "Une expérience collective mêlant déambulation, théâtre et création plastique pour (re)découvrir le plaisir des mots, le désir de lire, l’audace de dire mais aussi l’importance de s’engager.",
-   "debut": "2027-02-17",
-   "fin": "2027-02-20",
-   "horaires": "Du mercredi 17 février 2027 au samedi 20 février 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/la-mare-a-sorcieres/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-b3763f1643c09271fbb2e961495acd0f.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-killt-la-mare-a-sorcieres-124050",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-118193",
    "titre": "\"Joyeuse retraite papa\", une exposition entre documentaire et fiction",
    "resume": "Rayane Mcirdi construit ses films à partir d’histoires, de souvenirs et d’anecdotes recueillis auprès de sa famille, de ses proches et des habitants d’Asnières-sur-Seine et de Gennevilliers, où il a grandi. Nourri par les récits qui traversent sa famille entre l’Algérie et la France, il met en scène ces paroles avec une grande précision cinématographique, faisant de ces histoires ordinaires une ma",
@@ -7498,31 +6266,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-124051",
-   "titre": "Spectacle : Imitation Game. Conversation avec une machine",
-   "resume": "Et si l’intelligence artificielle n’était pas une rupture, mais l’accomplissement d’une fiction ?",
-   "debut": "2027-02-25",
-   "fin": "2027-02-27",
-   "horaires": "Du jeudi 25 février 2027 au samedi 27 février 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/imitation-game/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-f2830f4eb71f198d9f6be85276ac0eec.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-imitation-game-conversation-avec-une-machine-124051",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-126898",
    "titre": "Trương Minh Quý | The See of Sadness",
    "resume": "À travers installations, objets trouvés et images en mouvement, Trương Minh Quý dévoile sa première exposition personnelle à la Galerie Bao.",
@@ -7599,31 +6342,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/25/huge-379cc612230c85828dde05583c20de47.jpg",
    "lien": "https://www.paris.fr/evenements/vive-la-mariee-114726",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124055",
-   "titre": "Spectacle : Maledizione",
-   "resume": "Où il sera question du Moyen-Âge et du futur, du contrôle historique du corps des femmes, de vents, de pollution et de malédiction…",
-   "debut": "2027-03-04",
-   "fin": "2027-03-06",
-   "horaires": "Du jeudi 04 mars 2027 au samedi 06 mars 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/maledizione/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-f1b1d533a7151224786c6d2684e1fa02.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-maledizione-124055",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -7707,33 +6425,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-117963",
-   "titre": "Gustave Fayet, Collectionneur - Créateur. Icônes de l'art moderne",
-   "resume": "Dans la lignée des expositions « Icônes de l’art moderne », consacrées aux grands collectionneurs tels que Sergueï Chtchoukine, les frères Mikhaïl Morozov et Ivan Morozov, ainsi que Samuel Courtauld, la Fondation poursuit son exploration des figures pionnières qui ont façonné l’histoire de l’art moderne avec une exposition exceptionnelle : « Gustave Fayet, collectionneur - créateur », présentée du",
-   "debut": "2026-10-09",
-   "fin": "2027-03-08",
-   "horaires": "Du vendredi 09 octobre 2026 au lundi 08 mars 2027 : samedi, dimanche de 11h00 à 19h00 lundi, mercredi, jeudi, vendredi de 12h00 à 19h00",
-   "lieu": "Fondation Louis Vuitton",
-   "adresse": "8, avenue du Mahatma Gandhi, 75016 Paris",
-   "lat": 48.878139107897,
-   "lon": 2.264551269945,
-   "thematiques": [
-    "Beaux-arts",
-    "Design, mode & arts déco"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 0 à 18 euros.",
-    "prix_min": 18.0,
-    "reservation": true,
-    "billetterie": "https://www.fondationlouisvuitton.fr/fr/evenements/gustave-fayet-collectionneur-createur"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-91377d89642923086fd91eba71b6f3ff.png",
-   "lien": "https://www.paris.fr/evenements/gustave-fayet-collectionneur-createur-icones-de-l-art-moderne-117963",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "sel-flv-gustave-fayet",
    "titre": "Gustave Fayet, collectionneur-créateur",
    "resume": "Le collectionneur et créateur méconnu qui a côtoyé Van Gogh, Gauguin et Redon.",
@@ -7754,6 +6445,8 @@
    },
    "lien": "https://www.fondationlouisvuitton.fr/",
    "source": "Sélection manuelle",
+   "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-91377d89642923086fd91eba71b6f3ff.png",
+   "horaires": "Du vendredi 09 octobre 2026 au lundi 08 mars 2027 : samedi, dimanche de 11h00 à 19h00 lundi, mercredi, jeudi, vendredi de 12h00 à 19h00",
    "vu_le": "2026-11-03"
   },
   {
@@ -7835,31 +6528,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-124058",
-   "titre": "Spectacle : La Ferme des Animaux",
-   "resume": "La compagnie La Fleur du Boucan revisite avec malice et désinvolture le célèbre roman d’Orwell.",
-   "debut": "2027-03-18",
-   "fin": "2027-03-20",
-   "horaires": "Du jeudi 18 mars 2027 au samedi 20 mars 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/la-ferme-des-animaux/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-53700ac403ecd0afd5b93f86cdc5f60f.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-la-ferme-des-animaux-124058",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-120535",
    "titre": "Exposition : Une histoire du cinéma français - Héritages maghrébins",
    "resume": "Depuis plus de soixante ans, le cinéma français se transforme sous l’impulsion de cinéastes, acteurs et actrices issus de l’immigration maghrébine. Leurs œuvres ont introduit de nouveaux récits, de nouveaux visages et de nouvelles formes, redéfinissant les imaginaires du septième art. L’exposition Une histoire du cinéma français retrace cette histoire en mettant en lumière celles et ceux qui ont c",
@@ -7910,31 +6578,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-124060",
-   "titre": "Spectacle : Grrrrr",
-   "resume": "Comme autour du feu, installez vous en cercle pour prendre part à un rituel dansé.",
-   "debut": "2027-03-27",
-   "fin": "2027-03-27",
-   "horaires": "Le samedi 27 mars 2027 de à",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/grrrrr/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-c0a2b2fde12624d91fdfc35e14afab76.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-grrrrr-124060",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-105312",
    "titre": "Exposition photo de Frédéric Combeau - \"Focus sur la biodiversité parisienne\"",
    "resume": "Plongez dans l’univers animalier du photographe Frédéric Combeau. Une exposition qui révèle, avec poésie et précision, l'attachement de l'artiste aux animaux sauvages qui vivent au cœur de Paris.",
@@ -7981,35 +6624,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/09/29/huge-cbdf43d650e54fbef3988a02d8341b34.jpg",
    "lien": "https://www.paris.fr/evenements/une-expo-photo-pour-decouvrir-l-agriculture-en-ville-114666",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124630",
-   "titre": "Atelier \"Photographier l'architecture\" au Musée du Louvre",
-   "resume": "Focus sur l’architecture pour mettre en valeur les espaces remarquables du Louvre ! Lumières, réglages, techniques sont au cœur de cet atelier guidé par un photographe professionnel.",
-   "debut": "2026-11-07",
-   "fin": "2027-04-03",
-   "horaires": "Le samedi 03 avril 2027 de 14h00 à 17h00 Le samedi 06 mars 2027 de 14h00 à 17h00 Le samedi 13 février 2027 de 14h00 à 17h00 Le samedi 09 janvier 2027 de 14h00 à 17h00 Le samedi 12 décembre 2026 de 14h00 à 17h00 Le samedi 07 novembre 2026 de 14h00 à 17h00",
-   "lieu": "Musée du Louvre",
-   "adresse": "99 Rue de Rivoli, 75001 Paris",
-   "lat": 48.862724997505,
-   "lon": 2.33483201932853,
-   "thematiques": [
-    "Photographie",
-    "Art contemporain",
-    "Sciences & nature",
-    "Architecture & ville"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Pour accéder à l'atelier, chaque participant doit être détenteur d'un billet d'atelier et d'un billet d'entrée du musée.&nbsp; Merci de télécharger/imprimer vos billets d'entrée et d'atelier à l'avance.",
-    "reservation": true,
-    "billetterie": "https://www.louvre.fr/expositions-et-evenements/evenements-activites/photographier-l-architecture"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/22/huge-0a480e54eb2055a48742d107445df07c.jpg",
-   "lien": "https://www.paris.fr/evenements/atelier-photographier-l-architecture-au-musee-du-louvre-124630",
-   "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -8089,31 +6703,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/28/huge-4a20c3011c3eb64ef08bbed78b8a32a5.png",
    "lien": "https://www.paris.fr/evenements/de-la-vigne-au-verre-le-vin-chez-balzac-118174",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124062",
-   "titre": "Spectacle : L’abolition des privilèges",
-   "resume": "Un solo virtuose, plongeant spectateur et spectatrice en plein cœur des États généraux de 1789.",
-   "debut": "2027-04-01",
-   "fin": "2027-04-07",
-   "horaires": "Du jeudi 01 avril 2027 au mercredi 07 avril 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/labolition-des-privileges/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-da7f99afb81d2af60c4587c5becbdc48.jpg",
-   "lien": "https://www.paris.fr/evenements/spectacle-l-abolition-des-privileges-124062",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -8251,31 +6840,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-112541",
-   "titre": "Visite + Chaillot Expérience",
-   "resume": "Découvrez un lieu chargé d’histoire, face à la tour Eiffel. Lors d’un parcours vivant et interactif de 45 minutes, petits et grands perceront les secrets du bâtiment construit en 1878, découvriront le mouvement Art déco ainsi que les œuvres présentes dans le théâtre et apprendront des anecdotes sur ce lieu mythique aujourd’hui dédié à la danse !",
-   "debut": "2027-02-06",
-   "fin": "2027-04-24",
-   "horaires": "Le samedi 24 avril 2027 de à Le samedi 06 février 2027 de à",
-   "lieu": "Chaillot - Théâtre national de la Danse",
-   "adresse": "1, place du Trocadéro et du 11 novembre, 75016 Paris",
-   "lat": 48.8629049988756,
-   "lon": 2.28834196100399,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "detail": "De 13 à 17 euros.",
-    "prix_min": 0,
-    "billetterie": "https://indiv.themisweb.fr/0218/fChoixSeanceWidget.aspx?idstructure=0218&EventId=1747&request=QcE+w0WHSuBQMpsjSY4ol/xOunNtETpTl2k2oVblpdloAJtGTiX8bYxVXG0Hp6DLBUzntbfZldjk6n0qTD3q8tIBjXxYpacK5zzimqgL8d4="
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/05/26/huge-dc4092aa9dd3bbb03c54a7e3036b414a.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-chaillot-experience-112541",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "sel-petitpalais-bruxelles-1900",
    "titre": "Bruxelles 1900",
    "resume": "Bruxelles, capitale de l'Art nouveau et des avant-gardes autour de 1900.",
@@ -8324,31 +6888,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/25/huge-1fe3669684f2be558c21bfb7c471055b.jpg",
    "lien": "https://www.paris.fr/evenements/hassan-hajjaj-acid-arab-my-rock-stars-117980",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124066",
-   "titre": "Spectacle : Back/Bridge",
-   "resume": "Une traversée chorégraphique puissante où corps et images dévoilent les héritages du passé colonial pour mieux éclairer et résister aux fractures d’aujourd’hui.",
-   "debut": "2027-04-28",
-   "fin": "2027-04-30",
-   "horaires": "Du mercredi 28 avril 2027 au vendredi 30 avril 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/back-bridge/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-de14999489866ecd586a9fef72dbe8ec.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-back-bridge-124066",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -8507,32 +7046,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-124008",
-   "titre": "Visites gustatives de l’expo « Semons nos résistances » en Langue des signes (LSF)",
-   "resume": "Découvrez l’interprétation culinaire de plusieurs œuvres pour d’abord les penser, puis les manger…",
-   "debut": "2027-01-15",
-   "fin": "2027-05-14",
-   "horaires": "Du vendredi 15 janvier 2027 au vendredi 14 mai 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "Pour réserver, merci d’envoyer un mail à groupes.maifsocialclub@maif.fr. Un tarif de 7€ s’applique pour éviter le gaspillage alimentaire en cas de désistement.",
-    "prix_min": 7.0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-gustatives-de-lexpo-semons-nos-resistances-en-langue-des-signes-lsf/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-eea03d969572b3dc5c02df5bb251c06b.png",
-   "lien": "https://www.paris.fr/evenements/visites-gustatives-de-l-expo-semons-nos-resistances-en-langue-des-signes-lsf-124008",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-105920",
    "titre": "Les secrets de l'Alhambra nasride",
    "resume": "Joyau de l’art islamique, unique complexe palatial musulman conservé en Occident, l’Alhambra est l’un des monuments les plus visités au monde. C'est l'Alhambra telle que bâtie par les sultans nasrides – bien différente de la forteresse actuelle – que l’exposition met en lumière, en dévoilant et en décryptant certains de ses secrets à l’apogée de sa splendeur, sous le règne du sultan Muhammad V, au",
@@ -8554,208 +7067,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/02/06/huge-e881a26a554a43936aad5ae5fbb8e097.jpg",
    "lien": "https://www.paris.fr/evenements/les-secrets-de-l-alhambra-nasride-105920",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123944",
-   "titre": "Visite nocturne adultes de l’expo « Semons nos résitances »",
-   "resume": "Profitez d’une visite guidée nocturne de l’expo pour les adultes, accompagnée d’une de nos médiatrices culturelles !",
-   "debut": "2026-11-26",
-   "fin": "2027-05-20",
-   "horaires": "Du jeudi 26 novembre 2026 au jeudi 20 mai 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visite-nocturne-adultes-de-lexpo-semons-nos-resitances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-e1c05bbc8f50e09355f5e193d3ea04b9.png",
-   "lien": "https://www.paris.fr/evenements/visite-nocturne-adultes-de-l-expo-semons-nos-resitances-123944",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124068",
-   "titre": "Spectacle : L’Homme qui plantait des arbres",
-   "resume": "Un spectacle écologique pour spectateur actif, d’après l’oeuvre de Jean Giono.",
-   "debut": "2027-05-20",
-   "fin": "2027-05-22",
-   "horaires": "Du jeudi 20 mai 2027 au samedi 22 mai 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Sciences & nature"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/lhomme-qui-plantait-des-arbres/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-007772fae3c82f53740f97ed401d07ad.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-l-homme-qui-plantait-des-arbres-124068",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-112510",
-   "titre": "Visite Chaillot",
-   "resume": "Explorez les coulisses du théâtre et découvrez les œuvres Art déco qui parsèment le parcours.",
-   "debut": "2027-01-30",
-   "fin": "2027-05-22",
-   "horaires": "Le samedi 22 mai 2027 de 11h00 à 13h00 Le samedi 17 avril 2027 de 11h00 à 13h00 Le samedi 27 mars 2027 de 11h00 à 13h00 Le samedi 27 février 2027 de 11h00 à 13h00 Le samedi 30 janvier 2027 de 11h00 à 13h00",
-   "lieu": "Chaillot - Théâtre national de la Danse",
-   "adresse": "1, place du Trocadéro et du 11 novembre, 75016 Paris",
-   "lat": 48.8629049988756,
-   "lon": 2.28834196100399,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 8 à 13 euros.",
-    "prix_min": 13.0,
-    "reservation": true,
-    "billetterie": "https://indiv.themisweb.fr/0218/fChoixSeanceWidget.aspx?idstructure=0218&EventId=1757&request=QcE+w0WHSuBQMpsjSY4ol/xOunNtETpTx/mW/8FxMdWO0DO9dUurVpVh2CSPJcggq9FA2VnQ/kegU5q7XYXMhIzZDfl44OKI"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/05/26/huge-dc4092aa9dd3bbb03c54a7e3036b414a.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-chaillot-112510",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123932",
-   "titre": "Atelier : Fanzine Militant",
-   "resume": "Transformez vos convictions en images et prenez la parole avec vos mains !",
-   "debut": "2026-11-13",
-   "fin": "2027-05-28",
-   "horaires": "Du vendredi 13 novembre 2026 au vendredi 28 mai 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/fanzine-militant/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-6dc71fefa163d7b8fd84ca519a32818c.png",
-   "lien": "https://www.paris.fr/evenements/atelier-fanzine-militant-123932",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123936",
-   "titre": "Atelier : Foule Collective",
-   "resume": "Ensemble, faites corps et créez une œuvre collective qui ne ressemble qu’à vous !",
-   "debut": "2026-10-14",
-   "fin": "2027-05-29",
-   "horaires": "Du mercredi 14 octobre 2026 au samedi 29 mai 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/foule-collective/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-d4add7003e44ac1f4960ed9e6431ce91.png",
-   "lien": "https://www.paris.fr/evenements/atelier-foule-collective-123936",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124070",
-   "titre": "Spectacle : Décoloniser le dancefloor",
-   "resume": "« Décoloniser le dancefloor », une conférence-dansée pour penser les systèmes qui façonnent nos rapports sociaux quotidiens.",
-   "debut": "2027-05-27",
-   "fin": "2027-05-29",
-   "horaires": "Du jeudi 27 mai 2027 au samedi 29 mai 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/decoloniser-le-dancefloor/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-de14999489866ecd586a9fef72dbe8ec.png",
-   "lien": "https://www.paris.fr/evenements/spectacle-decoloniser-le-dancefloor-124070",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-112473",
-   "titre": "Visite Famille",
-   "resume": "Découvrez Chaillot en Famille ! Plongez au cœur du Théâtre national de la Danse avec une visite spécialement conçue pour le jeune public.",
-   "debut": "2027-01-16",
-   "fin": "2027-05-29",
-   "horaires": "Le samedi 29 mai 2027 de 15h00 à 16h00 Le samedi 13 mars 2027 de 11h00 à 12h00 Le samedi 16 janvier 2027 de 11h00 à 12h00",
-   "lieu": "Chaillot - Théâtre national de la Danse",
-   "adresse": "1, place du Trocadéro et du 11 novembre, 75016 Paris",
-   "lat": 48.8629049988756,
-   "lon": 2.28834196100399,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 8 à 13 euros.",
-    "prix_min": 13.0,
-    "reservation": true,
-    "billetterie": "https://indiv.themisweb.fr/0218/fChoixSeanceWidget.aspx?idstructure=0218&EventId=1748&request=QcE+w0WHSuBQMpsjSY4ol/xOunNtETpTfrggmmXfKJW/jA9nhimA1bVONAuANSx9FKtxmpRrGoOHc43iz7a2xw=="
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/05/26/huge-dc4092aa9dd3bbb03c54a7e3036b414a.jpg",
-   "lien": "https://www.paris.fr/evenements/visite-famille-112473",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124071",
-   "titre": "Spectacle : La Dette, à l’usage des générations futures",
-   "resume": "« La Dette, à l’usage des générations futures » est un spectacle-conférence sans PowerPoint où enquête documentaire, récit intime et pensée politique se croisent.",
-   "debut": "2025-06-03",
-   "fin": "2027-06-05",
-   "horaires": "Du mardi 03 juin 2025 au samedi 05 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/la-dette-a-lusage-des-generations-futures/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-55cd135110b0507f0028fecd426c45be.jpeg",
-   "lien": "https://www.paris.fr/evenements/spectacle-la-dette-a-l-usage-des-generations-futures-124071",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -8787,280 +7098,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-123987",
-   "titre": "Visites gustatives de l’expo « Semons nos résistances »",
-   "resume": "Découvrez l’interprétation culinaire de plusieurs œuvres pour d’abord les penser, puis les manger…",
-   "debut": "2026-12-17",
-   "fin": "2027-06-10",
-   "horaires": "Du jeudi 17 décembre 2026 au jeudi 10 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "payant",
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-gustatives-de-lexpo-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-eea03d969572b3dc5c02df5bb251c06b.png",
-   "lien": "https://www.paris.fr/evenements/visites-gustatives-de-l-expo-semons-nos-resistances-123987",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123997",
-   "titre": "Atelier : Participez à la fresque des Résistances",
-   "resume": "Venez explorer les cultures de la résistance et participez à une fresque collective !",
-   "debut": "2027-01-09",
-   "fin": "2027-06-12",
-   "horaires": "Le samedi 12 juin 2027 de 15h00 à 18h00 Le samedi 09 janvier 2027 de 15h00 à 18h00",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Société & monde"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/fresque-des-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-85fe8621f06d2aa8a04bca3c8768de18.png",
-   "lien": "https://www.paris.fr/evenements/atelier-participez-a-la-fresque-des-resistances-123997",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123992",
-   "titre": "Visites guidées de \"Semons nos résistances\" en Langue des signes (LSF)",
-   "resume": "Découvrez l’exposition avec Léandre Chevreau, médiateur sourd. Un moment pour s’émerveiller, échanger autour de la thématique et découvrir le travail des artistes.",
-   "debut": "2026-12-19",
-   "fin": "2027-06-17",
-   "horaires": "Du samedi 19 décembre 2026 au jeudi 17 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-guidees-de-semons-nos-resistances-en-langue-des-signes-lsf/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-dbc26f5e91cb7faf1940423720984f21.png",
-   "lien": "https://www.paris.fr/evenements/visites-guidees-de-semons-nos-resistances-en-langue-des-signes-lsf-123992",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123994",
-   "titre": "Atelier : Dessiner et écrire avec du fil",
-   "resume": "Nous sommes faits de reprises et de morceaux recousus. C’est ce qui fait notre force.",
-   "debut": "2026-12-19",
-   "fin": "2027-06-19",
-   "horaires": "Du samedi 19 décembre 2026 au samedi 19 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/dessiner-et-ecrire-avec-du-fil/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-d24f1bba13abfc3a270cb9fe3b13483a.png",
-   "lien": "https://www.paris.fr/evenements/atelier-dessiner-et-ecrire-avec-du-fil-123994",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123991",
-   "titre": "Atelier : Histoires textiles",
-   "resume": "Nous sommes faits de reprises et de morceaux recousus. C’est ce qui fait notre force.",
-   "debut": "2026-12-19",
-   "fin": "2027-06-19",
-   "horaires": "Du samedi 19 décembre 2026 au samedi 19 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/histoires-textiles/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-d24f1bba13abfc3a270cb9fe3b13483a.png",
-   "lien": "https://www.paris.fr/evenements/atelier-histoires-textiles-123991",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123990",
-   "titre": "Atelier : La réparation comme acte de résistance",
-   "resume": "Et si réparer devenait une forme de désobéissance à l’obsolescence et au jetable ?",
-   "debut": "2026-12-18",
-   "fin": "2027-06-19",
-   "horaires": "Du vendredi 18 décembre 2026 au samedi 19 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/la-reparation-comme-acte-de-resistance/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-d24f1bba13abfc3a270cb9fe3b13483a.png",
-   "lien": "https://www.paris.fr/evenements/atelier-la-reparation-comme-acte-de-resistance-123990",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124075",
-   "titre": "Spectacle : Nourrir l’Humanité c’est un métier",
-   "resume": "Des champs à la scène : un récit documentaire sur les mutations du monde paysan, entre tensions et aspirations au changement.",
-   "debut": "2027-06-17",
-   "fin": "2027-06-19",
-   "horaires": "Du jeudi 17 juin 2027 au samedi 19 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Société & monde"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/nourrir-lhumanite-cest-un-metier/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-9b359a69db1106a5843c39120d382846.jpg",
-   "lien": "https://www.paris.fr/evenements/spectacle-nourrir-l-humanite-c-est-un-metier-124075",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124045",
-   "titre": "Atelier : Cuisine presque zéro déchet",
-   "resume": "Apprenez à travailler vos aliments de A à Z avec Lila Djeddi !",
-   "debut": "2027-02-23",
-   "fin": "2027-06-26",
-   "horaires": "Du mardi 23 février 2027 au samedi 26 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/cuisine-presque-zero-dechet/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-ee498d96b912acfe69d059359c1f8827.png",
-   "lien": "https://www.paris.fr/evenements/atelier-cuisine-presque-zero-dechet-124045",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124044",
-   "titre": "Atelier : Les p’tits mangeurs éclairés",
-   "resume": "Manger local et de saison, c’est le geste militant du quotidien.",
-   "debut": "2027-01-23",
-   "fin": "2027-06-26",
-   "horaires": "Du samedi 23 janvier 2027 au samedi 26 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/les-ptits-mangeurs-eclaires/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-35806005e9d8b4eb664471cb84390116.png",
-   "lien": "https://www.paris.fr/evenements/atelier-les-p-tits-mangeurs-eclaires-124044",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124042",
-   "titre": "Atelier : Mon goûter pour la planète",
-   "resume": "Un atelier cuisine en famille pour apprendre à faire un goûter sain et gourmand à la fois !",
-   "debut": "2027-01-23",
-   "fin": "2027-06-26",
-   "horaires": "Du samedi 23 janvier 2027 au samedi 26 juin 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/mon-gouter-pour-la-planete/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-c56ec7915c8b70dbea6a6d7abee1a21e.png",
-   "lien": "https://www.paris.fr/evenements/atelier-mon-gouter-pour-la-planete-124042",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124077",
-   "titre": "Spectacle : Planète",
-   "resume": "Un voyage amusant et poétique autour de notre lien à la Terre et de ce que nous laisserons derrière nous.",
-   "debut": "2027-06-26",
-   "fin": "2027-06-26",
-   "horaires": "Le samedi 26 juin 2027 de à",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Société & monde"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/planete/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-6d1b2309aeea5d2298f9975ed40829f1.jpg",
-   "lien": "https://www.paris.fr/evenements/spectacle-planete-124077",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-123949",
    "titre": "L’expo 4 pattes – Semons nos résistances",
    "resume": "Le MAIF Social Club invite l’équipe de La Cité des bébés (Cité des Sciences) sur un temps dédié aux 0-23 mois et leurs accompagnateurs.",
@@ -9083,106 +7120,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-5eaa13dfaedec300c7ca2ea661d1876a.png",
    "lien": "https://www.paris.fr/evenements/l-expo-4-pattes-semons-nos-resistances-123949",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123939",
-   "titre": "Atelier : Rage with the Machine (8 – 13 ans)",
-   "resume": "À l’aide de synthétiseurs et de pédales d’effets, initiez-vous à la musique électronique !",
-   "debut": "2026-11-21",
-   "fin": "2027-07-09",
-   "horaires": "Du samedi 21 novembre 2026 au vendredi 09 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/rage-with-the-machine-8-13-ans/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-a2a28a346b71be75a7049464f353bf34.png",
-   "lien": "https://www.paris.fr/evenements/atelier-rage-with-the-machine-8-13-ans-123939",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123941",
-   "titre": "Atelier : Mégaphone !",
-   "resume": "Fabriquez un mégaphone en carton pour faire entendre votre voix !",
-   "debut": "2026-11-21",
-   "fin": "2027-07-10",
-   "horaires": "Du samedi 21 novembre 2026 au samedi 10 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/megaphone/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-803667897766e4a796f01393c5ef8d7c.png",
-   "lien": "https://www.paris.fr/evenements/atelier-megaphone-123941",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123995",
-   "titre": "Atelier : Punk is not dead (8 – 13 ans)",
-   "resume": "Initiez-vous à l’écriture et à l’arrangement d’un morceau.",
-   "debut": "2027-01-02",
-   "fin": "2027-07-10",
-   "horaires": "Du samedi 02 janvier 2027 au samedi 10 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/punk-is-not-dead-8-13-ans/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-5b70a433f5bba9b337471862e6960007.jpg",
-   "lien": "https://www.paris.fr/evenements/atelier-punk-is-not-dead-8-13-ans-123995",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123910",
-   "titre": "Visites adultes de l’expo « Semons nos résistances »",
-   "resume": "Profitez d’une visite guidée de l’expo pour les adultes accompagnée d’une de nos médiatrices culturelles !",
-   "debut": "2026-10-24",
-   "fin": "2027-07-10",
-   "horaires": "Du samedi 24 octobre 2026 au samedi 10 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-adultes-de-lexpo-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-5d082057774c9b3bec457c31e8f91bd2.png",
-   "lien": "https://www.paris.fr/evenements/visites-adultes-de-l-expo-semons-nos-resistances-123910",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -9237,158 +7174,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-123908",
-   "titre": "Visites Famille de l’expo Semons nos résistances",
-   "resume": "Une visite guidée de l’exposition « Semons nos résistances » pour profiter d’un moment en famille.",
-   "debut": "2026-10-23",
-   "fin": "2027-07-16",
-   "horaires": "Du vendredi 23 octobre 2026 au vendredi 16 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-famille-de-lexpo-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-cc69212c9e45e6315dcc7161ac73054f.png",
-   "lien": "https://www.paris.fr/evenements/visites-famille-de-l-expo-semons-nos-resistances-123908",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123925",
-   "titre": "Visite contée adultes de l’expo « Semons nos résistances »",
-   "resume": "Il était une fois des contes qui n’étaient pas pour les enfants…",
-   "debut": "2026-11-07",
-   "fin": "2027-07-17",
-   "horaires": "Du samedi 07 novembre 2026 au samedi 17 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visite-contee-adultes-de-lexpo-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-4993c6e61136fca5ee95750c3358998b.png",
-   "lien": "https://www.paris.fr/evenements/visite-contee-adultes-de-l-expo-semons-nos-resistances-123925",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123912",
-   "titre": "Visite contée tout-petits « Semons nos résistances »",
-   "resume": "Venez découvrir avec vos tout-petits, une mystérieuse histoire qui prend vie par la voix et le jeu de Florence Desnouveaux et Violaine Robert, au coeur de l’exposition Semons nos résistances.",
-   "debut": "2026-10-26",
-   "fin": "2027-07-17",
-   "horaires": "Du lundi 26 octobre 2026 au samedi 17 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visite-contee-tout-petits-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-75a52e70f75ff421f858b19fcabaca48.png",
-   "lien": "https://www.paris.fr/evenements/visite-contee-tout-petits-semons-nos-resistances-123912",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123942",
-   "titre": "Atelier : Bombes vertes",
-   "resume": "Expérimentez le seed-bombing ou l’art de végétaliser la ville à l’aide de petites boules d’argile chargées en graines qui germeront à l’arrivée de la pluie.",
-   "debut": "2026-11-21",
-   "fin": "2027-07-21",
-   "horaires": "Du samedi 21 novembre 2026 au mercredi 21 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Architecture & ville",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/les-bombes-vertes/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-193449b5256b10529c80ed26a5d8a7df.png",
-   "lien": "https://www.paris.fr/evenements/atelier-bombes-vertes-123942",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-124000",
-   "titre": "Atelier : Craies urbaines",
-   "resume": "Fabriquez des craies urbaines pour faire passer vos messages autrement !",
-   "debut": "2027-01-09",
-   "fin": "2027-07-21",
-   "horaires": "Du samedi 09 janvier 2027 au mercredi 21 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/craies-urbaines/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/16/huge-15a87d6dda7434e70edeece9899b9cf0.png",
-   "lien": "https://www.paris.fr/evenements/atelier-craies-urbaines-124000",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123891",
-   "titre": "Visite contée famille de l’expo \"Semons nos résistances\"",
-   "resume": "Venez écouter les récits de Florence et Violaine au cœur de l’exposition. Fantaisistes, fantastiques, leurs histoires viennent résonner avec les œuvres !",
-   "debut": "2026-10-19",
-   "fin": "2027-07-21",
-   "horaires": "Du lundi 19 octobre 2026 au mercredi 21 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Histoire & patrimoine",
-    "Jeunesse"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visite-contee-famille-de-lexpo-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-11561232a70199a10353a728059781ce.png",
-   "lien": "https://www.paris.fr/evenements/visite-contee-famille-de-l-expo-semons-nos-resistances-123891",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-123862",
    "titre": "Exposition : \"Semons nos resistances\"",
    "resume": "À l’heure où les crises se multiplient, où les récits dominants verrouillent nos horizons et où les ressources vitales de la Terre s’épuisent, il est urgent de se rassembler pour construire des modèles de vie plus justes et plus durables. C’est cette nécessité immédiate, politique et collective qu’explorent les quinze artistes présentés au sein de l’exposition Semons nos résistances.",
@@ -9434,56 +7219,6 @@
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/25/huge-356127c09340069a3ce18423da805d1d.png",
    "lien": "https://www.paris.fr/evenements/semons-nos-resistances-117992",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123935",
-   "titre": "Visites musicales de l’exposition « Semons nos résistances »",
-   "resume": "Chants de lutte, protest songs, compositions porteuses de mémoire : la musique est depuis toujours un puissant moteur de rassemblement et de résistance.",
-   "debut": "2026-10-14",
-   "fin": "2027-07-24",
-   "horaires": "Du mercredi 14 octobre 2026 au samedi 24 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Histoire & patrimoine"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-musicales-de-lexposition-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-e723390eb41489653ff22bd536ffccb4.png",
-   "lien": "https://www.paris.fr/evenements/visites-musicales-de-l-exposition-semons-nos-resistances-123935",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123893",
-   "titre": "Visites tout-petits de l’expo « Semons nos résistances »",
-   "resume": "Une visite de l’exposition « Semons nos résistances » adaptée aux tout-petits où se mêlent art et éveil des sens.",
-   "debut": "2026-10-20",
-   "fin": "2027-07-24",
-   "horaires": "Du mardi 20 octobre 2026 au samedi 24 juillet 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/visites-tout-petits-de-lexpo-semons-nos-resistances/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-e03b8adba7cbe1153f80584a1023e38f.jpg",
-   "lien": "https://www.paris.fr/evenements/visites-tout-petits-de-l-expo-semons-nos-resistances-123893",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
@@ -9666,31 +7401,6 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/06/04/huge-13fdaf3ebc5c3398bf5811cc8c87de2e.jpg",
    "lien": "https://www.paris.fr/evenements/exposition-ecorces-a-l-arboretum-de-paris-113034",
    "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-123938",
-   "titre": "Atelier : Rage with the Machine",
-   "resume": "À l’aide de synthétiseurs et de pédales d’effets, initiez-vous à la musique électronique !",
-   "debut": "2026-11-20",
-   "fin": "2027-10-09",
-   "horaires": "Du vendredi 20 novembre 2026 au samedi 09 octobre 2027 :",
-   "lieu": "MAIF Social Club",
-   "adresse": "37 rue de Turenne, 75003 Paris",
-   "lat": 48.8569999899981,
-   "lon": 2.36431704012878,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://programmation.maifsocialclub.fr/evenements/rage-with-the-machine/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-165a5e5c53eb3d852b04daab8b42b223.png",
-   "lien": "https://www.paris.fr/evenements/atelier-rage-with-the-machine-123938",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
   },
