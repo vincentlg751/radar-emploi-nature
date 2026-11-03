@@ -1,0 +1,117 @@
+{
+ "_note": "Sélection tenue à la main, ajoutée à l'API Que faire à Paris. Une fiche par exposition, au format décrit dans expositions/MODELE.md. Mettre \"a_verifier\": true quand une info (tarif, dates) n'est pas confirmée par le lieu.",
+ "expositions": [
+  {
+   "id": "sel-photosaintgermain-2026",
+   "titre": "Festival PhotoSaintGermain 2026",
+   "resume": "Parcours d'expositions photo dans les galeries, librairies et institutions de Saint-Germain-des-Prés.",
+   "debut": "2026-11-05", "fin": "2026-11-28",
+   "lieu": "Quartier Saint-Germain-des-Prés (plusieurs lieux)", "adresse": "Saint-Germain-des-Prés, 75006 Paris",
+   "lat": 48.8539, "lon": 2.3338,
+   "thematiques": ["Photographie"],
+   "tarif": {"type": "gratuit", "prix_min": 0, "detail": "Expositions en accès libre"}
+  },
+  {
+   "id": "sel-petitpalais-visionnaires-prune-nourry",
+   "titre": "Visionnaires — Prune Nourry",
+   "resume": "Prune Nourry rend hommage à 18 sculptrices oubliées.",
+   "debut": "2026-10-20", "fin": "2027-01-24",
+   "lieu": "Petit Palais", "adresse": "Avenue Winston Churchill, 75008 Paris",
+   "lat": 48.8660, "lon": 2.3146,
+   "thematiques": ["Art contemporain", "Beaux-arts"],
+   "tarif": {"type": "gratuit", "prix_min": 0},
+   "lien": "https://www.petitpalais.paris.fr/"
+  },
+  {
+   "id": "sel-petitpalais-eva-gonzales",
+   "titre": "Eva Gonzalès, parcours d'une artiste",
+   "resume": "Exposition consacrée à la peintre Eva Gonzalès.",
+   "debut": "2026-09-15", "fin": "2027-01-24",
+   "lieu": "Petit Palais", "adresse": "Avenue Winston Churchill, 75008 Paris",
+   "lat": 48.8660, "lon": 2.3146,
+   "thematiques": ["Beaux-arts"],
+   "tarif": {"type": "gratuit", "prix_min": 0, "detail": "Annoncée gratuite par un agenda, à confirmer auprès du musée"},
+   "a_verifier": true,
+   "lien": "https://www.petitpalais.paris.fr/"
+  },
+  {
+   "id": "sel-petitpalais-bruxelles-1900",
+   "titre": "Bruxelles 1900",
+   "resume": "Bruxelles, capitale de l'Art nouveau et des avant-gardes autour de 1900.",
+   "debut": "2026-11-10", "fin": "2027-04-25",
+   "lieu": "Petit Palais", "adresse": "Avenue Winston Churchill, 75008 Paris",
+   "lat": 48.8660, "lon": 2.3146,
+   "thematiques": ["Beaux-arts", "Design, mode & arts déco", "Architecture & ville"],
+   "tarif": {"type": "payant", "detail": "Sources contradictoires (gratuite ou payante) : vérifier sur le site du Petit Palais"},
+   "a_verifier": true,
+   "lien": "https://www.petitpalais.paris.fr/"
+  },
+  {
+   "id": "sel-grandpalais-cezanne-et-nous",
+   "titre": "Cézanne et nous",
+   "resume": "La filiation de Cézanne avec les artistes du XXe siècle, en coproduction avec le Centre Pompidou.",
+   "debut": "2026-09-23", "fin": "2027-01-17",
+   "lieu": "Grand Palais", "adresse": "17 avenue du Général Eisenhower, 75008 Paris",
+   "lat": 48.8661, "lon": 2.3125,
+   "thematiques": ["Beaux-arts", "Art contemporain"],
+   "tarif": {"type": "payant", "prix_min": 16, "detail": "Tarif réduit 16 € ; plein tarif à vérifier", "reservation": true},
+   "lien": "https://www.grandpalais.fr/"
+  },
+  {
+   "id": "sel-orsay-mary-cassatt",
+   "titre": "Mary Cassatt, l'indépendante",
+   "resume": "Choix artistiques, vie moderne et autonomie des femmes dans l'œuvre de Mary Cassatt.",
+   "debut": "2026-10-06", "fin": "2027-01-31",
+   "lieu": "Musée d'Orsay", "adresse": "Esplanade Valéry Giscard d'Estaing, 75007 Paris",
+   "lat": 48.8600, "lon": 2.3266,
+   "thematiques": ["Beaux-arts", "Société & monde"],
+   "tarif": {"type": "payant", "detail": "Billet du musée, tarif à vérifier", "reservation": true},
+   "lien": "https://www.musee-orsay.fr/"
+  },
+  {
+   "id": "sel-orsay-jenny-holzer",
+   "titre": "Jenny Holzer au musée d'Orsay",
+   "resume": "Intervention contemporaine de Jenny Holzer dans le musée.",
+   "debut": "2026-10-20", "fin": "2027-02-21",
+   "lieu": "Musée d'Orsay", "adresse": "Esplanade Valéry Giscard d'Estaing, 75007 Paris",
+   "lat": 48.8600, "lon": 2.3266,
+   "thematiques": ["Art contemporain"],
+   "tarif": {"type": "payant", "detail": "Billet du musée, tarif à vérifier"},
+   "lien": "https://www.musee-orsay.fr/"
+  },
+  {
+   "id": "sel-louvre-zurbaran",
+   "titre": "Zurbarán (1598–1664)",
+   "resume": "Rétrospective consacrée au peintre espagnol du Siècle d'or.",
+   "debut": "2026-10-07", "fin": "2027-01-25",
+   "lieu": "Musée du Louvre — Hall Napoléon", "adresse": "Rue de Rivoli, 75001 Paris",
+   "lat": 48.8606, "lon": 2.3376,
+   "thematiques": ["Beaux-arts", "Histoire & patrimoine"],
+   "tarif": {"type": "payant", "detail": "Billet du musée, réservation conseillée", "reservation": true},
+   "lien": "https://www.louvre.fr/"
+  },
+  {
+   "id": "sel-louvre-sculpter-la-couleur",
+   "titre": "Sculpter la couleur",
+   "resume": "La sculpture polychrome au musée du Louvre.",
+   "debut": "2026-10-06", "fin": "2027-01-31",
+   "lieu": "Musée du Louvre", "adresse": "Rue de Rivoli, 75001 Paris",
+   "lat": 48.8606, "lon": 2.3376,
+   "thematiques": ["Beaux-arts", "Histoire & patrimoine"],
+   "tarif": {"type": "payant", "detail": "Billet du musée ; dates exactes à vérifier", "reservation": true},
+   "a_verifier": true,
+   "lien": "https://www.louvre.fr/"
+  },
+  {
+   "id": "sel-flv-gustave-fayet",
+   "titre": "Gustave Fayet, collectionneur-créateur",
+   "resume": "Le collectionneur et créateur méconnu qui a côtoyé Van Gogh, Gauguin et Redon.",
+   "debut": "2026-10-09", "fin": "2027-03-08",
+   "lieu": "Fondation Louis Vuitton", "adresse": "8 avenue du Mahatma Gandhi, 75116 Paris",
+   "lat": 48.8766, "lon": 2.2633,
+   "thematiques": ["Beaux-arts", "Design, mode & arts déco"],
+   "tarif": {"type": "payant", "detail": "Accès uniquement sur réservation, tarif à vérifier", "reservation": true},
+   "lien": "https://www.fondationlouisvuitton.fr/"
+  }
+ ]
+}
