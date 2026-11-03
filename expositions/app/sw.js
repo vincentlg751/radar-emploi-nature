@@ -1,6 +1,6 @@
 // Hors connexion : l'application est servie depuis le cache ; la liste des expositions
 // est d'abord demandée au réseau (pour voir les nouvelles), sinon la dernière copie est utilisée.
-const CACHE = "expos-v1";
+const CACHE = "expos-v2";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icons/apple-touch-icon.png", "icons/icon-192.png", "vendor/leaflet.js", "vendor/leaflet.css"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener("activate", e => {

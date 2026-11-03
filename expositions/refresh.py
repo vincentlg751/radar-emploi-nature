@@ -84,8 +84,25 @@ def prix_min(detail):
     return min(nums) if nums else None
 
 
+# Événements autour d'une expo (visites, ateliers, vernissages…) : ce ne sont pas des expositions.
+SIDE_EVENTS = re.compile(
+    r"^(atelier|visites?|spectacle|vernissage|taxitram|soiree|boum|philo|conference|balade|dedicace|workshop|"
+    r"rencontre|performance|stage|concert|projection|lecture|finissage|table ronde|masterclass|jeu|parcours conte)\b"
+    r"|visite (guidee|contee|commentee)|vernissage|finissage")
+
+
+def is_side_event(title):
+    return bool(SIDE_EVENTS.search(plain(strip_html(title)).lstrip(" \"'«[(-")))
+
+
+def title_key(title):
+    return re.sub(r"[^a-z0-9]+", " ", plain(title)).strip()
+
+
 def is_expo(r):
     tags = plain(" ".join(as_list(r.get("qfap_tags")) + as_list(r.get("tags")) + as_list(r.get("universe_tags"))))
+    if is_side_event(r.get("title")):
+        return False
     return "expo" in tags or plain(r.get("title")).startswith("expo")
 
 
@@ -179,6 +196,21 @@ def main():
         api_ok, api_error = False, f"{type(exc).__name__}: {exc}"
         api = [e for e in previous.values() if e["id"].startswith("qfap-")]
         print(f"::warning::API Que faire à Paris indisponible ({api_error}). Base précédente conservée.", file=sys.stderr)
+
+    # Une expo de la sélection manuelle déjà présente dans l'API n'est gardée qu'une fois :
+    # la fiche manuelle prime, complétée par l'image et le lien de l'API.
+    sel_keys = {title_key(e["titre"]): e for e in selection if e.get("titre")}
+    dedup = []
+    for e in api:
+        k = title_key(e.get("titre", ""))
+        twin = next((v for sk, v in sel_keys.items() if sk and (sk in k or k in sk)), None)
+        if twin is None:
+            dedup.append(e)
+            continue
+        for f in ("image", "lien", "horaires"):
+            if e.get(f) and not twin.get(f):
+                twin[f] = e[f]
+    api = dedup
 
     merged = {}
     for e in api + selection:  # la sélection manuelle prime sur l'API pour un même id
