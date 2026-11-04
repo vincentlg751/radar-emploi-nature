@@ -8,6 +8,8 @@ import base64, datetime, gzip, json, os, pathlib, shutil, sys, urllib.parse, url
 DATABASE_ID = os.environ.get("NOTION_DATABASE_ID", "650d2e7e59c74a239cfe04291fbcfed5")
 DATA_SOURCE_ID = os.environ.get("NOTION_DATA_SOURCE_ID", "7d5552ba-961d-4a01-a94d-af4343774545")
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import csp  # noqa: E402
 
 
 def call(url, body, version, token):
@@ -90,7 +92,7 @@ def build(pages, out_dir):
     data = {"genere": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), "offres": offres}
     raw = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode()
     gz = base64.b64encode(gzip.compress(raw, 9)).decode()
-    html = (ROOT / "radar-template.html").read_text(encoding="utf-8").replace("__OFFRES_GZ_B64__", gz)
+    html = csp.harden((ROOT / "radar-template.html").read_text(encoding="utf-8").replace("__OFFRES_GZ_B64__", gz))
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "index.html").write_text(html, encoding="utf-8")
     (out_dir / ".nojekyll").write_text("")

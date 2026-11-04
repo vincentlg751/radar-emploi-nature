@@ -11,6 +11,9 @@ import base64, gzip, json, os, pathlib, shutil, sys, urllib.parse, urllib.reques
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
 WWW = HERE / "www"
+sys.path.insert(0, str(ROOT / "scripts"))
+import csp as csp_policy  # noqa: E402
+
 DATA_URL = os.environ.get("RADAR_DATA_URL", "https://vincentlg751.github.io/radar-emploi-nature/offres.json")
 
 
@@ -43,6 +46,7 @@ if __name__ == "__main__":
     html = html.replace(marker, f"<script>window.RADAR_DATA_URL = {json.dumps(DATA_URL)};</script>\n{marker}", 1)
     # Le manifeste et le service worker servent à la version web ; l'app native n'en a pas besoin.
     html = html.replace('<link rel="manifest" href="manifest.webmanifest">\n', "")
+    html = csp_policy.harden(html)  # empreintes des scripts intégrés à la place de 'unsafe-inline'
     if WWW.exists():
         shutil.rmtree(WWW)
     (WWW / "icons").mkdir(parents=True)

@@ -252,6 +252,8 @@ a.btn { color: inherit; text-decoration: none; }
 </div>
 <script id="offres-gz" type="text/plain">__OFFRES_GZ_B64__</script>
 <script>
+// La page ne doit pas être affichée dans le cadre d'un autre site (piège au clic).
+if (window.top !== window.self) { document.documentElement.replaceChildren(); throw new Error("Radar Emploi Nature : affichage dans un cadre refusé."); }
 (() => {
 const WINDOW_DAYS = 21, PAGE = 40;
 const DOMAINS = ["Biodiversité","Marin & littoral","Forêt","Eau & milieux aquatiques","Énergies renouvelables","Climat & adaptation","Agriculture & sols","Déchets & économie circulaire","Air & pollutions","Éducation à l'environnement","Aménagement & espaces naturels"];
