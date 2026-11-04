@@ -3,6 +3,7 @@ name: Application mobile (Android et iOS)
 on:
   workflow_dispatch: {}
   push:
+    branches: [main]
     paths:
       - "mobile/**"
       - "radar-template.html"
@@ -12,54 +13,67 @@ on:
 permissions:
   contents: read
 
+# Toutes les actions sont épinglées par SHA de commit complet (version en commentaire),
+# mises à jour par Dependabot (.github/dependabot.yml).
+# NOTION_TOKEN n'est fourni qu'à l'étape « Intégrer les offres du jour », placée juste après
+# les actions officielles checkout / setup-python et avant toute autre action.
+
 jobs:
   android:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: mobile/package-lock.json
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "21"
       - name: Intégrer les offres du jour (si la clé Notion est configurée)
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: if [ -n "$NOTION_TOKEN" ]; then python scripts/build.py; fi
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4.9.1
+        with:
+          distribution: temurin
+          java-version: "21"
       - name: Construire l'APK
         working-directory: mobile
         run: |
           npm ci
           npm run apk
           cp android/app/build/outputs/apk/debug/app-debug.apk ../RadarEmploi.apk
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: RadarEmploi-android
           path: RadarEmploi.apk
 
   ios:
     runs-on: macos-latest
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
-          xcode-version: latest-stable
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: mobile/package-lock.json
+          persist-credentials: false
+      # Étape Notion avant l'action tierce setup-xcode : celle-ci ne peut donc pas piéger
+      # l'environnement (PATH, etc.) de l'étape qui reçoit le secret.
       - name: Intégrer les offres du jour (si la clé Notion est configurée)
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: if [ -n "$NOTION_TOKEN" ]; then python3 scripts/build.py; fi
+      - uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
+        with:
+          xcode-version: latest-stable
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
       - name: Générer le projet Xcode
         working-directory: mobile
         run: |
@@ -73,7 +87,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO build | tail -20
       - name: Emballer le projet Xcode
         run: cd mobile && zip -qr ../RadarEmploi-ios-xcode.zip ios -x "ios/App/build/*" "*/DerivedData/*"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: RadarEmploi-ios-xcode
           path: RadarEmploi-ios-xcode.zip
