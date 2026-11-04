@@ -1,0 +1,665 @@
+{
+ "genere": "2026-11-04",
+ "lieux": [
+  {
+   "nom": "musée du Louvre",
+   "alias": [
+    [
+     "louvre"
+    ]
+   ],
+   "visiteurs": 9101874,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée national d'art moderne (centre national d'art et de culture Georges Pompidou)",
+   "alias": [
+    [
+     "art",
+     "moderne",
+     "centre",
+     "art",
+     "culture",
+     "georges",
+     "pompidou"
+    ]
+   ],
+   "visiteurs": 3520363,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée d'Orsay",
+   "alias": [
+    [
+     "orsay"
+    ]
+   ],
+   "visiteurs": 3480609,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de l'armée",
+   "alias": [
+    [
+     "armee"
+    ]
+   ],
+   "visiteurs": 1525030,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée du Quai Branly - Jacques Chirac",
+   "alias": [
+    [
+     "quai",
+     "branly",
+     "jacques",
+     "chirac"
+    ]
+   ],
+   "visiteurs": 1188114,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "Petit Palais, musée des beaux-arts de la ville de Paris",
+   "alias": [
+    [
+     "petit",
+     "palais",
+     "beaux",
+     "arts",
+     "ville"
+    ]
+   ],
+   "visiteurs": 1002717,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de l'Orangerie des Tuileries",
+   "alias": [
+    [
+     "orangerie",
+     "tuileries"
+    ]
+   ],
+   "visiteurs": 801788,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "grande galerie de l'évolution (muséum national d'histoire naturelle)",
+   "alias": [
+    [
+     "grande",
+     "galerie",
+     "evolution",
+     "museum",
+     "histoire",
+     "naturelle"
+    ]
+   ],
+   "visiteurs": 769730,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Rodin",
+   "alias": [
+    [
+     "rodin"
+    ]
+   ],
+   "visiteurs": 687257,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de l'Institut du monde arabe",
+   "alias": [
+    [
+     "institut",
+     "monde",
+     "arabe"
+    ]
+   ],
+   "visiteurs": 551448,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée d'art moderne de la ville de Paris",
+   "alias": [
+    [
+     "art",
+     "moderne",
+     "ville"
+    ]
+   ],
+   "visiteurs": 500376,
+   "annee": 2019,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée des monuments français",
+   "alias": [
+    [
+     "monuments",
+     "francais"
+    ]
+   ],
+   "visiteurs": 361660,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "muséum national d'histoire naturelle",
+   "alias": [
+    [
+     "museum",
+     "histoire",
+     "naturelle"
+    ]
+   ],
+   "visiteurs": 317782,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée du Moyen Âge - thermes et hôtel de Cluny",
+   "alias": [
+    [
+     "moyen",
+     "age",
+     "thermes",
+     "hotel",
+     "cluny"
+    ]
+   ],
+   "visiteurs": 317357,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée des arts asiatiques Guimet",
+   "alias": [
+    [
+     "arts",
+     "asiatiques",
+     "guimet"
+    ]
+   ],
+   "visiteurs": 311385,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée des arts décoratifs (Union centrale des arts décoratifs)",
+   "alias": [
+    [
+     "arts",
+     "decoratifs",
+     "union",
+     "centrale",
+     "arts",
+     "decoratifs"
+    ]
+   ],
+   "visiteurs": 308701,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée national de la marine",
+   "alias": [
+    [
+     "marine"
+    ]
+   ],
+   "visiteurs": 292355,
+   "annee": 2018,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée national de l'histoire et des cultures de l'immigration",
+   "alias": [
+    [
+     "histoire",
+     "cultures",
+     "immigration"
+    ]
+   ],
+   "visiteurs": 263518,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée des arts et métiers",
+   "alias": [
+    [
+     "arts",
+     "metiers"
+    ]
+   ],
+   "visiteurs": 242879,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "Palais Galliera, musée de la mode de la Ville de Paris",
+   "alias": [
+    [
+     "palais",
+     "galliera",
+     "mode",
+     "ville"
+    ]
+   ],
+   "visiteurs": 216861,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Picasso",
+   "alias": [
+    [
+     "picasso"
+    ]
+   ],
+   "visiteurs": 210818,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de l'homme (muséum national d'histoire naturelle)",
+   "alias": [
+    [
+     "homme",
+     "museum",
+     "histoire",
+     "naturelle"
+    ]
+   ],
+   "visiteurs": 180378,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de la musique",
+   "alias": [
+    [
+     "musique"
+    ]
+   ],
+   "visiteurs": 170623,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Bourdelle",
+   "alias": [
+    [
+     "bourdelle"
+    ]
+   ],
+   "visiteurs": 167414,
+   "annee": 2021,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée des monnaies et médailles",
+   "alias": [
+    [
+     "monnaies",
+     "medailles"
+    ]
+   ],
+   "visiteurs": 146442,
+   "annee": 2010,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée d'art et d'histoire du judaïsme",
+   "alias": [
+    [
+     "art",
+     "histoire",
+     "judaisme"
+    ]
+   ],
+   "visiteurs": 122868,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée des Plans-Reliefs",
+   "alias": [
+    [
+     "plans",
+     "reliefs"
+    ]
+   ],
+   "visiteurs": 96314,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Cernuschi, musée des arts de l'Asie de la ville de Paris",
+   "alias": [
+    [
+     "cernuschi",
+     "arts",
+     "asie",
+     "ville"
+    ]
+   ],
+   "visiteurs": 93885,
+   "annee": 2019,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de la Libération de Paris - musée du général Leclerc - musée Jean Moulin",
+   "alias": [
+    [
+     "liberation",
+     "general",
+     "leclerc",
+     "jean",
+     "moulin"
+    ]
+   ],
+   "visiteurs": 80833,
+   "annee": 2018,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Yves Saint Laurent Paris",
+   "alias": [
+    [
+     "yves",
+     "saint",
+     "laurent"
+    ]
+   ],
+   "visiteurs": 79399,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de Montmartre",
+   "alias": [
+    [
+     "montmartre"
+    ]
+   ],
+   "visiteurs": 75407,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de la vie romantique",
+   "alias": [
+    [
+     "vie",
+     "romantique"
+    ]
+   ],
+   "visiteurs": 75193,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée national de la Légion d'honneur et des ordres de chevalerie",
+   "alias": [
+    [
+     "legion",
+     "honneur",
+     "ordres",
+     "chevalerie"
+    ]
+   ],
+   "visiteurs": 58195,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Eugène Delacroix",
+   "alias": [
+    [
+     "eugene",
+     "delacroix"
+    ]
+   ],
+   "visiteurs": 57305,
+   "annee": 2023,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Cognacq-Jay, musée du XVIIIe siècle de la ville de Paris",
+   "alias": [
+    [
+     "cognacq",
+     "jay",
+     "xviiie",
+     "siecle",
+     "ville"
+    ]
+   ],
+   "visiteurs": 53849,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de la chasse et de la nature",
+   "alias": [
+    [
+     "chasse",
+     "nature"
+    ]
+   ],
+   "visiteurs": 53362,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de l'Ecole nationale supérieure des beaux-arts",
+   "alias": [
+    [
+     "ecole",
+     "superieure",
+     "beaux",
+     "arts"
+    ]
+   ],
+   "visiteurs": 50000,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Zadkine",
+   "alias": [
+    [
+     "zadkine"
+    ]
+   ],
+   "visiteurs": 48607,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Nissim de Camondo (Union centrale des arts décoratifs)",
+   "alias": [
+    [
+     "nissim",
+     "camondo",
+     "union",
+     "centrale",
+     "arts",
+     "decoratifs"
+    ]
+   ],
+   "visiteurs": 47687,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Gustave Moreau",
+   "alias": [
+    [
+     "gustave",
+     "moreau"
+    ]
+   ],
+   "visiteurs": 41351,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "maison de Balzac",
+   "alias": [
+    [
+     "maison",
+     "balzac"
+    ]
+   ],
+   "visiteurs": 40036,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée du service de santé des armées du Val-de-Grâce",
+   "alias": [
+    [
+     "service",
+     "sante",
+     "armees",
+     "val",
+     "grace"
+    ]
+   ],
+   "visiteurs": 27354,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de la poste",
+   "alias": [
+    [
+     "poste"
+    ]
+   ],
+   "visiteurs": 20530,
+   "annee": 2013,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée de la franc-maçonnerie",
+   "alias": [
+    [
+     "franc",
+     "maconnerie"
+    ]
+   ],
+   "visiteurs": 17493,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée du Touquet Paris-Plage",
+   "alias": [
+    [
+     "touquet",
+     "plage"
+    ]
+   ],
+   "visiteurs": 16521,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Jean-Jacques Henner",
+   "alias": [
+    [
+     "jean",
+     "jacques",
+     "henner"
+    ]
+   ],
+   "visiteurs": 16510,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée Carnavalet - histoire de Paris",
+   "alias": [
+    [
+     "carnavalet",
+     "histoire"
+    ]
+   ],
+   "visiteurs": 8187,
+   "annee": 2016,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "galerie de minéralogie et de géologie (muséum national d'histoire naturelle)",
+   "alias": [
+    [
+     "galerie",
+     "mineralogie",
+     "geologie",
+     "museum",
+     "histoire",
+     "naturelle"
+    ]
+   ],
+   "visiteurs": 7393,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée d'art et d'histoire de l'hôpital Sainte-Anne",
+   "alias": [
+    [
+     "art",
+     "histoire",
+     "hopital",
+     "sainte",
+     "anne"
+    ]
+   ],
+   "visiteurs": 3308,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "musée d'Ennery",
+   "alias": [
+    [
+     "ennery"
+    ]
+   ],
+   "visiteurs": 1077,
+   "annee": 0,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  },
+  {
+   "nom": "maison de Victor Hugo",
+   "alias": [
+    [
+     "maison",
+     "victor",
+     "hugo"
+    ]
+   ],
+   "visiteurs": 100,
+   "annee": 2019,
+   "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+  }
+ ]
+}

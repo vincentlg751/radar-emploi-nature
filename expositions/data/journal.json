@@ -9,13 +9,10 @@
  },
  {
   "jour": "2026-11-04",
-  "total": 298,
-  "ajoutees": 2,
-  "retirees": 1,
+  "total": 296,
+  "ajoutees": 0,
+  "retirees": 2,
   "api_ok": true,
-  "titres_ajoutes": [
-   "« Synergies entre tradition et modernité - l’artisanat japonais à la pointe de l’innovation » - 14e édition",
-   "Exposition photographique «Amorces» de Kostia Hernain-Debain"
-  ]
+  "titres_ajoutes": []
  }
 ]

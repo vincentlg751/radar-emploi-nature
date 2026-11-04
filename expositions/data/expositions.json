@@ -1,18 +1,16 @@
 {
- "genere": "2026-11-04T11:26:07+00:00",
+ "genere": "2026-11-04T11:47:39+00:00",
  "jour": "2026-11-04",
  "api_ok": true,
- "total": 298,
+ "total": 296,
  "par_tarif": {
-  "gratuit": 175,
+  "gratuit": 174,
   "gratuit_sous_condition": 13,
-  "payant": 110,
+  "payant": 109,
   "inconnu": 0
  },
- "nouvelles": [
-  "qfap-127030",
-  "qfap-126890"
- ],
+ "nouvelles": [],
+ "avec_affluence": 51,
  "expositions": [
   {
    "id": "qfap-126358",
@@ -89,7 +87,15 @@
    "lien": "https://www.paris.fr/evenements/la-contre-soiree-du-musee-national-de-la-marine-126325",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 292355,
+    "annee": 2018,
+    "lieu": "musée national de la marine",
+    "niveau": 1,
+    "score": 5.466,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-123635",
@@ -489,7 +495,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/07/07/huge-aba1024d84b5f59f5064c732c79c14c7.jpeg",
    "lien": "https://www.paris.fr/evenements/plumes-du-paradis-voyages-d-un-oiseau-extraordinaire-de-nouvelle-guinee-115895",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1270000,
+    "annee": 2024,
+    "lieu": "Musée du quai Branly – Jacques Chirac",
+    "niveau": 2,
+    "score": 6.104,
+    "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"
+   }
   },
   {
    "id": "qfap-44013",
@@ -2477,7 +2491,15 @@
    "lien": "https://www.paris.fr/evenements/pull-d-artiste-atelier-textile-autour-de-l-exposition-l-etoffe-de-l-artiste-125426",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-125442",
@@ -2503,7 +2525,15 @@
    "lien": "https://www.paris.fr/evenements/costume-en-papier-tisse-et-colore-atelier-de-creation-en-famille-autour-de-l-exposition-l-etoffe-de-l-artiste-125442",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-126865",
@@ -2553,7 +2583,15 @@
    "lien": "https://www.paris.fr/evenements/blouses-brodees-atelier-textile-autour-de-l-exposition-l-etoffe-de-l-artiste-125427",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-105923",
@@ -2580,7 +2618,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/02/06/huge-96721eca153c7619400289f0a46b786c.jpeg",
    "lien": "https://www.paris.fr/evenements/chaim-kaliski-jim-d-etterbeek-105923",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 122868,
+    "annee": 0,
+    "lieu": "musée d'art et d'histoire du judaïsme",
+    "niveau": 0,
+    "score": 5.089,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-123193",
@@ -2658,7 +2704,15 @@
    "lien": "https://www.paris.fr/evenements/hugo-et-l-architecture-de-la-pierre-a-la-plume-113749",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 100,
+    "annee": 2019,
+    "lieu": "maison de Victor Hugo",
+    "niveau": 0,
+    "score": 2.0,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-125202",
@@ -2986,7 +3040,15 @@
    "lien": "https://www.paris.fr/evenements/a-chacun-son-style-atelier-de-modelage-en-famille-autour-de-l-exposition-l-etoffe-de-l-artiste-125438",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-125423",
@@ -3013,7 +3075,15 @@
    "lien": "https://www.paris.fr/evenements/mon-necessaire-a-couture-atelier-textile-en-famille-autour-de-l-exposition-l-etoffe-de-l-artiste-125423",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117993",
@@ -3065,7 +3135,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/02/25/huge-87d14b1e0a529862e07ef509b10a8780.jpg",
    "lien": "https://www.paris.fr/evenements/robert-capa-photographe-de-guerre-106878",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 80833,
+    "annee": 2018,
+    "lieu": "musée de la Libération de Paris - musée du général Leclerc - musée Jean Moulin",
+    "niveau": 0,
+    "score": 4.908,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-126878",
@@ -3248,7 +3326,15 @@
    "lien": "https://www.paris.fr/evenements/silhouettes-d-artistes-visites-guidees-de-l-exposition-l-etoffe-de-l-artiste-en-famille-125434",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-86111",
@@ -3298,7 +3384,15 @@
    "lien": "https://www.paris.fr/evenements/ma-toque-d-atelier-atelier-textile-en-famille-autour-de-l-exposition-l-etoffe-de-l-artiste-125424",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-124520",
@@ -3374,7 +3468,15 @@
    "lien": "https://www.paris.fr/evenements/styliste-en-herbe-atelier-textile-en-famille-autour-de-l-exposition-l-etoffe-de-l-artiste-125419",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-125421",
@@ -3400,7 +3502,15 @@
    "lien": "https://www.paris.fr/evenements/broderie-simultanee-atelier-textile-en-famille-autour-de-l-exposition-l-etoffe-de-l-artiste-125421",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-124102",
@@ -3698,7 +3808,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2025/11/18/huge-f558b01e892c167c9132b73448b1a36e.jpg",
    "lien": "https://www.paris.fr/evenements/mon-petit-carnavalet-124878",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 8187,
+    "annee": 2016,
+    "lieu": "musée Carnavalet - histoire de Paris",
+    "niveau": 0,
+    "score": 3.913,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-126117",
@@ -3986,7 +4104,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/18/huge-cbe5664b47f746fdad72cc3ba6b236b5.jpg",
    "lien": "https://www.paris.fr/evenements/karen-knorr-au-musee-delacroix-117757",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 57305,
+    "annee": 2023,
+    "lieu": "musée Eugène Delacroix",
+    "niveau": 0,
+    "score": 4.758,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-113112",
@@ -4148,7 +4274,15 @@
    "lien": "https://www.paris.fr/evenements/tenter-l-art-pour-soigner-a-l-hopital-psychiatrique-de-blida-joinville-dans-les-annees-1960-117997",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 551448,
+    "annee": 0,
+    "lieu": "musée de l'Institut du monde arabe",
+    "niveau": 1,
+    "score": 5.742,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117962",
@@ -4227,7 +4361,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/25/huge-9fc32438e931f3f78f804f38dfa2e7c6.jpg",
    "lien": "https://www.paris.fr/evenements/portraits-de-famille-117973",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 16510,
+    "annee": 0,
+    "lieu": "musée Jean-Jacques Henner",
+    "niveau": 0,
+    "score": 4.218,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-105454",
@@ -4461,7 +4603,15 @@
    "lien": "https://www.paris.fr/evenements/exposition-animalia-bestiaire-de-la-collection-al-thani-114430",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 292355,
+    "annee": 2018,
+    "lieu": "musée national de la marine",
+    "niveau": 1,
+    "score": 5.466,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-124707",
@@ -4536,7 +4686,15 @@
    "lien": "https://www.paris.fr/evenements/la-grande-aventure-du-savoir-medical-105917",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 551448,
+    "annee": 0,
+    "lieu": "musée de l'Institut du monde arabe",
+    "niveau": 1,
+    "score": 5.742,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117724",
@@ -4641,7 +4799,15 @@
    "lien": "https://www.paris.fr/evenements/zeus-le-cheval-metallique-au-muam-l-installation-102409",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 242879,
+    "annee": 0,
+    "lieu": "musée des arts et métiers",
+    "niveau": 1,
+    "score": 5.385,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-123445",
@@ -4849,7 +5015,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/18/huge-eca00dea99ecc2e8ad96c9ee3dcdd781.png",
    "lien": "https://www.paris.fr/evenements/premieres-nations-arts-et-cultures-du-nord-ouest-de-l-amerique-117759",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1270000,
+    "annee": 2024,
+    "lieu": "Musée du quai Branly – Jacques Chirac",
+    "niveau": 2,
+    "score": 6.104,
+    "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"
+   }
   },
   {
    "id": "qfap-117964",
@@ -4876,7 +5050,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-be2283ccab5c3ae31a2d546d109e978c.png",
    "lien": "https://www.paris.fr/evenements/open-space-19-mohammad-alfaraj-117964",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1208173,
+    "annee": 2024,
+    "lieu": "Fondation Louis Vuitton",
+    "niveau": 2,
+    "score": 6.082,
+    "source": "Liste Wikipédia (Club Innovation Culture)"
+   }
   },
   {
    "id": "qfap-116729",
@@ -5005,7 +5187,15 @@
    "source": "Sélection manuelle",
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-11b9ea9a94d0166d2e65a1b99f8fb042.png",
    "horaires": "Du mardi 15 septembre 2026 au dimanche 24 janvier 2027 : vendredi, samedi de 10h00 à 20h00 mardi, mercredi, jeudi, dimanche de 10h00 à 18h00",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1459371,
+    "annee": 2024,
+    "lieu": "Petit Palais",
+    "niveau": 2,
+    "score": 6.164,
+    "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"
+   }
   },
   {
    "id": "qfap-117747",
@@ -5062,7 +5252,15 @@
    "lien": "https://www.paris.fr/evenements/l-etoffe-de-l-artiste-de-rosa-bonheur-a-sonia-delaunay-117951",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 167414,
+    "annee": 2021,
+    "lieu": "musée Bourdelle",
+    "niveau": 0,
+    "score": 5.224,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117753",
@@ -5138,32 +5336,17 @@
    },
    "lien": "https://www.petitpalais.paris.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117942",
-   "titre": "Visionnaires. Carte blanche à Prune Nourry",
-   "resume": "Le Petit Palais invite Prune Nourry à investir l’ensemble du musée pour mettre en lumière, dans son exposition « Visionnaires », des femmes sculptrices méconnues ou oubliées par l’Histoire de l’art.",
-   "debut": "2026-10-20",
-   "fin": "2027-01-24",
-   "horaires": "Du mardi 20 octobre 2026 au dimanche 24 janvier 2027 : vendredi, samedi de 10h00 à 20h00 mardi, mercredi, jeudi, dimanche de 10h00 à 18h00",
-   "lieu": "Petit Palais - Musée des beaux-arts de la Ville de Paris",
-   "adresse": "2 avenue Winston-Churchill, 75008 Paris",
-   "lat": 48.866246,
-   "lon": 2.313855,
-   "thematiques": [
-    "Autres"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "billetterie": "https://www.petitpalais.paris.fr/expositions/prune-nourry"
-   },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-684eac921ec901258807bb34d4c5e106.jpg",
-   "lien": "https://www.paris.fr/evenements/visionnaires-carte-blanche-a-prune-nourry-117942",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "horaires": "Du mardi 20 octobre 2026 au dimanche 24 janvier 2027 : vendredi, samedi de 10h00 à 20h00 mardi, mercredi, jeudi, dimanche de 10h00 à 18h00",
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1459371,
+    "annee": 2024,
+    "lieu": "Petit Palais",
+    "niveau": 2,
+    "score": 6.164,
+    "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"
+   }
   },
   {
    "id": "qfap-117931",
@@ -5190,7 +5373,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-b73cea63714bb5997ccd3e6db8d857b9.jpg",
    "lien": "https://www.paris.fr/evenements/je-passe-ma-vie-a-peindre-un-parcours-claude-monet-en-galerie-impressionniste-117931",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 3751141,
+    "annee": 2024,
+    "lieu": "Musée d'Orsay",
+    "niveau": 3,
+    "score": 6.574,
+    "source": "Liste Wikipédia « most-visited museums in France » ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "qfap-117945",
@@ -5269,7 +5460,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/07/20/huge-05b337c6fa0039662c3f1e453e61954f.jpg",
    "lien": "https://www.paris.fr/evenements/monet-peindre-le-temps-116716",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1198694,
+    "annee": 2024,
+    "lieu": "Musée de l'Orangerie",
+    "niveau": 2,
+    "score": 6.079,
+    "source": "Liste Wikipédia ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "sel-louvre-zurbaran",
@@ -5292,7 +5491,15 @@
    },
    "lien": "https://www.louvre.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 9101874,
+    "annee": 0,
+    "lieu": "musée du Louvre",
+    "niveau": 3,
+    "score": 6.959,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117930",
@@ -5320,7 +5527,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-9e092636f8a694ad5ca39661b18f1491.jpg",
    "lien": "https://www.paris.fr/evenements/auguste-bartholdi-la-liberte-eclairant-le-monde-117930",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 3751141,
+    "annee": 2024,
+    "lieu": "Musée d'Orsay",
+    "niveau": 3,
+    "score": 6.574,
+    "source": "Liste Wikipédia « most-visited museums in France » ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "qfap-117972",
@@ -5401,7 +5616,15 @@
    "source": "Sélection manuelle",
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-0066fdb5b77c183fab979b53a0857b04.jpg",
    "horaires": "Du mardi 06 octobre 2026 au dimanche 31 janvier 2027 : jeudi de 09h30 à 21h45 mardi, mercredi, vendredi, samedi, dimanche de 09h30 à 18h00",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 3751141,
+    "annee": 2024,
+    "lieu": "Musée d'Orsay",
+    "niveau": 3,
+    "score": 6.574,
+    "source": "Liste Wikipédia « most-visited museums in France » ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "qfap-125267",
@@ -5530,7 +5753,15 @@
    "a_verifier": true,
    "lien": "https://www.louvre.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 9101874,
+    "annee": 0,
+    "lieu": "musée du Louvre",
+    "niveau": 3,
+    "score": 6.959,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117929",
@@ -5556,7 +5787,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-ed63875b6ceb2bfe19b94ae2858e04cb.jpg",
    "lien": "https://www.paris.fr/evenements/une-statue-pour-la-liberte-le-reve-de-bartholdi-de-paris-a-new-york-experience-immersive-en-realite-virtuelle-117929",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 3751141,
+    "annee": 2024,
+    "lieu": "Musée d'Orsay",
+    "niveau": 3,
+    "score": 6.574,
+    "source": "Liste Wikipédia « most-visited museums in France » ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "qfap-117921",
@@ -5583,7 +5822,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-c1609127056a7c80a6ef96034804c114.png",
    "lien": "https://www.paris.fr/evenements/voir-tahiti-premieres-photographies-1859-1870-117921",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1270000,
+    "annee": 2024,
+    "lieu": "Musée du quai Branly – Jacques Chirac",
+    "niveau": 2,
+    "score": 6.104,
+    "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"
+   }
   },
   {
    "id": "qfap-118002",
@@ -5662,7 +5909,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/07/21/huge-bd7eb9277721936f7606a0130e156029.png",
    "lien": "https://www.paris.fr/evenements/kurt-schwitters-le-chaos-monde-1918-1948-116798",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 210818,
+    "annee": 0,
+    "lieu": "musée Picasso",
+    "niveau": 1,
+    "score": 5.324,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-124048",
@@ -5851,7 +6106,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/07/21/huge-76225b53b4b145d8a98c8080a9e2dd5d.jpeg",
    "lien": "https://www.paris.fr/evenements/paris-a-l-arrache-jacques-villegle-et-l-art-urbain-116772",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 8187,
+    "annee": 2016,
+    "lieu": "musée Carnavalet - histoire de Paris",
+    "niveau": 0,
+    "score": 3.913,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117953",
@@ -5958,7 +6221,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/07/20/huge-0444e993f76c74516d5f35df776ec748.jpg",
    "lien": "https://www.paris.fr/evenements/contrepoint-contemporain-vija-celmins-116717",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1198694,
+    "annee": 2024,
+    "lieu": "Musée de l'Orangerie",
+    "niveau": 2,
+    "score": 6.079,
+    "source": "Liste Wikipédia ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "qfap-118005",
@@ -6062,7 +6333,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/09/15/huge-b6d5a2716df0fb20d4fbbb7ff1ab7325.png",
    "lien": "https://www.paris.fr/evenements/ce-qui-reste-lionel-sabatte-123945",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 53362,
+    "annee": 0,
+    "lieu": "musée de la chasse et de la nature",
+    "niveau": 0,
+    "score": 4.727,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-124712",
@@ -6109,34 +6388,17 @@
    },
    "lien": "https://www.musee-orsay.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117935",
-   "titre": "Jenny Holzer. J’ai vu",
-   "resume": "Reconnue comme l’une des artistes majeures de notre époque, l’artiste étatsunienne Jenny Holzer a placé les mots et les idées au cœur de sa pratique profondément engagée. Pour l’exposition J’ai vu, conçue avec et pour le musée d’Orsay à l’automne 2026, l’artiste mobilise des fragments de textes qu’elle a puisés dans les collections du musée d’Orsay ou des textes importants de l’époque qu’elle dépl",
-   "debut": "2026-10-20",
-   "fin": "2027-02-21",
-   "horaires": "Du mardi 20 octobre 2026 au dimanche 21 février 2027 : jeudi de 09h30 à 21h45 mardi, mercredi, vendredi, samedi, dimanche de 09h30 à 18h00",
-   "lieu": "Musée d'Orsay",
-   "adresse": "Esplanade Valéry Giscard d'Estaing, 75007 Paris",
-   "lat": 48.8603522858312,
-   "lon": 2.32675478488623,
-   "thematiques": [
-    "Art contemporain",
-    "Beaux-arts"
-   ],
-   "tarif": {
-    "type": "payant",
-    "detail": "De 0 à 16 euros;",
-    "prix_min": 16.0,
-    "reservation": true,
-    "billetterie": "https://www.musee-orsay.fr/fr/programme/agenda/expositions/jenny-holzer-jai-vu"
-   },
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-fad1c524e0d7feb4896cb9a36c60a19f.jpg",
-   "lien": "https://www.paris.fr/evenements/jenny-holzer-j-ai-vu-117935",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "horaires": "Du mardi 20 octobre 2026 au dimanche 21 février 2027 : jeudi de 09h30 à 21h45 mardi, mercredi, vendredi, samedi, dimanche de 09h30 à 18h00",
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 3751141,
+    "annee": 2024,
+    "lieu": "Musée d'Orsay",
+    "niveau": 3,
+    "score": 6.574,
+    "source": "Liste Wikipédia « most-visited museums in France » ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"
+   }
   },
   {
    "id": "qfap-116770",
@@ -6317,7 +6579,15 @@
    "lien": "https://www.paris.fr/evenements/vive-la-mariee-114726",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 551448,
+    "annee": 0,
+    "lieu": "musée de l'Institut du monde arabe",
+    "niveau": 1,
+    "score": 5.742,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-112028",
@@ -6372,7 +6642,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/18/huge-dce1ad3ce3dee6f8960e6f9cfa932b78.jpg",
    "lien": "https://www.paris.fr/evenements/artistes-au-museum-117751",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 769730,
+    "annee": 0,
+    "lieu": "grande galerie de l'évolution (muséum national d'histoire naturelle)",
+    "niveau": 1,
+    "score": 5.886,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-79799",
@@ -6421,7 +6699,15 @@
    "source": "Sélection manuelle",
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-91377d89642923086fd91eba71b6f3ff.png",
    "horaires": "Du vendredi 09 octobre 2026 au lundi 08 mars 2027 : samedi, dimanche de 11h00 à 19h00 lundi, mercredi, jeudi, vendredi de 12h00 à 19h00",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1208173,
+    "annee": 2024,
+    "lieu": "Fondation Louis Vuitton",
+    "niveau": 2,
+    "score": 6.082,
+    "source": "Liste Wikipédia (Club Innovation Culture)"
+   }
   },
   {
    "id": "qfap-123086",
@@ -6499,7 +6785,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/06/huge-c8adaef05c67aba616f3b7b31bff87c6.jpg",
    "lien": "https://www.paris.fr/evenements/georges-kars-un-bohemien-a-paris-117410",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 122868,
+    "annee": 0,
+    "lieu": "musée d'art et d'histoire du judaïsme",
+    "niveau": 0,
+    "score": 5.089,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-120535",
@@ -6625,7 +6919,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/24/huge-d9480cc56091b38cc9057d1e22428da4.jpg",
    "lien": "https://www.paris.fr/evenements/l-appel-des-profondeurs-une-aventure-sous-les-mers-de-l-antiquite-a-nos-jours-117960",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 292355,
+    "annee": 2018,
+    "lieu": "musée national de la marine",
+    "niveau": 1,
+    "score": 5.466,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-116704",
@@ -6678,7 +6980,15 @@
    "lien": "https://www.paris.fr/evenements/de-la-vigne-au-verre-le-vin-chez-balzac-118174",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 40036,
+    "annee": 0,
+    "lieu": "maison de Balzac",
+    "niveau": 0,
+    "score": 4.602,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-126343",
@@ -6730,7 +7040,15 @@
    "image": "https://cdn.paris.fr/qfapv4/2026/08/18/huge-7c44df42bffb8f6d3ba2b742525cecff.jpg",
    "lien": "https://www.paris.fr/evenements/delacroix-chevaux-et-autres-animaux-117756",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 57305,
+    "annee": 2023,
+    "lieu": "musée Eugène Delacroix",
+    "niveau": 0,
+    "score": 4.758,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-123375",
@@ -6835,7 +7153,15 @@
    "a_verifier": true,
    "lien": "https://www.petitpalais.paris.fr/",
    "source": "Sélection manuelle",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 1459371,
+    "annee": 2024,
+    "lieu": "Petit Palais",
+    "niveau": 2,
+    "score": 6.164,
+    "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"
+   }
   },
   {
    "id": "qfap-117980",
@@ -6992,7 +7318,15 @@
    "lien": "https://www.paris.fr/evenements/exposition-louvre-photo-au-musee-du-louvre-124629",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 9101874,
+    "annee": 0,
+    "lieu": "musée du Louvre",
+    "niveau": 3,
+    "score": 6.959,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-124067",
@@ -7042,7 +7376,15 @@
    "lien": "https://www.paris.fr/evenements/les-secrets-de-l-alhambra-nasride-105920",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 551448,
+    "annee": 0,
+    "lieu": "musée de l'Institut du monde arabe",
+    "niveau": 1,
+    "score": 5.742,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-126544",
@@ -7272,7 +7614,15 @@
    "lien": "https://www.paris.fr/evenements/lady-liberte-de-la-sueur-de-l-audace-du-genie-116796",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 242879,
+    "annee": 0,
+    "lieu": "musée des arts et métiers",
+    "niveau": 1,
+    "score": 5.385,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117991",
@@ -7558,7 +7908,15 @@
    "lien": "https://www.paris.fr/evenements/la-grande-aventure-du-savoir-medical-114711",
    "accessible": true,
    "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
+   "vu_le": "2026-11-03",
+   "affluence": {
+    "visiteurs": 551448,
+    "annee": 0,
+    "lieu": "musée de l'Institut du monde arabe",
+    "niveau": 1,
+    "score": 5.742,
+    "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"
+   }
   },
   {
    "id": "qfap-117292",
