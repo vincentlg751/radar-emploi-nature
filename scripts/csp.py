@@ -8,7 +8,7 @@
 import base64, hashlib, json, re, urllib.parse
 
 INLINE = re.compile(r"<script(?P<attrs>[^>]*)>(?P<body>.*?)</script>", re.S)
-CONNECT = "connect-src 'self'"
+CONNECT = "connect-src 'self' https://api.github.com"
 
 
 def harden(html):

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.github.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Radar Emploi Nature</title>
 <meta name="theme-color" content="#F1F4EF">
@@ -251,6 +251,7 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
       <button class="btn small theme-btn" id="theme" type="button" aria-pressed="false" title="Basculer entre mode jour et mode nuit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>Mode nuit</span></button>
       <span id="sync">Connexion à Notion…</span>
       <button class="btn small" id="refresh" type="button">Actualiser</button>
+      <button class="btn small" id="syncbtn" type="button" hidden>Synchro Notion</button>
     </div>
   </header>
 </div>
@@ -345,8 +346,8 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
 
     <section id="sourcesview" hidden aria-labelledby="srch">
       <h2 id="srch" style="margin-bottom:6px">Sources de recherche</h2>
-      <p class="muted" style="margin:0 0 12px">Les sites que l'agent parcourt chaque matin à 5 h 40, en plus de sa liste de base. Pour en ajouter un ou le mettre en pause, modifiez la base « Sources de recherche » dans Notion ou dans l'artifact claude.ai : la liste ci-dessous suit le lendemain matin.</p>
-      <form class="formbox" id="srcform" novalidate hidden>
+      <p class="muted" style="margin:0 0 12px">Les sites que l'agent parcourt chaque matin à 5 h 40, en plus de sa liste de base. Décochez un site pour le mettre en pause.</p>
+      <form class="formbox" id="srcform" novalidate>
         <div class="fgrid">
           <label class="field" for="src-url">Adresse du site ou de la page offres *<input id="src-url" type="url" placeholder="https://www.exemple.fr/recrutement" required></label>
           <label class="field" for="src-nom">Nom<input id="src-nom" type="text" placeholder="ex. Parc national des Écrins"></label>
@@ -381,6 +382,17 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
   </main>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="syncbox" hidden role="dialog" aria-modal="true" aria-labelledby="sync-h">
+  <form id="syncform" novalidate>
+    <h2 id="sync-h">Synchronisation avec Notion</h2>
+    <p class="muted" style="margin:0">Vos favoris, candidatures, offres retirées ou ajoutées et sources sont recopiés dans Notion par un robot GitHub, en une minute environ, sans serveur. Les envois sont chiffrés : rien de lisible n'apparaît sur GitHub.</p>
+    <label class="field" for="sync-token">Clé GitHub personnelle<input id="sync-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"></label>
+    <label class="field" for="sync-key">Clé de chiffrement (identique au secret GitHub RADAR_SYNC_KEY)<input id="sync-key" type="text" autocomplete="off" spellcheck="false" placeholder="Touchez « Générer une clé »"></label>
+    <div class="row"><button class="btn small" type="button" id="sync-gen">Générer une clé</button><button class="btn small" type="button" id="sync-copy">Copier la clé</button><span class="legal" id="sync-copied"></span></div>
+    <div class="row"><button class="btn small" type="button" id="sync-off">Désactiver sur cet appareil</button><span style="flex:1"></span><button class="btn small" type="button" id="sync-cancel">Fermer</button><button class="btn small primary" type="submit" id="sync-go">Enregistrer et tester</button></div>
+    <span class="legal" id="sync-msg" role="alert"></span>
+  </form>
+</div>
 <div class="modal" id="askbox" hidden role="dialog" aria-modal="true" aria-labelledby="ask-h">
   <form id="askform" novalidate>
     <h2 id="ask-h">Demander à Claude</h2>
@@ -773,11 +785,11 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     const cancel = el("button", { class: "btn small", type: "button", onclick: ev => { ev.stopPropagation(); S.confirm = null; renderList(); } }, "Annuler");
     if (S.confirm.step === 1) {
       return el("div", { class: "confirm", onclick: ev => ev.stopPropagation() },
-        el("span", {}, "Retirer cette offre de votre liste ?"),
+        el("span", {}, "Retirer cette offre (corbeille Notion) ?"),
         el("span", { class: "row" }, cancel, el("button", { class: "btn small danger", type: "button", onclick: ev => { ev.stopPropagation(); S.confirm = { id: o.id, step: 2 }; renderList(); } }, "Oui, supprimer")));
     }
     return el("div", { class: "confirm strong", onclick: ev => ev.stopPropagation() },
-      el("span", {}, el("b", {}, "Confirmation finale : "), `« ${o.poste} » disparaîtra du Radar sur cet appareil (elle reste dans Notion).`),
+      el("span", {}, el("b", {}, "Confirmation finale : "), `« ${o.poste} » ira dans la corbeille Notion et disparaîtra du Radar.`),
       el("span", { class: "row" }, cancel, el("button", { class: "btn small danger", type: "button", id: "confirm-final", onclick: ev => { ev.stopPropagation(); doDelete(o); } }, "Supprimer définitivement")),
       S.confirm.msg ? el("span", { class: "legal", style: "flex-basis:100%" }, S.confirm.msg) : null);
   }
@@ -850,7 +862,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
       S.confirm = null;
       const next = S.filtered[i + 1] || S.filtered[i - 1];
       S.selected = next && next.id !== o.id ? next.id : null;
-      flash("Offre retirée de votre liste");
+      flash(S.mcp?.local ? "Offre retirée" + syncNote() : "Offre supprimée (récupérable 30 jours dans la corbeille Notion)");
       invalidate(); buildFilters(); apply(); renderDetail();
     } catch (e) {
       S.confirm = { id: o.id, step: 2, msg: notionErr(e, "La suppression") }; renderList();
@@ -863,7 +875,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
       save.onclick = () => { if (!d.value) { d.reportValidity?.(); return; } setStatut(o, "Candidaté", { "date:Date de candidature:start": d.value, "date:Date de candidature:is_datetime": 0 }, "La modification de la date"); };
       return el("div", { class: "candbox done" },
         el("h3", { style: "margin:0" }, "Candidature"),
-        el("p", { style: "margin:0" }, o.candidature ? `Candidature envoyée le ${frDate(o.candidature)}. Cette offre est conservée sur cet appareil, même après sa sortie de la veille.` : "Candidature enregistrée sans date : indiquez-la ci-dessous."),
+        el("p", { style: "margin:0" }, o.candidature ? `Candidature envoyée le ${frDate(o.candidature)}. Cette offre est conservée : l'agent ne la supprime jamais.` : "Candidature enregistrée sans date : indiquez-la ci-dessous."),
         el("label", { class: "row", for: "cand-date", style: "font-size:13px" }, "Date de candidature", d, save));
     }
     if (o.statut !== "Favori") return el("p", { class: "legal", style: "margin:0" }, "Pour suivre une candidature, mettez d'abord l'offre en favori (étoile), puis indiquez la date depuis l'onglet Favoris.");
@@ -1383,7 +1395,7 @@ N'invente rien : laisse vide ce qui n'est pas dans le texte.
 ANNONCE :
 ${text.slice(0, 20000)}`, { modelTier: "quick" });
         if (r && typeof r === "object") { f = { ...r, poste: f.poste || r.poste, entreprise: f.entreprise || r.entreprise }; extracted = true; }
-      } catch (err) { msg.textContent = "Offre ajoutée sans lecture par Claude : complétez-la plus tard si besoin."; }
+      } catch (err) { msg.textContent = "Offre ajoutée sans lecture par Claude : l'agent du matin la complètera."; }
     }
     const props = { "Poste": (f.poste || "Offre ajoutée par lien").slice(0, 200), "Lien": url, "Source": "Ajout manuel", "Statut": $("#add-fav").checked ? "Favori" : "Nouveau", "À compléter": extracted ? "__NO__" : "__YES__" };
     if (f.entreprise) props["Entreprise"] = f.entreprise;
@@ -1406,7 +1418,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
       S.offers.unshift(o); invalidate(); buildFilters();
       $("#addbox").reset(); openAdd(false);
       setTab(o.statut === "Favori" ? "favoris" : "offres"); select(o.id); scrollToSelected();
-      flash(extracted ? "Offre ajoutée et complétée par Claude" : "Offre ajoutée sur cet appareil");
+      flash((extracted ? "Offre ajoutée et complétée par Claude" : "Offre ajoutée : l'agent complètera les informations demain matin") + (S.mcp?.local ? syncNote() : ""));
     } catch (err) {
       msg.textContent = notionErr(err, "L'ajout") + (err?.code === "server_unavailable" || err?.code === "upstream_error" ? " Actualisez avant de réessayer pour éviter un doublon." : "");
     } finally { btn.disabled = false; }
@@ -1429,7 +1441,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
   function renderSources() {
     const list = $("#srclist");
     if (!S.sources) { list.replaceChildren(el("div", { class: "empty" }, "Chargement des sources…")); return; }
-    if (!S.sources.length) { list.replaceChildren(el("div", { class: "empty" }, "Aucune source publiée pour l'instant.")); return; }
+    if (!S.sources.length) { list.replaceChildren(el("div", { class: "empty" }, "Aucune source pour l'instant. Ajoutez un site ci-dessus.")); return; }
     list.replaceChildren(...S.sources.map(s => {
       const tog = el("input", { type: "checkbox", id: "act-" + s.id.slice(-12), checked: s.active, "aria-label": "Source active" });
       tog.onchange = async () => {
@@ -1438,9 +1450,8 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
         catch (e) { s.active = !v; tog.checked = !v; flash(notionErr(e, "La modification"), true); }
         finally { tog.disabled = false; }
       };
-      if (S.mcp?.local) tog.disabled = true;
       const confirming = S.srcConfirm === s.id;
-      const del = S.mcp?.local ? null : confirming
+      const del = confirming
         ? el("span", { class: "row" }, el("span", { class: "legal" }, "Retirer cette source ?"),
             el("button", { class: "btn small", type: "button", onclick: () => { S.srcConfirm = null; renderSources(); } }, "Annuler"),
             el("button", { class: "btn small danger", type: "button", onclick: () => removeSource(s) }, "Retirer"))
@@ -1472,7 +1483,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
       const res = await S.mcp.callTool(NOTION, "notion-create-pages", { parent: { data_source_id: SOURCES_DS }, pages: [{ properties: props }], allow_async: false });
       const id = (res.payload?.pages?.[0]?.url || "").replace(/\?.*$/, "") || ("local-" + Date.now());
       (S.sources = S.sources || []).unshift(srcRow({ ...props, url: id }));
-      $("#srcform").reset(); msg.textContent = "Site ajouté : l'agent le parcourra dès demain matin."; invalidate();
+      $("#srcform").reset(); msg.textContent = "Site ajouté : l'agent le parcourra dès demain matin." + (S.mcp?.local ? syncNote() : ""); invalidate();
     } catch (err) { msg.textContent = notionErr(err, "L'ajout"); }
     finally { btn.disabled = false; renderTabs(); renderSources(); }
   });
@@ -1485,16 +1496,94 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
   renderCV(); renderTabs(); renderDetail();
 
   // ---------- mode autonome (application Android / iPhone / web, sans serveur ni abonnement) ----------
-  // Hors de claude.ai, l'application lit la liste publiée chaque matin par GitHub (offres.json) et garde
-  // sur l'appareil ce que vous faites : favoris, candidatures, offres retirées ou ajoutées. Elle reprend
-  // les mêmes appels que dans claude.ai, ce qui laisse tout le reste de la page inchangé.
+  // Hors de claude.ai, l'application lit la liste publiée chaque matin par GitHub (offres.json). Vos actions
+  // s'appliquent tout de suite sur l'appareil, puis un robot GitHub (notion-action.yml) les recopie dans
+  // Notion : l'application lui envoie, chiffrées, les mêmes modifications que l'artifact claude.ai.
   const DATA_URL = window.RADAR_DATA_URL || "offres.json";
+  const REPO = window.RADAR_REPO || "vincentlg751/radar-emploi-nature";
   const jget = k => { try { return JSON.parse(store.get(k) || "null"); } catch { return null; } };
-  const LOCAL_KEY = "radar.local";
-  const localState = () => { const l = jget(LOCAL_KEY) || {}; return { st: l.st || {}, hidden: l.hidden || {}, added: Array.isArray(l.added) ? l.added : [], snap: l.snap || {} }; };
+  const LOCAL_KEY = "radar.local", QUEUE_KEY = "radar.queue", SYNC_KEY = "radar.sync";
+  const localState = () => { const l = jget(LOCAL_KEY) || {}; return { st: l.st || {}, hidden: l.hidden || {}, added: Array.isArray(l.added) ? l.added : [], snap: l.snap || {},
+    hiddenLinks: l.hiddenLinks || {}, srcAdded: Array.isArray(l.srcAdded) ? l.srcAdded : [], srcActive: l.srcActive || {}, srcHidden: l.srcHidden || {} }; };
   const saveLocal = l => store.set(LOCAL_KEY, JSON.stringify(l));
   const validRows = (a, title = "Poste") => Array.isArray(a) ? a.filter(r => r && typeof r === "object" && typeof r.url === "string" && typeof r[title] === "string") : [];
+  const isLocalId = id => String(id).startsWith("local:");
+  const linkKey = u => (u || "").trim().replace(/#.*$/, "").replace(/\/+$/, "").toLowerCase();
   let lastRows = new Map();
+
+  // --- synchronisation vers Notion ---
+  const syncCfg = () => { const c = jget(SYNC_KEY); return c && c.token && c.key ? c : null; };
+  const queue = () => { const q = jget(QUEUE_KEY); return Array.isArray(q) ? q : []; };
+  const saveQueue = q => store.set(QUEUE_KEY, JSON.stringify(q.slice(-500)));
+  function enqueue(op) { const q = queue(); q.push(op); saveQueue(q); renderSync(); flushSoon(); }
+  function syncNote() { return syncCfg() ? " · envoi vers Notion" : " · sur cet appareil (activez la synchro Notion)"; }
+  let syncState = "", flushT = null, flushing = false;
+  function renderSync() {
+    const b = $("#syncbtn"); if (!b || !S.mcp?.local) return;
+    const n = queue().length;
+    b.hidden = false;
+    b.textContent = !syncCfg() ? (n ? `Synchro Notion · ${n} en attente` : "Activer la synchro Notion")
+      : syncState === "error" ? `Synchro Notion · erreur${n ? ` (${n} en attente)` : ""}` : n ? `Envoi vers Notion · ${n}` : "Notion synchronisé";
+  }
+  const b64 = bytes => { let s = ""; for (const x of bytes) s += String.fromCharCode(x); return btoa(s); };
+  async function seal(obj, keyB64) {
+    const key = await crypto.subtle.importKey("raw", Uint8Array.from(atob(keyB64), c => c.charCodeAt(0)), "AES-GCM", false, ["encrypt"]);
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(JSON.stringify(obj))));
+    const all = new Uint8Array(12 + ct.length); all.set(iv); all.set(ct, 12);
+    return b64(all);
+  }
+  const gh = (path, init = {}) => fetch("https://api.github.com/repos/" + REPO + path, { ...init, cache: "no-store",
+    headers: { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28", Authorization: "Bearer " + syncCfg().token, ...(init.body ? { "Content-Type": "application/json" } : {}) } });
+  function flushSoon() { clearTimeout(flushT); flushT = setTimeout(flush, 2500); }
+  async function flush() {
+    const cfg = syncCfg(); if (!cfg || flushing) return;
+    let q = queue(); if (!q.length) { syncState = ""; renderSync(); return; }
+    flushing = true;
+    try {
+      while (q.length) {
+        const batch = []; let size = 0;
+        for (const op of q) { const n = JSON.stringify(op).length; if (batch.length && (batch.length >= 20 || size + n > 30000)) break; batch.push(op); size += n; }
+        const res = await gh("/actions/workflows/notion-action.yml/dispatches", { method: "POST", body: JSON.stringify({ ref: "main", inputs: { actions: await seal(batch, cfg.key) } }) });
+        if (res.status !== 204) { syncState = "error"; renderSync(); if (res.status === 401 || res.status === 403 || res.status === 404) flash("Synchro Notion refusée par GitHub : vérifiez la clé GitHub (bouton Synchro Notion).", true); return; }
+        q = queue().slice(batch.length); saveQueue(q); syncState = ""; renderSync();
+      }
+    } catch { syncState = "error"; renderSync(); }
+    finally { flushing = false; }
+  }
+  window.addEventListener("online", flushSoon);
+  function openSync() {
+    const c = jget(SYNC_KEY) || {};
+    $("#sync-token").value = c.token || ""; $("#sync-key").value = c.key || ""; $("#sync-msg").textContent = ""; $("#sync-copied").textContent = "";
+    $("#syncbox").hidden = false; setTimeout(() => $("#sync-token").focus(), 0);
+  }
+  $("#syncbtn").onclick = openSync;
+  $("#sync-cancel").onclick = () => { $("#syncbox").hidden = true; };
+  $("#sync-gen").onclick = () => { if ($("#sync-key").value && !confirmGen()) return; $("#sync-key").value = b64(crypto.getRandomValues(new Uint8Array(32))); $("#sync-copied").textContent = "Nouvelle clé : copiez-la dans le secret GitHub RADAR_SYNC_KEY."; };
+  let genArmed = 0;
+  function confirmGen() { if (Date.now() - genArmed < 4000) return true; genArmed = Date.now(); $("#sync-copied").textContent = "Une clé existe déjà : touchez à nouveau « Générer » pour la remplacer (il faudra aussi changer le secret GitHub)."; return false; }
+  $("#sync-copy").onclick = async () => { try { await navigator.clipboard.writeText($("#sync-key").value); $("#sync-copied").textContent = "Clé copiée."; } catch { $("#sync-key").select(); $("#sync-copied").textContent = "Copiez la clé sélectionnée."; } };
+  $("#sync-off").onclick = () => { store.del(SYNC_KEY); syncState = ""; $("#sync-msg").textContent = "Synchro désactivée sur cet appareil. Vos actions restent en attente ici."; renderSync(); };
+  $("#syncform").addEventListener("submit", async e => {
+    e.preventDefault();
+    const token = $("#sync-token").value.trim(), key = $("#sync-key").value.trim(), msg = $("#sync-msg");
+    let okKey = false; try { okKey = atob(key).length === 32; } catch {}
+    if (!/^(github_pat_|ghp_)[A-Za-z0-9_]{20,}$/.test(token)) { msg.textContent = "Collez la clé GitHub personnelle (elle commence par github_pat_)."; return; }
+    if (!okKey) { msg.textContent = "Clé de chiffrement invalide : touchez « Générer une clé », puis copiez-la dans le secret GitHub RADAR_SYNC_KEY."; return; }
+    const prev = store.get(SYNC_KEY);
+    store.set(SYNC_KEY, JSON.stringify({ token, key }));
+    $("#sync-go").disabled = true; msg.textContent = "Test de la clé GitHub…";
+    try {
+      const r = await gh("/actions/workflows/notion-action.yml");
+      if (r.ok) { msg.textContent = "Synchro active. " + (queue().length ? "Envoi des actions en attente…" : ""); syncState = ""; renderSync(); flush(); setTimeout(() => { $("#syncbox").hidden = true; }, 1500); }
+      else {
+        if (prev) store.set(SYNC_KEY, prev); else store.del(SYNC_KEY);
+        msg.textContent = r.status === 401 ? "Clé GitHub refusée : vérifiez-la ou créez-en une nouvelle." : r.status === 404 ? "Accès refusé au dépôt ou robot introuvable : la clé doit donner accès au dépôt radar-emploi-nature avec la permission « Actions : lecture et écriture »." : "Test impossible (erreur " + r.status + ").";
+      }
+    } catch { if (prev) store.set(SYNC_KEY, prev); else store.del(SYNC_KEY); msg.textContent = "Pas de réseau : réessayez une fois connecté."; }
+    finally { $("#sync-go").disabled = false; renderSync(); }
+  });
+
   async function fetchData(refresh) {
     const urls = [DATA_URL]; if (window.RADAR_DATA_URL) urls.push("offres.json");
     for (const u of urls) {
@@ -1509,6 +1598,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
     if (c && Array.isArray(c.offres)) { flash("Hors connexion : dernière liste enregistrée sur cet appareil", true); return c; }
     throw { code: "server_unavailable" };
   }
+  const withStatus = (L, r) => { const st = L.st[r.url]; return st ? { ...r, "Statut": st.statut, "date:Date de candidature:start": st.cand || null } : { ...r, "Statut": "Nouveau", "date:Date de candidature:start": null }; };
   function localMcp() {
     return {
       local: true,
@@ -1518,40 +1608,84 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
         if (tool === "notion-query-data-sources") {
           const d = await fetchData(!!args?._refresh);
           const storedAt = Date.parse(d.genere) || Date.now();
-          if (args?.data?.view_url === SOURCES_VIEW) return { payload: { results: validRows(d.sources, "Nom"), has_more: false }, cache: { storedAt } };
+          if (args?.data?.view_url === SOURCES_VIEW) {
+            const feed = validRows(d.sources, "Nom"), urls = new Set(feed.map(r => linkKey(r["userDefined:URL"])));
+            L.srcAdded = L.srcAdded.filter(r => !urls.has(linkKey(r["userDefined:URL"])));
+            for (const r of feed) if (r.url in L.srcActive && L.srcActive[r.url] === (r["Active"] === "__YES__")) delete L.srcActive[r.url];
+            saveLocal(L);
+            const rows = [...L.srcAdded, ...feed].filter(r => !L.srcHidden[r.url] && !L.srcHidden[linkKey(r["userDefined:URL"])])
+              .map(r => r.url in L.srcActive ? { ...r, "Active": L.srcActive[r.url] ? "__YES__" : "__NO__" } : r);
+            return { payload: { results: rows, has_more: false }, cache: { storedAt } };
+          }
           const feed = validRows(d.offres);
+          // Une offre ajoutée ici arrive dans la liste publiée après son passage dans Notion : on garde la version publiée.
+          const byLink = new Map(feed.map(r => [linkKey(r["Lien"]), r]));
+          for (const r of [...L.added]) {
+            const twin = byLink.get(linkKey(r["Lien"]));
+            if (!twin) continue;
+            L.added = L.added.filter(x => x.url !== r.url);
+            if (L.st[r.url]) { L.st[twin.url] = L.st[r.url]; enqueue({ op: "update", id: twin.url, props: { "Statut": L.st[r.url].statut, "date:Date de candidature:start": L.st[r.url].cand || "" } }); delete L.st[r.url]; }
+          }
+          for (const r of feed) { const k = linkKey(r["Lien"]); if (k && L.hiddenLinks[k] && !L.hidden[r.url]) { L.hidden[r.url] = 1; enqueue({ op: "delete", id: r.url }); } }
+          saveLocal(L);
           lastRows = new Map(feed.map(r => [r.url, r]));
           const seen = new Set(feed.map(r => r.url));
           const kept = Object.keys(L.snap).filter(id => !seen.has(id) && L.st[id]).map(id => L.snap[id]);
-          const rows = [...L.added, ...feed, ...kept].filter(r => !L.hidden[r.url]).map(r => {
-            const st = L.st[r.url];
-            return st ? { ...r, "Statut": st.statut, "date:Date de candidature:start": st.cand || null } : { ...r, "Statut": "Nouveau", "date:Date de candidature:start": null };
-          });
+          const rows = [...L.added, ...feed, ...kept].filter(r => !L.hidden[r.url]).map(r => withStatus(L, r));
           rows.forEach(r => lastRows.set(r.url, r));
+          renderSync(); flushSoon();
           return { payload: { results: rows, has_more: false }, cache: { storedAt } };
         }
         if (tool === "notion-update-page") {
           const id = args.page_id, p = args.properties || {};
-          if (!("Statut" in p)) throw { code: "tool_error", message: "Les sources se gèrent dans Notion." };
+          if ("Active" in p && !("Statut" in p)) {
+            L.srcActive[id] = p["Active"] === "__YES__"; saveLocal(L);
+            if (!isLocalId(id)) enqueue({ op: "update", id, props: { "Active": p["Active"] } });
+            return { payload: {} };
+          }
           if (p["Statut"] === "Nouveau") { delete L.st[id]; delete L.snap[id]; }
           else {
             L.st[id] = { statut: p["Statut"], cand: p["date:Date de candidature:start"] || L.st[id]?.cand || "" };
             const row = lastRows.get(id) || L.added.find(r => r.url === id);
-            if (row && !String(id).startsWith("local:")) { const { ["Statut"]: _s, ["date:Date de candidature:start"]: _c, ...rest } = row; L.snap[id] = rest; }
+            if (row && !isLocalId(id)) { const { ["Statut"]: _s, ["date:Date de candidature:start"]: _c, ...rest } = row; L.snap[id] = rest; }
           }
-          saveLocal(L); return { payload: {} };
+          saveLocal(L);
+          if (!isLocalId(id)) enqueue({ op: "update", id, props: { "Statut": p["Statut"], "date:Date de candidature:start": p["Statut"] === "Nouveau" ? "" : (L.st[id]?.cand || "") } });
+          return { payload: {} };
         }
         if (tool === "notion-create-pages") {
-          if (args?.parent?.data_source_id !== OFFERS_DS) throw { code: "tool_error", message: "Les sources se gèrent dans Notion." };
-          const props = args.pages?.[0]?.properties || {}, id = "local:" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-          const row = { ...props, url: id, "Domaine": Array.isArray(props["Domaine"]) ? props["Domaine"] : [], "Ajouté le": new Date().toISOString(), "À compléter": "__NO__" };
+          const ds = args?.parent?.data_source_id, props = args.pages?.[0]?.properties || {};
+          const id = "local:" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+          if (ds === SOURCES_DS) {
+            L.srcAdded.unshift({ ...props, url: id }); saveLocal(L);
+            enqueue({ op: "create", ds, props });
+            return { payload: { pages: [{ url: id }] } };
+          }
+          if (ds !== OFFERS_DS) throw { code: "not_in_manifest" };
+          const row = { ...props, url: id, "Domaine": Array.isArray(props["Domaine"]) ? props["Domaine"] : [], "Ajouté le": new Date().toISOString() };
           delete row["Statut"];
           L.added.unshift(row);
           if (props["Statut"] && props["Statut"] !== "Nouveau") L.st[id] = { statut: props["Statut"], cand: "" };
-          saveLocal(L); return { payload: { pages: [{ url: id }] } };
+          saveLocal(L);
+          const { ["date:Date de publication:is_datetime"]: _d, ...sent } = props;
+          enqueue({ op: "create", ds, props: sent });
+          return { payload: { pages: [{ url: id }] } };
         }
         if (tool === "notion-delete-pages") {
-          for (const id of args?.page_ids || []) { L.hidden[id] = 1; delete L.st[id]; delete L.snap[id]; L.added = L.added.filter(r => r.url !== id); }
+          for (const id of args?.page_ids || []) {
+            const src = L.srcAdded.find(r => r.url === id) || (S.sources || []).find(x => x.id === id);
+            if (src && (L.srcAdded.some(r => r.url === id) || (S.sources || []).some(x => x.id === id))) {
+              const url = src["userDefined:URL"] || src.url;
+              L.srcHidden[id] = 1; if (isLocalId(id)) L.srcHidden[linkKey(url)] = 1;
+              L.srcAdded = L.srcAdded.filter(r => r.url !== id);
+              if (!isLocalId(id)) enqueue({ op: "delete", id });
+              continue;
+            }
+            const added = L.added.find(r => r.url === id);
+            if (added) L.hiddenLinks[linkKey(added["Lien"])] = 1;
+            L.hidden[id] = 1; delete L.st[id]; delete L.snap[id]; L.added = L.added.filter(r => r.url !== id);
+            if (!isLocalId(id)) enqueue({ op: "delete", id });
+          }
           saveLocal(L); return { payload: {} };
         }
         throw { code: "not_in_manifest" };
@@ -1608,7 +1742,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
       if (!mcp) { $("#sync").textContent = "Connecteur Notion indisponible dans cette vue"; $("#list").replaceChildren(el("div", { class: "empty" }, "Cette vue ne peut pas lire Notion. Ouvrez la page dans claude.ai avec le connecteur Notion activé.")); return; }
       loadAll(false); return;
     }
-    S.mcp = localMcp(); S.sample = copySample();
+    S.mcp = localMcp(); S.sample = copySample(); renderSync();
     renderList(); renderDetail(); if (S.tab === "experiences") renderChat();
     loadAll(false);
   }
