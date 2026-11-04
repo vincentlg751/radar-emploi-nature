@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.anthropic.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Radar Emploi Nature</title>
 <meta name="theme-color" content="#F1F4EF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1411" media="(prefers-color-scheme: dark)">
@@ -170,7 +172,6 @@ a.btn { color: inherit; text-decoration: none; }
 <h1>Radar Emploi Nature<small>Offres CDI et CDD en écologie, publiées depuis moins de 3 semaines (sans RSE ni greenwashing)</small></h1>
 <div class="status-line">
 <span id="sync"></span>
-<a class="btn small" href="https://harsh-sesame-ac5.notion.site/650d2e7e59c74a239cfe04291fbcfed5?v=40704136fa7481209f74000c59d03704" target="_blank" rel="noopener">Base Notion ↗</a>
 </div>
 </header>
 </div>
@@ -235,7 +236,9 @@ a.btn { color: inherit; text-decoration: none; }
 <div class="keybox" style="margin-top:8px">
 <span class="legal">Sans clé, l'indice et les mots-clés manquants sont calculés dans le navigateur. Avec une clé API Anthropic (console.anthropic.com), vous obtenez aussi l'analyse rédigée et un indice affiné. Les appels sont facturés sur votre compte API et partent directement de ce navigateur vers Anthropic.</span>
 <input id="apikey" type="password" placeholder="sk-ant-…" autocomplete="off">
-<label class="row legal" for="keymem" style="gap:6px"><input id="keymem" type="checkbox"> Mémoriser la clé sur cet appareil</label>
+<span class="legal">Par défaut, la clé n'est gardée que pour cet onglet et disparaît à sa fermeture. Fixez un plafond de dépense mensuel pour cette clé dans la console Anthropic (Settings → Limits) : c'est votre meilleure protection en cas de fuite.</span>
+<label class="row legal" for="keymem" style="gap:6px"><input id="keymem" type="checkbox"> Mémoriser la clé sur cet appareil (déconseillé)</label>
+<span class="legal" id="keywarn" hidden><b>Attention :</b> une clé mémorisée est enregistrée en clair dans le navigateur. Toute autre page publiée sur le même site (vincentlg751.github.io), si elle était compromise, pourrait la lire et l'utiliser à vos frais. Ne mémorisez qu'une clé dédiée, avec un plafond de dépense bas, et retirez-la dès que vous n'en avez plus besoin.</span>
 <div class="row"><button class="btn small primary" id="keysave" type="button">Activer</button><button class="btn small" id="keydel" type="button">Retirer la clé</button><span class="legal" id="keymsg"></span></div>
 </div>
 </details>
@@ -270,15 +273,28 @@ get(k) { try { return localStorage.getItem(k); } catch { return null; } },
 set(k, v) { try { localStorage.setItem(k, v); } catch {} },
 del(k) { try { localStorage.removeItem(k); } catch {} }
 };
-let sessionKey = "";
+// Clé API : gardée pour l'onglet (sessionStorage) par défaut ; en localStorage seulement si
+// l'utilisateur coche « Mémoriser » après avertissement (entrée "radar.key.v2").
+// L'ancienne entrée "radar.key" (localStorage, mémorisée sans avertissement) est migrée vers la session puis supprimée.
+const sess = {
+get(k) { try { return sessionStorage.getItem(k); } catch { return null; } },
+set(k, v) { try { sessionStorage.setItem(k, v); } catch {} },
+del(k) { try { sessionStorage.removeItem(k); } catch {} }
+};
+let sessionKey = sess.get("radar.key") || "", keyMigrated = false;
+{ const old = store.get("radar.key"); if (old) { if (!sessionKey) { sessionKey = old; sess.set("radar.key", old); } store.del("radar.key"); keyMigrated = true; } }
+// Liens d'offres : uniquement http(s) absolus.
+const safeUrl = u => { try { const x = new URL(String(u || "")); return x.protocol === "https:" || x.protocol === "http:" ? x.href : ""; } catch { return ""; } };
 const S = { offers: [], filtered: [], shown: PAGE, q: "", since: 0, domains: new Set(), selected: null, ai: {}, analyses: {}, cv: store.get("radar.cv") || "", cvName: store.get("radar.cvname") || "", yrs: null, model: store.get("radar.model") || "" };
 try { S.ai = JSON.parse(store.get("radar.ai") || "{}"); } catch {}
 try { S.analyses = JSON.parse(store.get("radar.analyses") || "{}"); } catch {}
-const apiKey = () => sessionKey || store.get("radar.key") || "";
+const apiKey = () => sessionKey || store.get("radar.key.v2") || "";
 // ---------- data ----------
 // Offers are embedded as gzip + base64 JSON ({genere, offres}) to keep the file small.
-// The app (PWA on phones, Android/iOS native shell) also asks offres.json for a newer list,
-// keeps the last list it received, and uses whichever copy is the most recent.
+// The app (PWA on phones, Android/iOS native shell) also asks offres.json for a newer list.
+// Only official copies (embedded or offres.json) are used when available, the most recent of the two.
+// The copy saved in localStorage ("radar.data") is an offline fallback only, validated, and never
+// takes precedence over official data, whatever its "genere" date says.
 let DATA = { genere: "", offres: [] };
 const DATA_URL = window.RADAR_DATA_URL || "offres.json";
 async function loadEmbedded() {
@@ -288,27 +304,48 @@ const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
 const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
 return JSON.parse(await new Response(stream).text());
 }
+const STR_FIELDS = ["id", "p", "e", "l", "r", "c", "n", "pub", "s", "u", "res", "sal", "st", "aj"];
+function validData(d) {
+if (!d || typeof d !== "object" || !Array.isArray(d.offres) || d.offres.length > 20000) return null;
+const offres = [];
+for (const r of d.offres) {
+if (!r || typeof r !== "object" || typeof r.p !== "string" || !r.p) continue;
+const o = {};
+for (const k of STR_FIELDS) if (typeof r[k] === "string" && r[k]) o[k] = r[k].slice(0, 5000);
+if (o.u && !safeUrl(o.u)) delete o.u;
+if (Array.isArray(r.d)) o.d = r.d.filter(x => typeof x === "string").slice(0, 20);
+offres.push(o);
+}
+return { genere: typeof d.genere === "string" ? d.genere.slice(0, 40) : "", offres };
+}
 async function loadRemote() {
 const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 8000);
 try {
 const r = await fetch(DATA_URL, { cache: "no-cache", signal: ctl.signal });
 if (!r.ok) return null;
 const d = await r.json();
-return d && Array.isArray(d.offres) ? d : null;
+return validData(d);
 } finally { clearTimeout(t); }
 }
 async function loadData() {
-const found = [];
-try { const d = await loadEmbedded(); if (d) found.push(d); } catch {}
-try { const d = JSON.parse(store.get("radar.data") || "null"); if (d && Array.isArray(d.offres)) found.push(d); } catch {}
+const official = [];
+try { const d = validData(await loadEmbedded()); if (d) official.push(d); } catch {}
 let remote = null;
-try { remote = await loadRemote(); if (remote) found.push(remote); } catch {}
-if (!found.length) { if (location.protocol === "file:") return; throw new Error("aucune donnée"); }
-found.sort((a, b) => String(b.genere || "").localeCompare(String(a.genere || "")));
-DATA = found[0];
-if (remote && DATA === remote) store.set("radar.data", JSON.stringify(remote));
+try { remote = await loadRemote(); if (remote) official.push(remote); } catch {}
+if (official.length) {
+official.sort((a, b) => String(b.genere || "").localeCompare(String(a.genere || "")));
+DATA = official[0];
+if (remote) store.set("radar.data", JSON.stringify(remote)); else store.del("radar.data");
+return;
 }
-const mapOffers = () => (DATA.offres || []).map(r => ({ id: r.id || r.u, poste: r.p || "", entreprise: r.e || "", lieu: r.l || "", region: r.r || "", contrat: r.c || "", domaines: r.d || [], niveau: r.n || "", pub: r.pub || "", source: r.s || "", lien: r.u || "", resume: r.res || "", salaire: r.sal || "", statut: r.st || "", ajoute: r.aj || "" }));
+// Secours hors connexion uniquement (aucune copie officielle disponible).
+let local = null;
+try { local = validData(JSON.parse(store.get("radar.data") || "null")); } catch {}
+if (local) { DATA = local; return; }
+store.del("radar.data");
+if (location.protocol === "file:") return; throw new Error("aucune donnée");
+}
+const mapOffers = () => (DATA.offres || []).map((r, i) => ({ id: r.id || r.u || "o" + i, poste: r.p || "", entreprise: r.e || "", lieu: r.l || "", region: r.r || "", contrat: r.c || "", domaines: r.d || [], niveau: r.n || "", pub: r.pub || "", source: r.s || "", lien: safeUrl(r.u), resume: r.res || "", salaire: r.sal || "", statut: r.st || "", ajoute: r.aj || "" }));
 // ---------- dates ----------
 const today = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
 const daysSince = s => s ? Math.round((today() - new Date(s + "T00:00:00")) / 864e5) : null;
@@ -408,6 +445,10 @@ const tier = v => v >= 75 ? "hi" : v >= 55 ? "mid" : "lo";
 const verdict = v => v >= 80 ? "Très compatible" : v >= 65 ? "Compatible" : v >= 50 ? "Partiellement compatible" : "Peu compatible";
 // ---------- filters ----------
 function buildFilters() {
+// Les statuts de candidature ne sont plus publiés : sans statut, le filtre est masqué et neutre.
+const hasStatut = S.offers.some(o => o.statut);
+$("#f-statut").hidden = !hasStatut;
+if (!hasStatut) $("#f-statut").value = "";
 const regs = [...new Set(S.offers.map(o => o.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
 $("#f-region").replaceChildren(el("option", { value: "" }, "Toutes régions"), ...regs.map(r => el("option", { value: r }, r)));
 const counts = {}; S.offers.forEach(o => o.domaines.forEach(d => counts[d] = (counts[d] || 0) + 1));
@@ -508,9 +549,9 @@ el("dt", {}, "Domaines"), el("dd", {}, o.domaines.join(", ") || "—"),
 el("dt", {}, "Salaire"), el("dd", {}, o.salaire || "Non indiqué"),
 el("dt", {}, "Publiée"), el("dd", { class: "mono" }, o.pub ? `${new Date(o.pub + "T00:00:00").toLocaleDateString("fr-FR")} (J-${age})` : "—"),
 el("dt", {}, "Fenêtre"), el("dd", {}, left == null ? "—" : left ? `Retirée de la veille dans ${left} j si son statut reste « Nouveau »` : "Hors fenêtre de 21 jours"),
-el("dt", {}, "Statut"), el("dd", {}, (o.statut || "Nouveau") + " (modifiable dans Notion)"),
+o.statut ? [el("dt", {}, "Statut"), el("dd", {}, o.statut)] : null,
 el("dt", {}, "Source"), el("dd", {}, o.source || "—")),
-el("div", { class: "row" }, o.lien ? el("a", { class: "btn", href: o.lien, target: "_blank", rel: "noopener" }, "Voir l'annonce ↗") : null),
+el("div", { class: "row" }, safeUrl(o.lien) ? el("a", { class: "btn", href: safeUrl(o.lien), target: "_blank", rel: "noopener noreferrer" }, "Voir l'annonce ↗") : null),
 indexBlock(o),
 keywordsBlock(o),
 apiKey() && S.cv ? el("div", { style: "display:flex;flex-direction:column;gap:10px" },
@@ -544,9 +585,10 @@ try {
 let text = "";
 const ext = f.name.toLowerCase().split(".").pop();
 if (ext === "pdf") {
-await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
-await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js");
-const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()) }).promise;
+// pdf.js servi localement (radar-app/vendor) ; isEvalSupported: false neutralise CVE-2024-4367.
+await loadScript("vendor/pdfjs/pdf.min.js");
+window.pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("vendor/pdfjs/pdf.worker.min.js", location.href).href;
+const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()), isEvalSupported: false }).promise;
 const pages = [];
 for (let i = 1; i <= pdf.numPages; i++) {
 const c = await (await pdf.getPage(i)).getTextContent();
@@ -558,14 +600,14 @@ pages.push(lines.join("\n").replace(/(?:^|(?<=\s))((?:\p{L} ){2,}\p{L})(?=\s|$)/
 if (pages.filter(Boolean).length > 2) { choosePages(pages, f.name); return; }
 text = pages.join("\n\n");
 } else if (ext === "docx") {
-await loadScript("https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js");
+await loadScript("vendor/mammoth/mammoth.browser.min.js");
 text = (await window.mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() })).value;
 } else text = await f.text();
 text = text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
 if (text.length < 80) throw new Error("vide");
 setCV(text, f.name); msg.textContent = "CV importé. Vérifiez le texte avec « Coller / modifier » si besoin.";
 } catch {
-msg.textContent = "Impossible de lire ce fichier (PDF scanné, protégé, ou pas de connexion internet pour charger le lecteur PDF). Copiez le texte du CV et collez-le avec « Coller / modifier ».";
+msg.textContent = "Impossible de lire ce fichier (PDF scanné ou protégé, ou lecteur indisponible hors connexion). Copiez le texte du CV et collez-le avec « Coller / modifier ».";
 }
 }
 function choosePages(pages, name) {
@@ -620,15 +662,18 @@ try { return JSON.parse(text.slice(a, b + 1)); } catch { throw { msg: "Réponse 
 const apiErr = e => e?.msg || ({ 401: "Clé API refusée : vérifiez-la.", 403: "Cette clé n'a pas accès à l'API.", 429: "Limite d'utilisation atteinte, réessayez plus tard.", 529: "Claude est surchargé, réessayez dans un instant." }[e?.status]) || "Échec de l'appel à Claude" + (e?.status ? ` (erreur ${e.status})` : " (connexion ?)") + ".";
 $("#keysave").onclick = async () => {
 const k = $("#apikey").value.trim(); if (!k) return;
-sessionKey = k; S.model = ""; store.del("radar.model");
-if ($("#keymem").checked) store.set("radar.key", k); else store.del("radar.key");
+sessionKey = k; sess.set("radar.key", k); S.model = ""; store.del("radar.model");
+if ($("#keymem").checked) store.set("radar.key.v2", k); else store.del("radar.key.v2");
 $("#keymsg").textContent = "Vérification…";
 try { const m = await pickModel(k); $("#keymsg").textContent = "Clé active (" + m + ")"; $("#apikey").value = ""; }
-catch (e) { sessionKey = ""; store.del("radar.key"); $("#keymsg").textContent = apiErr(e); }
+catch (e) { sessionKey = ""; sess.del("radar.key"); store.del("radar.key.v2"); $("#keymsg").textContent = apiErr(e); }
 renderList(); renderDetail();
 };
-$("#keydel").onclick = () => { sessionKey = ""; store.del("radar.key"); store.del("radar.model"); S.model = ""; $("#keymsg").textContent = "Clé retirée."; renderList(); renderDetail(); };
-if (store.get("radar.key")) { $("#keymsg").textContent = "Clé mémorisée sur cet appareil."; $("#keymem").checked = true; }
+$("#keydel").onclick = () => { sessionKey = ""; sess.del("radar.key"); store.del("radar.key"); store.del("radar.key.v2"); store.del("radar.model"); S.model = ""; $("#keymsg").textContent = "Clé retirée."; renderList(); renderDetail(); };
+$("#keymem").addEventListener("change", e => { $("#keywarn").hidden = !e.target.checked; });
+if (store.get("radar.key.v2")) { $("#keymsg").textContent = "Clé mémorisée sur cet appareil."; $("#keymem").checked = true; $("#keywarn").hidden = false; }
+else if (keyMigrated) $("#keymsg").textContent = "Votre clé n'est plus mémorisée sur cet appareil : elle reste active jusqu'à la fermeture de l'onglet. Cochez « Mémoriser » pour la garder (lisez l'avertissement).";
+else if (sessionKey) $("#keymsg").textContent = "Clé active pour cette session.";
 const offerBlock = (o, full) => `POSTE : ${o.poste}\nEMPLOYEUR : ${o.entreprise}\nLIEU : ${o.lieu} (${o.region})\nCONTRAT : ${o.contrat} · NIVEAU : ${o.niveau}\nDOMAINES : ${o.domaines.join(", ")}\nRÉSUMÉ DE L'ANNONCE : ${o.resume}` + (full?.trim() ? `\n\nDESCRIPTION COMPLÈTE :\n${full.trim().slice(0, 12000)}` : "");
 const arr = v => Array.isArray(v) ? v : [];
 async function analyse(o, full, out, btn) {
@@ -657,7 +702,7 @@ b.onclick = async () => { try { await navigator.clipboard.writeText(getText()); 
 return b;
 }
 function analysisText(r, o) {
-const L = [`CV adapté : ${o.poste} (${o.entreprise})`, o.lien, "", r.synthese || "", "", "Titre : " + (r.titre_cv || ""), "", "Accroche :", r.accroche || "", "", "Points à revoir :", ...arr(r.points_a_revoir).map(x => `- ${x.sujet} : ${x.pourquoi} → ${x.action}`), "", "Mots-clés : " + arr(r.mots_cles).join(", "), "", "Reformulations :", ...arr(r.experiences_a_reformuler).map(x => `- ${x.avant}\n  → ${x.apres}`), "", "Questions d'entretien :", ...arr(r.questions_entretien).map(x => "- " + x)];
+const L = [`CV adapté : ${o.poste} (${o.entreprise})`, safeUrl(o.lien), "", r.synthese || "", "", "Titre : " + (r.titre_cv || ""), "", "Accroche :", r.accroche || "", "", "Points à revoir :", ...arr(r.points_a_revoir).map(x => `- ${x.sujet} : ${x.pourquoi} → ${x.action}`), "", "Mots-clés : " + arr(r.mots_cles).join(", "), "", "Reformulations :", ...arr(r.experiences_a_reformuler).map(x => `- ${x.avant}\n  → ${x.apres}`), "", "Questions d'entretien :", ...arr(r.questions_entretien).map(x => "- " + x)];
 return L.join("\n");
 }
 function renderAnalysis(r, out, o) {

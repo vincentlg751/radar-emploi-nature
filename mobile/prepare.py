@@ -6,7 +6,7 @@
 
 Variable facultative : RADAR_DATA_URL (par défaut https://vincentlg751.github.io/radar-emploi-nature/offres.json).
 """
-import base64, gzip, json, os, pathlib, shutil, sys, urllib.request
+import base64, gzip, json, os, pathlib, shutil, sys, urllib.parse, urllib.request
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -33,6 +33,12 @@ if __name__ == "__main__":
     raw, src = offers_json()
     gz = base64.b64encode(gzip.compress(raw, 9)).decode() if raw else ""
     html = html.replace("__OFFRES_GZ_B64__", gz)
+    # L'app native relit la liste en ligne : on autorise cette origine (et elle seule) dans la CSP.
+    data_origin = "{0.scheme}://{0.netloc}".format(urllib.parse.urlsplit(DATA_URL))
+    csp = "connect-src 'self' https://api.anthropic.com"
+    if csp not in html:
+        sys.exit("CSP introuvable dans radar-template.html (connect-src).")
+    html = html.replace(csp, f"{csp} {data_origin}", 1)
     marker = '<script id="offres-gz"'
     html = html.replace(marker, f"<script>window.RADAR_DATA_URL = {json.dumps(DATA_URL)};</script>\n{marker}", 1)
     # Le manifeste et le service worker servent à la version web ; l'app native n'en a pas besoin.
@@ -43,4 +49,6 @@ if __name__ == "__main__":
     (WWW / "index.html").write_text(html, encoding="utf-8")
     for icon in ("icon-192.png", "apple-touch-icon.png"):
         shutil.copy2(ROOT / "radar-app" / "icons" / icon, WWW / "icons" / icon)
+    # Lecteurs PDF / DOCX embarqués dans l'application (aucun CDN tiers).
+    shutil.copytree(ROOT / "radar-app" / "vendor", WWW / "vendor")
     print(f"www prêt ({src or 'sans offres intégrées'}) -> {WWW}")
