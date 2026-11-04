@@ -1,15 +1,18 @@
 {
- "genere": "2026-11-04T06:38:41+00:00",
+ "genere": "2026-11-04T11:26:07+00:00",
  "jour": "2026-11-04",
  "api_ok": true,
- "total": 297,
+ "total": 298,
  "par_tarif": {
-  "gratuit": 174,
+  "gratuit": 175,
   "gratuit_sous_condition": 13,
   "payant": 110,
   "inconnu": 0
  },
- "nouvelles": [],
+ "nouvelles": [
+  "qfap-127030",
+  "qfap-126890"
+ ],
  "expositions": [
   {
    "id": "qfap-126358",
@@ -1005,6 +1008,30 @@
    "vu_le": "2026-11-03"
   },
   {
+   "id": "qfap-126890",
+   "titre": "Exposition photographique «Amorces» de Kostia Hernain-Debain",
+   "resume": "À l'occasion de Paris Photo, la galerie Area présente les oeuvres photographiques de Kostia Hernain Debain.",
+   "debut": "2026-11-11",
+   "fin": "2026-11-15",
+   "horaires": "Du mercredi 11 novembre 2026 au dimanche 15 novembre 2026 :",
+   "lieu": "Galerie Area Paris",
+   "adresse": "46B RUE DE PARADIS, 75010 Paris",
+   "lat": 48.856578,
+   "lon": 2.351828,
+   "thematiques": [
+    "Photographie",
+    "Art contemporain"
+   ],
+   "tarif": {
+    "type": "gratuit",
+    "prix_min": 0
+   },
+   "image": "https://cdn.paris.fr/qfapv4/2026/10/30/huge-c2e5fbcc21bc489d94cd827a630e4bcb.jpg",
+   "lien": "https://www.paris.fr/evenements/exposition-photographique-amorces-de-kostia-hernain-debain-126890",
+   "source": "Que faire à Paris (Open Data Ville de Paris)",
+   "vu_le": "2026-11-04"
+  },
+  {
    "id": "qfap-126259",
    "titre": "Exposition « Parigi… une histoire d’amour » : à la rencontre des talents italiens à Paris",
    "resume": "Jusqu’au 15 novembre, découvrez dans le hall de la Mairie du 10e l’exposition Parigi… une histoire d’amour. À travers vingt portraits photographiques et des témoignages, Cristina Dogliani célèbre les talents italiens qui ont choisi Paris, leurs parcours singuliers et les liens culturels qui unissent les deux pays.",
@@ -1075,7 +1102,7 @@
     "detail": "Billet 1 jour : 18€ (réduit 15€) Billet 2 jours : 25€ (réduit 22€) Billet 3 jours : 33€ (réduit 30€) Tarif réduit pour les adhérents AFA et abonnés Universcience.",
     "prix_min": 15.0,
     "reservation": true,
-    "billetterie": "www.afastronomie.fr/billetterie"
+    "billetterie": "https://www.afastronomie.fr/billetterie"
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/12/huge-df05b6f82ddcf48a22e68c4e02312de7.jpg",
    "lien": "https://www.paris.fr/evenements/les-rencontres-du-ciel-et-de-l-espace-125909",
@@ -1469,31 +1496,6 @@
    "vu_le": "2026-11-03"
   },
   {
-   "id": "qfap-126203",
-   "titre": "p. 39 de Nina Wakeford à la Cité internationale des arts",
-   "resume": "La Cité internationale des arts présente l'installation p. 39 de Nina Wakeford, du 20 octobre au 21 novembre 2026 dans la Vitrine.",
-   "debut": "2026-10-20",
-   "fin": "2026-11-21",
-   "horaires": "Du mardi 20 octobre 2026 au samedi 21 novembre 2026 : lundi, mardi, mercredi, jeudi, vendredi, samedi de 10h00 à 19h00",
-   "lieu": "Cité internationale des arts",
-   "adresse": "18, rue de l’Hôtel de Ville, 75004 Paris",
-   "lat": 48.8539130188776,
-   "lon": 2.35720298362764,
-   "thematiques": [
-    "Art contemporain"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "billetterie": "https://www.citeinternationaledesarts.fr/evenements/p-39-nina-wakeford/"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/16/huge-e7d527f5e69d4bc3c1c4d11988e99bb7.jpg",
-   "lien": "https://www.paris.fr/evenements/p-39-de-nina-wakeford-a-la-cite-internationale-des-arts-126203",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
    "id": "qfap-125927",
    "titre": "Around the World, l'expo dédiée au Daft Punk",
    "resume": "Une exposition dédiée au début de Daft Punk se prépare à investir un espace de 500 m2 au coeur du Marais.",
@@ -1614,8 +1616,7 @@
    "tarif": {
     "type": "gratuit",
     "detail": "Visite performée sous réservation. Mercredi à vendredi : 18h Samedi &amp; dimanche : 17h &amp; 18h30 Installation vidéo en français et en anglais.",
-    "prix_min": 0,
-    "billetterie": "Visites performées"
+    "prix_min": 0
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/06/29/huge-5373d044dcf1fbd021cdd33d4b9d2f17.jpeg",
    "lien": "https://www.paris.fr/evenements/walid-raad-festival-of-in-gratitude-115054",
@@ -1796,7 +1797,7 @@
     "type": "gratuit",
     "detail": "villiot@claje.asso.fr",
     "prix_min": 0,
-    "billetterie": "www.claje.asso.fr"
+    "billetterie": "https://www.claje.asso.fr"
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/14/huge-e1e94713f909de79fe897b1f97ba135b.jpg",
    "lien": "https://www.paris.fr/evenements/expo-pluriel-le-s-126025",
@@ -2401,6 +2402,31 @@
    "lien": "https://www.paris.fr/evenements/les-metiers-d-art-dans-les-photographies-de-francois-kollar-115512",
    "source": "Que faire à Paris (Open Data Ville de Paris)",
    "vu_le": "2026-11-03"
+  },
+  {
+   "id": "qfap-127030",
+   "titre": "« Synergies entre tradition et modernité - l’artisanat japonais à la pointe de l’innovation » - 14e édition",
+   "resume": "L'artisanat japonais d'excellence en provenance de 24 villes et départements. Dans le cadre de l'exposition-vente de CLAIR Paris à la Maison de la culture du Japon à Paris.",
+   "debut": "2026-11-24",
+   "fin": "2026-12-05",
+   "horaires": "Du mardi 24 novembre 2026 au samedi 05 décembre 2026 : mardi, mercredi, jeudi, vendredi, samedi de 11h00 à 19h00",
+   "lieu": "Maison de la culture du Japon à Paris",
+   "adresse": "101 bis quai Jacques Chirac, 75015 Paris",
+   "lat": 48.8547789952042,
+   "lon": 2.28934200587187,
+   "thematiques": [
+    "Design, mode & arts déco",
+    "Architecture & ville"
+   ],
+   "tarif": {
+    "type": "gratuit",
+    "prix_min": 0
+   },
+   "image": "https://cdn.paris.fr/qfapv4/2026/11/03/huge-f443287652ef5a357bf604d6cae44bd8.jpg",
+   "lien": "https://www.paris.fr/evenements/synergies-entre-tradition-et-modernite-l-artisanat-japonais-a-la-pointe-de-l-innovation-14e-edition-127030",
+   "accessible": true,
+   "source": "Que faire à Paris (Open Data Ville de Paris)",
+   "vu_le": "2026-11-04"
   },
   {
    "id": "qfap-126908",
@@ -4300,8 +4326,7 @@
     "type": "gratuit",
     "detail": "Réservation obligatoire sur Weezevent &nbsp;https://my.weezevent.com/aux-frontieres-de-limaginaire",
     "prix_min": 0,
-    "reservation": true,
-    "billetterie": "hhttps://my.weezevent.com/aux-frontieres-de-limaginaire"
+    "reservation": true
    },
    "image": "https://cdn.paris.fr/qfapv4/2026/10/08/huge-39e1c157f23da532dffeeb78786c04ab.jpg",
    "lien": "https://www.paris.fr/evenements/exposition-l-odyssee-de-lea-de-junior-fritz-jacquet-au-pavillon-vendome-98772",
