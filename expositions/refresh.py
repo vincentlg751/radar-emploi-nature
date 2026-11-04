@@ -21,6 +21,7 @@ BASE = DATA / "expositions.json"
 SELECTION = DATA / "selection.json"
 JOURNAL = DATA / "journal.json"
 API = "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/que-faire-a-paris-/exports/json"
+MAX_BYTES = 80 * 2**20  # taille maximale acceptée pour la réponse de l'API
 FIELDS = ("id,url,title,lead_text,date_start,date_end,date_description,cover_url,tags,qfap_tags,"
           "address_name,address_street,address_zipcode,address_city,lat_lon,price_type,price_detail,"
           "access_link,access_type,pmr")
@@ -50,6 +51,30 @@ def plain(s):
 def strip_html(s):
     s = re.sub(r"<[^>]+>", " ", str(s or ""))
     return re.sub(r"\s+", " ", s).strip()
+
+
+def safe_url(v):
+    """Garde seulement une adresse web http(s) valide ; complète « www.… » ; sinon None.
+    Empêche qu'un lien « javascript:… » ou mal formé venu de la source arrive dans l'app."""
+    v = str(v or "").strip()
+    if v.lower().startswith("www."):
+        v = "https://" + v
+    try:
+        u = urllib.parse.urlsplit(v)
+    except ValueError:
+        return None
+    if u.scheme not in ("http", "https") or not u.netloc or any(c in v for c in "\"'<>`\\ \n\r\t"):
+        return None
+    return v
+
+
+def coord(v, lo, hi):
+    """Nombre dans [lo, hi], sinon None."""
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return None
+    return f if lo <= f <= hi else None
 
 
 def as_list(v):
@@ -110,9 +135,11 @@ def from_api(r, today):
     ll = r.get("lat_lon") or {}
     if isinstance(ll, str) and "," in ll:  # « lat,lon »
         la, lo = ll.split(",", 1)
-        ll = {"lat": float(la), "lon": float(lo)}
+        ll = {"lat": la, "lon": lo}
     elif isinstance(ll, list) and len(ll) == 2:
         ll = {"lat": ll[0], "lon": ll[1]}
+    if not isinstance(ll, dict):
+        ll = {}
     detail = strip_html(r.get("price_detail"))
     t = tarif_type(r.get("price_type"))
     tags = as_list(r.get("qfap_tags")) + as_list(r.get("tags"))
@@ -126,13 +153,13 @@ def from_api(r, today):
         "lieu": strip_html(r.get("address_name")),
         "adresse": ", ".join(x for x in [strip_html(r.get("address_street")),
                                          " ".join(x for x in [r.get("address_zipcode"), r.get("address_city")] if x)] if x),
-        "lat": ll.get("lat"), "lon": ll.get("lon"),
+        "lat": coord(ll.get("lat"), -90, 90), "lon": coord(ll.get("lon"), -180, 180),
         "thematiques": themes_for(" ".join(tags), r.get("title") or "", r.get("lead_text") or ""),
         "tarif": {"type": t, "detail": detail[:300], "prix_min": prix_min(detail) if t == "payant" else 0 if t.startswith("gratuit") else None,
                   "reservation": plain(r.get("access_type")) in ("reservation", "conseillee", "obligatoire") or None,
-                  "billetterie": r.get("access_link") or None},
-        "image": r.get("cover_url") or None,
-        "lien": r.get("url") or None,
+                  "billetterie": safe_url(r.get("access_link"))},
+        "image": safe_url(r.get("cover_url")),
+        "lien": safe_url(r.get("url")),
         "accessible": bool(r.get("pmr")) or None,
         "source": "Que faire à Paris (Open Data Ville de Paris)",
     }
@@ -152,14 +179,23 @@ def fetch_api(today):
         req = urllib.request.Request(url, headers={"User-Agent": "radar-expositions/1.0 (GitHub Actions)"})
         try:
             with urllib.request.urlopen(req, timeout=300) as r:
-                rows = json.load(r)
+                raw = r.read(MAX_BYTES + 1)
+            if len(raw) > MAX_BYTES:
+                raise ValueError(f"Réponse de plus de {MAX_BYTES // 2**20} Mo, ignorée")
+            rows = json.loads(raw)
         except urllib.error.HTTPError as exc:
             last = f"HTTP {exc.code} : {exc.read().decode(errors='replace')[:300]}"
             print(f"Requête refusée ({', '.join(params) or 'sans filtre'}) -> {last}", file=sys.stderr)
             continue
         if not isinstance(rows, list):
             raise ValueError(f"Réponse inattendue : {str(rows)[:200]}")
-        expos = [from_api(x, today) for x in rows if is_expo(x)]
+        expos = []
+        for x in rows:
+            try:
+                if isinstance(x, dict) and is_expo(x):
+                    expos.append(from_api(x, today))
+            except Exception as exc:  # une fiche mal formée ne bloque pas toute la mise à jour
+                print(f"Fiche ignorée ({x.get('id') if isinstance(x, dict) else '?'}) : {exc}", file=sys.stderr)
         print(f"API : {len(rows)} événements reçus, {len(expos)} expositions retenues")
         return expos
     raise RuntimeError(last or "API injoignable")
@@ -185,6 +221,14 @@ def main():
     selection = load(SELECTION, {}).get("expositions", [])
     for e in selection:
         e.setdefault("source", "Sélection manuelle")
+        for f in ("titre", "resume", "lieu", "adresse", "horaires"):
+            if e.get(f):
+                e[f] = strip_html(e[f])
+        for f in ("lien", "image"):
+            e[f] = safe_url(e.get(f))
+        if isinstance(e.get("tarif"), dict):
+            e["tarif"]["billetterie"] = safe_url(e["tarif"].get("billetterie"))
+        e["lat"], e["lon"] = coord(e.get("lat"), -90, 90), coord(e.get("lon"), -180, 180)
         if not e.get("thematiques"):
             e["thematiques"] = themes_for(e.get("titre", ""), e.get("resume", ""))
 

@@ -22,6 +22,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,6 +31,8 @@ jobs:
       - name: Renouveler la base et repérer les nouvelles expositions
         run: python expositions/refresh.py
       - name: Enregistrer la base
+        env:
+          BRANCH: ${{ github.ref_name }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -39,11 +42,13 @@ jobs:
           else
             git commit -m "Expositions : mise à jour du $(date -u +%F)"
             for i in 1 2 3; do
-              git pull --rebase -X theirs origin "${{ github.ref_name }}" && git push && break
+              if git pull --rebase -X theirs origin "$BRANCH" && git push; then exit 0; fi
               sleep $((i * 5))
             done
+            echo "::error::Envoi de la base impossible après 3 essais."; exit 1
           fi
       - name: Republier le site
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run radar.yml --ref "${{ github.ref_name }}"
+          BRANCH: ${{ github.ref_name }}
+        run: gh workflow run radar.yml --ref "$BRANCH"

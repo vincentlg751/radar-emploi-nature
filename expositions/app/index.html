@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Expos du moment</title>
 <meta name="description" content="Toutes les expositions en cours à Paris : gratuites et payantes, sur une carte, par thématique.">
 <meta name="theme-color" content="#F4F1EA" media="(prefers-color-scheme: light)">
@@ -215,6 +217,13 @@ const days = (a, b) => Math.round((b - a) / 864e5);
 const fmt = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
 const fmtY = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" });
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+/* N'accepte que les adresses http(s) : bloque « javascript: », « data: » et les liens mal formés. */
+function safeUrl(u) {
+  if (!u) return null;
+  try { const x = new URL(String(u)); return x.protocol === "https:" || x.protocol === "http:" ? x.href : null; } catch { return null; }
+}
+/* URL d'image sûre pour un style CSS url("…") */
+const cssUrl = u => { const v = safeUrl(u); return v ? `url(&quot;${v.replace(/["'()\\\s<>]/g, c => "%" + c.charCodeAt(0).toString(16).padStart(2, "0"))}&quot;)` : ""; };
 const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 const famille = e => { const t = e.tarif?.type; return t === "gratuit" || t === "gratuit_sous_condition" ? "gratuit" : t === "payant" ? "payant" : "inconnu"; };
@@ -275,7 +284,7 @@ function renderCounts() {
 function card(e) {
   const [p, cls] = prixTxt(e), d = dist(e), initial = esc((e.titre || "?").trim()[0]);
   return `<button class="card" data-id="${esc(e.id)}">
-    <div class="thumb" ${e.image ? `style="background-image:url('${esc(e.image)}')"` : ""}>${e.image ? "" : initial}</div>
+    <div class="thumb" ${cssUrl(e.image) ? `style="background-image:${cssUrl(e.image)}"` : ""}>${cssUrl(e.image) ? "" : initial}</div>
     <div>
       <h2>${state.favs.has(e.id) ? "★ " : ""}${esc(e.titre)}</h2>
       <div class="meta">${esc(e.lieu || e.adresse || "Lieu à préciser")}${d != null ? " · " + kmTxt(d) : ""}</div>
@@ -331,7 +340,7 @@ async function renderMap(list) {
   list.filter(e => e.lat != null && e.lon != null).forEach(e => {
     const f = famille(e), col = css.getPropertyValue(f === "gratuit" ? "--free" : f === "payant" ? "--paid" : "--unk").trim();
     const m = L.circleMarker([e.lat, e.lon], { radius: 8, color: "#fff", weight: 2, fillColor: col, fillOpacity: .95 });
-    m.bindTooltip(e.titre).on("click", () => openSheet(e.id));
+    m.bindTooltip(document.createTextNode(e.titre || "")).on("click", () => openSheet(e.id));   // texte brut, jamais du HTML
     m.addTo(layer); pts.push([e.lat, e.lon]);
   });
   if (state.pos) L.circleMarker(state.pos, { radius: 7, color: "#fff", weight: 3, fillColor: "#0A84FF", fillOpacity: 1 }).addTo(layer);
@@ -348,13 +357,13 @@ const ICON = {
 };
 function openSheet(id) {
   const e = state.data.expositions.find(x => x.id === id); if (!e) return;
-  const [p, cls] = prixTxt(e), t = e.tarif || {}, d = dist(e);
+  const [p, cls] = prixTxt(e), t = e.tarif || {}, d = dist(e), lien = safeUrl(e.lien), billet = safeUrl(t.billetterie);
   const q = encodeURIComponent([e.lieu, e.adresse].filter(Boolean).join(", "));
-  const maps = e.lat != null ? `https://maps.apple.com/?daddr=${e.lat},${e.lon}&q=${encodeURIComponent(e.lieu || e.titre)}` : `https://maps.apple.com/?q=${q}`;
+  const maps = Number.isFinite(e.lat) && Number.isFinite(e.lon) ? `https://maps.apple.com/?daddr=${Number(e.lat)},${Number(e.lon)}&q=${encodeURIComponent(e.lieu || e.titre)}` : `https://maps.apple.com/?q=${q}`;
   const deb = parse(e.debut), fin = parse(e.fin);
   $("#sheet").innerHTML = `
     <div class="grab"></div><button class="close" data-close aria-label="Fermer">×</button>
-    ${e.image ? `<div class="hero" style="background-image:url('${esc(e.image)}')"></div>` : ""}
+    ${cssUrl(e.image) ? `<div class="hero" style="background-image:${cssUrl(e.image)}"></div>` : ""}
     <div class="in">
       <div class="badges">${isNew(e) ? '<span class="b new">Nouveau</span>' : ""}<span class="b ${cls}">${esc(p)}</span>${(e.thematiques || []).map(x => `<span class="b">${esc(x)}</span>`).join("")}</div>
       <h2 id="d-title">${esc(e.titre)}</h2>
@@ -367,10 +376,10 @@ function openSheet(id) {
         ${ICON.euro}<div>${esc(p)}${t.detail ? `<br><span class="meta">${esc(t.detail)}</span>` : ""}${t.reservation ? '<br><span class="meta">Réservation conseillée</span>' : ""}</div>
       </div>
       <div class="actions">
-        <a class="btn primary" href="${maps}" target="_blank" rel="noopener">Itinéraire</a>
+        <a class="btn primary" href="${esc(maps)}" target="_blank" rel="noopener noreferrer">Itinéraire</a>
         <button class="btn" data-fav="${esc(e.id)}">${state.favs.has(e.id) ? "★ Favori" : "☆ Favori"}</button>
-        ${t.billetterie && t.billetterie !== e.lien ? `<a class="btn" href="${esc(t.billetterie)}" target="_blank" rel="noopener">Réserver</a>` : ""}
-        ${e.lien ? `<a class="btn ${t.billetterie && t.billetterie !== e.lien ? "" : "full"}" href="${esc(e.lien)}" target="_blank" rel="noopener">Site de l'expo</a>` : ""}
+        ${billet && billet !== lien ? `<a class="btn" href="${esc(billet)}" target="_blank" rel="noopener noreferrer">Réserver</a>` : ""}
+        ${lien ? `<a class="btn ${billet && billet !== lien ? "" : "full"}" href="${esc(lien)}" target="_blank" rel="noopener noreferrer">Site de l'expo</a>` : ""}
       </div>
       <div class="src">Source : ${esc(e.source || "")} · dans la base depuis le ${e.vu_le ? fmtY.format(parse(e.vu_le)) : "?"}</div>
     </div>`;
