@@ -3,7 +3,7 @@
 Utilise l'API officielle de Notion avec le secret d'intégration NOTION_TOKEN.
 Lancé chaque matin par GitHub Actions (voir .github/workflows/radar.yml).
 """
-import base64, datetime, gzip, json, os, pathlib, shutil, sys, urllib.request, urllib.error
+import base64, datetime, gzip, json, os, pathlib, shutil, sys, urllib.parse, urllib.request, urllib.error
 
 DATABASE_ID = os.environ.get("NOTION_DATABASE_ID", "650d2e7e59c74a239cfe04291fbcfed5")
 DATA_SOURCE_ID = os.environ.get("NOTION_DATA_SOURCE_ID", "7d5552ba-961d-4a01-a94d-af4343774545")
@@ -57,18 +57,35 @@ def text(prop):
     return ""
 
 
+def safe_url(u):
+    """Ne garde que les liens http(s) absolus (pas de javascript:, data:, etc.)."""
+    u = (u or "").strip()
+    try:
+        parts = urllib.parse.urlsplit(u)
+    except ValueError:
+        return ""
+    return u if parts.scheme.lower() in ("http", "https") and parts.netloc else ""
+
+
+# Statuts de candidature : données personnelles, jamais publiées.
+# Les offres écartées ne sont pas exportées ; le statut des autres non plus.
+EXCLUDED_STATUSES = {"Écarté"}
+
+
 def to_offer(page):
     p = page.get("properties", {})
     dom = [x["name"] for x in (p.get("Domaine", {}).get("multi_select") or [])]
     o = {"p": text(p.get("Poste")), "e": text(p.get("Entreprise")), "l": text(p.get("Lieu")), "r": text(p.get("Région")),
          "c": text(p.get("Contrat")), "d": dom, "n": text(p.get("Niveau")), "pub": text(p.get("Date de publication")),
-         "s": text(p.get("Source")), "u": text(p.get("Lien")), "res": text(p.get("Résumé")), "sal": text(p.get("Salaire")),
-         "st": text(p.get("Statut")), "aj": text(p.get("Ajouté le")) or page.get("created_time", "")}
+         "s": text(p.get("Source")), "u": safe_url(text(p.get("Lien"))), "res": text(p.get("Résumé")), "sal": text(p.get("Salaire")),
+         "aj": text(p.get("Ajouté le")) or page.get("created_time", "")}
     return {k: v for k, v in o.items() if v}
 
 
 def build(pages, out_dir):
-    offres = [to_offer(pg) for pg in pages if not pg.get("in_trash") and not pg.get("archived")]
+    pages = [pg for pg in pages if not pg.get("in_trash") and not pg.get("archived")
+             and text(pg.get("properties", {}).get("Statut")) not in EXCLUDED_STATUSES]
+    offres = [to_offer(pg) for pg in pages]
     offres = [o for o in offres if o.get("p")]
     data = {"genere": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), "offres": offres}
     raw = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode()
@@ -86,6 +103,8 @@ def build(pages, out_dir):
     (out_dir / "icons").mkdir(exist_ok=True)
     for icon in ("icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png"):
         shutil.copy2(app / "icons" / icon, out_dir / "icons" / icon)
+    # Lecteurs PDF / DOCX servis depuis le site (plus de CDN tiers).
+    shutil.copytree(app / "vendor", out_dir / "vendor", dirs_exist_ok=True)
     print(f"{len(offres)} offres -> {out_dir / 'index.html'} ({len(html.encode()) // 1024} Kio)")
 
 

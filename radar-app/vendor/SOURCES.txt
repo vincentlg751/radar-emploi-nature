@@ -1,0 +1,13 @@
+Bibliothèques servies localement (plus aucun chargement depuis un CDN tiers).
+Fichiers copiés tels quels depuis les paquets du registre npm (intégrité vérifiée par npm pack) :
+
+pdfjs/pdf.min.js, pdfjs/pdf.worker.min.js, pdfjs/LICENSE
+  pdfjs-dist@3.11.174 (dossier build/)
+  sha512-TdTZPf1trZ8/UFu5Cx/GXB7GZM30LT+wWUNfsi6Bq8ePLnb+woNKtDymI2mxZYBpMbonNFqKmiz684DIfnd8dA==
+  Utilisé avec isEvalSupported: false (mitigation de CVE-2024-4367) et uniquement pour extraire le texte.
+
+mammoth/mammoth.browser.min.js, mammoth/LICENSE
+  mammoth@1.13.0
+  sha512-2cawcYFcP7ISfXbBcL9lmVgTNWo88v/52ND1gnywHtVT/pX0//puPnf0iMPV9ZgmuvNOE+zkIhDgZ9M2c2dDDg==
+
+Mise à jour : npm pack <paquet>@<version>, extraire, recopier les mêmes fichiers, mettre à jour ce fichier.

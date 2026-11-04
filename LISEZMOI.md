@@ -47,10 +47,10 @@ Cette adresse ne change plus. Ouvrez-la sur ordinateur ou téléphone, sans comp
 
 ## À savoir
 
-- **Visibilité :** la page est publique. Toute personne qui a l'adresse voit les offres et leur statut (Candidaté, Écarté…).
+- **Visibilité :** la page est publique. Toute personne qui a l'adresse voit les offres, mais **pas** leur statut : le champ « Statut » n'est jamais publié et les offres « Écarté » sont retirées de la page et de `offres.json`. Pensez aussi à annuler la publication Web de la base Notion (Partager → Publier) si elle était activée.
 - **Votre CV :** il reste dans votre navigateur. Il n'est jamais envoyé à GitHub ni à Notion.
 - **Indice de compatibilité :** il est calculé localement à partir des mots-clés du CV et de l'offre, du niveau demandé, du domaine et du type de contrat.
-- **Analyse rédigée (facultatif) :** pour obtenir les points à revoir, l'accroche et les reformulations, ajoutez votre propre clé API Anthropic dans le bloc « Mon CV ».
+- **Analyse rédigée (facultatif) :** pour obtenir les points à revoir, l'accroche et les reformulations, ajoutez votre propre clé API Anthropic dans le bloc « Mon CV ». Elle n'est gardée que le temps de l'onglet, sauf si vous cochez « Mémoriser » (déconseillé). Fixez dans tous les cas un plafond de dépense pour cette clé dans la console Anthropic.
 - **En cas d'échec du robot :** GitHub vous envoie un e-mail. La cause la plus fréquente est que l'intégration n'est plus connectée à la base (refaites l'étape 1.4).
 
 ---

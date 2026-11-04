@@ -13,7 +13,7 @@ Sources :
 Si l'API ne répond pas, les fiches API de la base précédente sont gardées (sauf celles terminées).
 Lancé chaque jour par .github/workflows/expositions.yml. Aucune dépendance hors bibliothèque standard.
 """
-import datetime, json, os, pathlib, re, sys, unicodedata, urllib.error, urllib.parse, urllib.request
+import csv, datetime, io, json, math, os, pathlib, re, sys, unicodedata, urllib.error, urllib.parse, urllib.request
 
 HERE = pathlib.Path(__file__).resolve().parent
 DATA = HERE / "data"
@@ -120,6 +120,13 @@ def is_side_event(title):
     return bool(SIDE_EVENTS.search(plain(strip_html(title)).lstrip(" \"'«[(-")))
 
 
+def same_expo(sel, api):
+    """Même expo si les mots distinctifs du titre manuel (hors mots du lieu) figurent tous dans le titre de l'API."""
+    lieu = set(tokens(sel.get("lieu", "")))
+    mots = {t for t in tokens(sel.get("titre", "")) if t not in STOP and t not in lieu and len(t) > 2}
+    return len(mots) >= 2 and mots <= set(tokens(api.get("titre", "")))
+
+
 def title_key(title):
     return re.sub(r"[^a-z0-9]+", " ", plain(title)).strip()
 
@@ -208,6 +215,106 @@ def clean(e):
     return e
 
 
+# ---------- Affluence : fréquentation annuelle du lieu (tri « Les plus demandées ») ----------
+AFFLUENCE = DATA / "affluence.json"            # saisie à la main, prioritaire
+AFFLUENCE_AUTO = DATA / "affluence-auto.json"  # tirée du jeu « Fréquentation des Musées de France »
+FMF_API = "https://www.data.gouv.fr/api/1/datasets/frequentation-des-musees-de-france-1/"
+STOP = {"musee", "musees", "de", "du", "des", "la", "le", "les", "l", "d", "national", "nationale", "et", "a", "au", "aux", "paris"}
+
+
+def tokens(s):
+    return [t for t in re.sub(r"[^a-z0-9]+", " ", plain(s)).split() if t]
+
+
+def fetch_frequentation():
+    """Lit le CSV le plus récent du jeu data.gouv.fr et renvoie [{nom, alias, visiteurs, annee}] pour Paris.
+    Les noms de colonnes sont devinés (nom, ville, année, total) pour résister aux changements de format."""
+    req = urllib.request.Request(FMF_API, headers={"User-Agent": "radar-expositions/1.0 (GitHub Actions)"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        meta = json.load(r)
+    res = [x for x in meta.get("resources", []) if "csv" in plain(x.get("format")) and safe_url(x.get("url"))]
+    if not res:
+        raise ValueError("aucun fichier CSV dans le jeu de données")
+    res.sort(key=lambda x: x.get("last_modified") or "", reverse=True)
+    req = urllib.request.Request(res[0]["url"], headers={"User-Agent": "radar-expositions/1.0 (GitHub Actions)"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        raw = r.read(MAX_BYTES + 1)
+    if len(raw) > MAX_BYTES:
+        raise ValueError("fichier trop gros")
+    for enc in ("utf-8-sig", "cp1252", "latin-1"):
+        try:
+            text = raw.decode(enc)
+            break
+        except UnicodeDecodeError:
+            continue
+    dialect = csv.Sniffer().sniff(text[:5000], delimiters=";,\t")
+    rows = list(csv.DictReader(io.StringIO(text), dialect=dialect))
+    if not rows:
+        raise ValueError("CSV vide")
+    cols = {plain(c): c for c in rows[0].keys() if c}
+    def pick(*keys):  # premier mot-clé (par ordre de priorité) trouvé dans un nom de colonne
+        return next((c for x in keys for k, c in cols.items() if x in k), None)
+    c_nom = pick("nom du musee", "nom_du_musee", "nom musee", "nom_musee", "appellation", "nom officiel", "musee", "nom")
+    c_ville = pick("ville", "commune")
+    c_dep = pick("departement", "dept")
+    c_an = pick("annee", "year")
+    c_tot = pick("total", "frequentation totale", "frequentation")
+    if not (c_nom and c_tot):
+        raise ValueError(f"colonnes introuvables : {list(cols)[:12]}")
+    best = {}
+    for row in rows:
+        lieu_ok = "paris" in plain(row.get(c_ville, "")) or plain(row.get(c_dep, "")).strip() in ("75", "paris")
+        if not lieu_ok:
+            continue
+        try:
+            total = int(float(re.sub(r"[^0-9.,]", "", row.get(c_tot, "") or "").replace(",", ".") or 0))
+            annee = int(re.sub(r"\D", "", row.get(c_an, "") or "0")[:4] or 0)
+        except ValueError:
+            continue
+        nom = (row.get(c_nom) or "").strip()
+        alias = [t for t in tokens(nom) if t not in STOP]
+        if total <= 0 or not alias:
+            continue
+        k = " ".join(alias)
+        if k not in best or annee > best[k]["annee"]:
+            best[k] = {"nom": nom, "alias": [alias], "visiteurs": total, "annee": annee,
+                       "source": "Fréquentation des Musées de France (ministère de la Culture, data.gouv.fr)"}
+    if not best:
+        raise ValueError("aucun musée parisien reconnu")
+    return sorted(best.values(), key=lambda x: -x["visiteurs"])
+
+
+def refresh_affluence():
+    """Met à jour affluence-auto.json si possible, puis renvoie la table (manuelle d'abord)."""
+    try:
+        auto = fetch_frequentation()
+        AFFLUENCE_AUTO.write_text(json.dumps({"genere": datetime.date.today().isoformat(), "lieux": auto},
+                                             ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        print(f"Fréquentation des musées : {len(auto)} lieux parisiens")
+    except Exception as exc:
+        print(f"::warning::Fréquentation des musées indisponible ({type(exc).__name__}: {exc}). Dernière copie conservée.", file=sys.stderr)
+    return load(AFFLUENCE, {}).get("lieux", []) + load(AFFLUENCE_AUTO, {}).get("lieux", [])
+
+
+def affluence_for(e, table):
+    """Associe l'expo au lieu le plus fréquenté dont tous les mots-clés figurent dans son lieu ou son titre."""
+    toks = set(tokens(" ".join([e.get("lieu", ""), e.get("adresse", ""), e.get("titre", "")])))
+    lieu_toks = set(tokens(e.get("lieu", "")))
+    found = None
+    for v in table:
+        for alias in v.get("alias") or []:
+            # au moins un mot du lieu doit correspondre, pour ne pas classer une expo qui cite juste « Louvre » dans son titre
+            if alias and set(alias) <= toks and set(alias) & lieu_toks:
+                if found is None or v["visiteurs"] > found["visiteurs"]:
+                    found = v
+    if not found:
+        return None
+    n = found["visiteurs"]
+    niveau = 3 if n >= 2_000_000 else 2 if n >= 800_000 else 1 if n >= 200_000 else 0
+    return {"visiteurs": n, "annee": found.get("annee"), "lieu": found["nom"], "niveau": niveau,
+            "score": round(math.log10(n), 3), "source": found.get("source", "")}
+
+
 def load(path, default):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -247,7 +354,7 @@ def main():
     dedup = []
     for e in api:
         k = title_key(e.get("titre", ""))
-        twin = next((v for sk, v in sel_keys.items() if sk and (sk in k or k in sk)), None)
+        twin = next((v for sk, v in sel_keys.items() if sk and (sk in k or k in sk or same_expo(v, e))), None)
         if twin is None:
             dedup.append(e)
             continue
@@ -275,12 +382,19 @@ def main():
             added.append(id_)
     removed = [id_ for id_ in previous if id_ not in merged]
 
+    table = refresh_affluence()
+    for e in merged.values():
+        a = affluence_for(e, table)
+        if a:
+            e["affluence"] = a
+        else:
+            e.pop("affluence", None)
     expos = sorted(merged.values(), key=lambda e: (e.get("fin") or "9999", e["titre"]))
     counts = {t: sum(1 for e in expos if e.get("tarif", {}).get("type") == t)
               for t in ("gratuit", "gratuit_sous_condition", "payant", "inconnu")}
     base = {"genere": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
             "jour": today, "api_ok": api_ok, "total": len(expos), "par_tarif": counts,
-            "nouvelles": added, "expositions": expos}
+            "nouvelles": added, "avec_affluence": sum(1 for e in expos if e.get("affluence")), "expositions": expos}
     DATA.mkdir(parents=True, exist_ok=True)
     BASE.write_text(json.dumps(base, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
