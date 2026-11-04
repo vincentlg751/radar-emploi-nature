@@ -1,9 +1,11 @@
 name: Radar Emploi Nature
 
-# Publie l'application Radar Emploi Nature sur GitHub Pages. La page ne contient aucune offre :
-# elle les lit dans Notion à travers le serveur personnel (server/, robot serveur.yml).
+# Comme l'app « Expositions » : chaque matin, le robot lit la base Notion (secret NOTION_TOKEN) et publie
+# sur GitHub Pages l'application et la liste des offres (offres.json). Aucun serveur, aucun abonnement.
 
 on:
+  schedule:
+    - cron: "15 6 * * *"   # chaque jour à 6h15 UTC (7h15 à Paris en hiver), après la veille Claude de 5h40
   push:
     branches: [main]
     paths:
@@ -37,9 +39,9 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
-      - name: Générer l'application (sans données : elles passent par le serveur personnel)
+      - name: Lire Notion et générer l'application
         env:
-          RADAR_SERVER: ${{ vars.RADAR_SERVER }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: python scripts/build.py
       - name: Renvoyer l'ancienne adresse d'Expos du moment vers son nouveau dépôt
         run: python scripts/expositions_redirect.py

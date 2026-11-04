@@ -14,9 +14,3 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
-  # Dépendances du serveur personnel (SDK Claude, wrangler).
-  - package-ecosystem: npm
-    directory: /server
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5

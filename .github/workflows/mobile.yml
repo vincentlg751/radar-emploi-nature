@@ -16,7 +16,7 @@ permissions:
 
 # Toutes les actions sont épinglées par SHA de commit complet (version en commentaire),
 # mises à jour par Dependabot (.github/dependabot.yml).
-# Aucun secret n'est utilisé : l'application lit Notion à travers le serveur personnel (server/).
+# Aucun secret n'est utilisé : l'application relit chaque jour la liste publiée par le robot radar.yml.
 
 jobs:
   android:
@@ -40,8 +40,6 @@ jobs:
           java-version: "21"
       - name: Construire l'APK
         working-directory: mobile
-        env:
-          RADAR_SERVER: ${{ vars.RADAR_SERVER }}
         run: |
           npm ci
           npm run apk
@@ -68,8 +66,6 @@ jobs:
           cache-dependency-path: mobile/package-lock.json
       - name: Générer le projet Xcode
         working-directory: mobile
-        env:
-          RADAR_SERVER: ${{ vars.RADAR_SERVER }}
         run: |
           npm ci
           npm run ios
