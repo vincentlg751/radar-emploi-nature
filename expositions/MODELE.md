@@ -41,3 +41,13 @@ Une fiche par exposition dans `data/expositions.json` (générée) et `data/sele
 `prix_min` sert au tri « Prix croissant » et à l'étiquette « Dès 16 € ». `billetterie` affiche un bouton **Réserver**. Ces expositions apparaissent dans l'onglet **Payantes**.
 
 `type: "inconnu"` (tarif non communiqué) n'apparaît que dans l'onglet **Toutes**.
+
+## Affluence (tri « Les plus demandées »)
+
+Ajouté automatiquement quand le lieu de l'expo est reconnu :
+
+```json
+"affluence": { "visiteurs": 8700000, "annee": 2024, "lieu": "Musée du Louvre", "niveau": 3, "score": 6.94, "source": "…" }
+```
+
+Il s'agit de la **fréquentation annuelle du lieu**, pas d'un comptage propre à l'expo : aucune source publique ne donne la fréquentation de chaque exposition en temps réel. Les chiffres viennent de `data/affluence.json` (saisis à la main, prioritaires, avec leur source) et du jeu ouvert « Fréquentation des Musées de France » (ministère de la Culture, data.gouv.fr), recopié dans `data/affluence-auto.json`. Niveaux : 3 = au moins 2 millions de visiteurs par an (« Très forte affluence »), 2 = au moins 800 000 (« Forte affluence »), 1 = au moins 200 000.

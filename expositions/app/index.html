@@ -83,6 +83,13 @@ h1 { font-family: var(--f-display); font-size: clamp(28px, 8vw, 34px); line-heig
 .list { display: grid; gap: 10px; padding-top: 6px; padding-bottom: 20px; }
 .card { display: grid; grid-template-columns: 76px 1fr; gap: 12px; background: var(--surface); border-radius: var(--r); padding: 10px; border: 0; text-align: left; width: 100%; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 .thumb { width: 76px; height: 96px; border-radius: 9px; background: var(--sunk) center/cover no-repeat; display: grid; place-items: center; color: var(--muted); font-family: var(--f-display); font-size: 28px; }
+.cardwrap { position: relative; }
+.cardwrap .card { padding-right: 44px; }
+.star { position: absolute; top: 6px; right: 6px; width: 38px; height: 38px; border: 0; background: transparent; border-radius: 50%;
+  font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.star[aria-pressed="true"] { color: #E0A21B; }
+.star:active { transform: scale(.85); }
+.b.hot { background: var(--accent-soft); color: var(--accent); }
 .card h2 { font-size: 16px; line-height: 1.25; margin: 1px 0 3px; font-weight: 650; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .meta { font-size: 13px; color: var(--muted); }
 .meta + .meta { margin-top: 1px; }
@@ -177,6 +184,7 @@ nav.tabs button[aria-pressed="true"] { color: var(--accent); }
       <span id="count"></span>
       <select id="sort" aria-label="Trier">
         <option value="fin">Fin la plus proche</option>
+        <option value="demande">Les plus demandées</option>
         <option value="recent">Ajoutées récemment</option>
         <option value="dist">Les plus proches de moi</option>
         <option value="prix">Prix croissant</option>
@@ -270,6 +278,8 @@ function sorted(list) {
     fin: (a, b) => (a.fin || "9999").localeCompare(b.fin || "9999"),
     recent: (a, b) => (b.vu_le || "").localeCompare(a.vu_le || "") || (a.fin || "").localeCompare(b.fin || ""),
     dist: (a, b) => (dist(a) ?? 1e9) - (dist(b) ?? 1e9),
+    // Affluence du lieu (visiteurs par an) : les plus fréquentés d'abord ; à égalité, la fin la plus proche
+    demande: (a, b) => (b.affluence?.visiteurs || 0) - (a.affluence?.visiteurs || 0) || (a.fin || "9999").localeCompare(b.fin || "9999"),
     prix: (a, b) => (a.tarif?.prix_min ?? (famille(a) === "gratuit" ? 0 : 999)) - (b.tarif?.prix_min ?? (famille(b) === "gratuit" ? 0 : 999)),
   }[state.sort];
   return list.slice().sort(by);
@@ -283,19 +293,22 @@ function renderCounts() {
 }
 function card(e) {
   const [p, cls] = prixTxt(e), d = dist(e), initial = esc((e.titre || "?").trim()[0]);
-  return `<button class="card" data-id="${esc(e.id)}">
+  const fav = state.favs.has(e.id), aff = e.affluence;
+  return `<div class="cardwrap"><button class="card" data-id="${esc(e.id)}">
     <div class="thumb" ${cssUrl(e.image) ? `style="background-image:${cssUrl(e.image)}"` : ""}>${cssUrl(e.image) ? "" : initial}</div>
     <div>
-      <h2>${state.favs.has(e.id) ? "★ " : ""}${esc(e.titre)}</h2>
+      <h2>${esc(e.titre)}</h2>
       <div class="meta">${esc(e.lieu || e.adresse || "Lieu à préciser")}${d != null ? " · " + kmTxt(d) : ""}</div>
       <div class="meta">${esc(datesTxt(e))}</div>
       <div class="badges">
         ${isNew(e) ? '<span class="b new">Nouveau</span>' : ""}
         ${upcoming(e) ? '<span class="b soon">Bientôt</span>' : ""}
+        ${aff && aff.niveau >= 2 ? `<span class="b hot">${aff.niveau >= 3 ? "Très forte affluence" : "Forte affluence"}</span>` : ""}
         <span class="b ${cls}">${esc(p)}</span>
         ${(e.thematiques || []).slice(0, 2).map(t => `<span class="b">${esc(t)}</span>`).join("")}
       </div>
-    </div></button>`;
+    </div></button>
+    <button class="star" data-star="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Retirer des favoris" : "Ajouter aux favoris"}">${fav ? "★" : "☆"}</button></div>`;
 }
 function renderList(list) {
   const el = $("#v-list");
@@ -348,7 +361,9 @@ async function renderMap(list) {
 }
 
 /* ---------- Fiche détaillée ---------- */
+const fmtVisiteurs = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace(".", ",") + " million" + (n >= 2e6 ? "s" : "") + " de visiteurs" : Math.round(n / 1000) + " 000 visiteurs";
 const ICON = {
+  people: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg>',
   cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
   pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
   euro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 6.5A7 7 0 1 0 17 17.5M4 10h9M4 14h9"/></svg>',
@@ -373,6 +388,7 @@ function openSheet(id) {
         ${ICON.cal}<div>${deb ? fmtY.format(deb) : "?"} → ${fin ? fmtY.format(fin) : "?"}<br><span class="meta">${esc(datesTxt(e))}</span></div>
         ${e.horaires ? ICON.clock + `<div class="meta">${esc(e.horaires)}</div>` : ""}
         ${ICON.pin}<div><b>${esc(e.lieu || "")}</b><br><span class="meta">${esc(e.adresse || "")}${d != null ? " · à " + kmTxt(d) : ""}</span></div>
+        ${e.affluence ? ICON.people + `<div>Affluence du lieu : ${esc(fmtVisiteurs(e.affluence.visiteurs))} par an${e.affluence.annee ? ` (${esc(e.affluence.annee)})` : ""}<br><span class="meta">${esc(e.affluence.lieu)} · source : ${esc(e.affluence.source)}</span></div>` : ""}
         ${ICON.euro}<div>${esc(p)}${t.detail ? `<br><span class="meta">${esc(t.detail)}</span>` : ""}${t.reservation ? '<br><span class="meta">Réservation conseillée</span>' : ""}</div>
       </div>
       <div class="actions">
@@ -439,13 +455,27 @@ document.querySelectorAll("nav.tabs button").forEach(b => b.onclick = async () =
   $("#v-list").hidden = v !== "list"; $("#v-map").hidden = v !== "map";
   render(); if (v === "map") $("#v-map").scrollIntoView({ block: "start" }); else window.scrollTo({ top: 0 });
 });
-$("#v-list").onclick = e => { const c = e.target.closest(".card"); if (c) openSheet(c.dataset.id); };
+function toggleFav(id) {
+  state.favs.has(id) ? state.favs.delete(id) : state.favs.add(id);
+  store.set("favs", [...state.favs]);
+  return state.favs.has(id);
+}
+$("#v-list").onclick = e => {
+  const s = e.target.closest("[data-star]");
+  if (s) {                      // étoile : ajoute / retire des favoris sans ouvrir la fiche
+    const on = toggleFav(s.dataset.star);
+    s.textContent = on ? "★" : "☆"; s.setAttribute("aria-pressed", String(on));
+    s.setAttribute("aria-label", on ? "Retirer des favoris" : "Ajouter aux favoris");
+    if (state.flags.has("fav")) render();
+    return;
+  }
+  const c = e.target.closest(".card"); if (c) openSheet(c.dataset.id);
+};
 $("#sheet-bg").onclick = closeSheet;
 $("#sheet").onclick = e => {
   if (e.target.closest("[data-close]")) return closeSheet();
   const f = e.target.closest("[data-fav]"); if (!f) return;
-  const id = f.dataset.fav; state.favs.has(id) ? state.favs.delete(id) : state.favs.add(id);
-  store.set("favs", [...state.favs]); f.textContent = state.favs.has(id) ? "★ Favori" : "☆ Favori"; render();
+  const on = toggleFav(f.dataset.fav); f.textContent = on ? "★ Favori" : "☆ Favori"; render();
 };
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
 

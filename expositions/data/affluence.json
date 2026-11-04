@@ -1,0 +1,11 @@
+{
+ "_note": "Fréquentation annuelle des lieux, saisie à la main (prioritaire sur les données automatiques). Sert au tri « Les plus demandées ». « alias » : mots qui doivent tous apparaître dans le nom du lieu de l'expo (sans accents, minuscules).",
+ "lieux": [
+  {"nom": "Musée du Louvre", "alias": [["louvre"]], "visiteurs": 8700000, "annee": 2024, "source": "Communiqué du musée, repris par franceinfo (janvier 2025)"},
+  {"nom": "Musée d'Orsay", "alias": [["orsay"]], "visiteurs": 3751141, "annee": 2024, "source": "Liste Wikipédia « most-visited museums in France » ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"},
+  {"nom": "Petit Palais", "alias": [["petit", "palais"]], "visiteurs": 1459371, "annee": 2024, "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"},
+  {"nom": "Musée du quai Branly – Jacques Chirac", "alias": [["quai", "branly"]], "visiteurs": 1270000, "annee": 2024, "source": "Liste Wikipédia (Club Innovation Culture / ministère de la Culture)"},
+  {"nom": "Fondation Louis Vuitton", "alias": [["louis", "vuitton"]], "visiteurs": 1208173, "annee": 2024, "source": "Liste Wikipédia (Club Innovation Culture)"},
+  {"nom": "Musée de l'Orangerie", "alias": [["orangerie"]], "visiteurs": 1198694, "annee": 2024, "source": "Liste Wikipédia ; Orsay + Orangerie = 4 949 835 (communiqué officiel)"}
+ ]
+}
