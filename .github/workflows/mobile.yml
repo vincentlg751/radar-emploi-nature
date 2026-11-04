@@ -8,6 +8,7 @@ on:
       - "mobile/**"
       - "radar-template.html"
       - "radar-app/**"
+      - "scripts/csp.py"
       - ".github/workflows/mobile.yml"
 
 permissions:
@@ -15,8 +16,7 @@ permissions:
 
 # Toutes les actions sont épinglées par SHA de commit complet (version en commentaire),
 # mises à jour par Dependabot (.github/dependabot.yml).
-# NOTION_TOKEN n'est fourni qu'à l'étape « Intégrer les offres du jour », placée juste après
-# les actions officielles checkout / setup-python et avant toute autre action.
+# Aucun secret n'est utilisé : l'application lit Notion à travers le serveur personnel (server/).
 
 jobs:
   android:
@@ -29,10 +29,6 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
-      - name: Intégrer les offres du jour (si la clé Notion est configurée)
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-        run: if [ -n "$NOTION_TOKEN" ]; then python scripts/build.py; fi
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
@@ -44,6 +40,8 @@ jobs:
           java-version: "21"
       - name: Construire l'APK
         working-directory: mobile
+        env:
+          RADAR_SERVER: ${{ vars.RADAR_SERVER }}
         run: |
           npm ci
           npm run apk
@@ -60,12 +58,6 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
-      # Étape Notion avant l'action tierce setup-xcode : celle-ci ne peut donc pas piéger
-      # l'environnement (PATH, etc.) de l'étape qui reçoit le secret.
-      - name: Intégrer les offres du jour (si la clé Notion est configurée)
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-        run: if [ -n "$NOTION_TOKEN" ]; then python3 scripts/build.py; fi
       - uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
         with:
           xcode-version: latest-stable
@@ -76,6 +68,8 @@ jobs:
           cache-dependency-path: mobile/package-lock.json
       - name: Générer le projet Xcode
         working-directory: mobile
+        env:
+          RADAR_SERVER: ${{ vars.RADAR_SERVER }}
         run: |
           npm ci
           npm run ios

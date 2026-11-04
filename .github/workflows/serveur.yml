@@ -1,0 +1,78 @@
+name: Serveur Radar Emploi (Cloudflare)
+
+# Met en ligne le serveur personnel (dossier server/) sur Cloudflare Workers, puis lui transmet
+# ses secrets. Secrets GitHub nécessaires (Settings > Secrets and variables > Actions) :
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID  : accès à votre compte Cloudflare
+#   NOTION_TOKEN                                 : clé de l'intégration Notion « Radar Emploi Nature »
+#   ANTHROPIC_API_KEY                            : clé API Claude (console.anthropic.com)
+#   APP_PASSWORD                                 : mot de passe de l'application (16 caractères minimum)
+# Un secret laissé vide n'est pas envoyé : la valeur déjà enregistrée sur Cloudflare est conservée.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "server/**"
+      - ".github/workflows/serveur.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: serveur
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - name: Installer et tester
+        run: |
+          npm ci
+          npm test
+      - name: Vérifier les secrets Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Secrets CLOUDFLARE_API_TOKEN et CLOUDFLARE_ACCOUNT_ID absents (voir LISEZMOI.md, « Mettre le serveur en ligne »)."
+            exit 1
+          fi
+      - name: Mettre le serveur en ligne
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy
+      - name: Transmettre les secrets au serveur
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+        run: |
+          umask 077
+          f="$(mktemp)"
+          trap 'rm -f "$f"' EXIT
+          node -e '
+            const keys = ["NOTION_TOKEN", "ANTHROPIC_API_KEY", "APP_PASSWORD"];
+            const out = Object.fromEntries(keys.filter(k => process.env[k]).map(k => [k, process.env[k]]));
+            if (out.APP_PASSWORD && out.APP_PASSWORD.length < 16) { console.error("APP_PASSWORD doit faire au moins 16 caractères."); process.exit(1); }
+            require("fs").writeFileSync(process.argv[1], JSON.stringify(out));
+            console.log("Secrets transmis : " + (Object.keys(out).join(", ") || "aucun"));
+          ' "$f"
+          npx wrangler secret bulk "$f"
