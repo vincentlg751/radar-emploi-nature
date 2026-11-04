@@ -1,0 +1,17 @@
+{
+  "name": "radar-emploi-serveur",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Serveur personnel de Radar Emploi Nature (Cloudflare Worker) : relais vers Notion et Claude, protégé par mot de passe.",
+  "scripts": {
+    "test": "node test/test.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.3.0"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
+}

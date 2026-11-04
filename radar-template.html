@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.anthropic.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.workers.dev; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Radar Emploi Nature</title>
-<meta name="theme-color" content="#F1F4EF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F1411" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F1F4EF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -20,41 +19,40 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 html { color-scheme: light; }
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 body { margin: 0; }
 img { max-width: 100%; }
-[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<style>
 /* Layout: sticky search bar, then a two-column workspace — offer list on the left, offer detail + CV adaptation on the right (stacked on phones). */
 :root {
---bg: #F1F4EF;
---surface: #FFFFFF;
---sunk: #E7ECE4;
---ink: #16201A;
---muted: #5A6A5E;
---line: #D6DDD2;
---accent: #1D6658;
---accent-soft: #DCEBE5;
---accent-ink: #FFFFFF;
---new: #A9580C;
---new-soft: #F6E6D3;
---good: #2E7A3A;
---warn: #A13A28;
---warn-soft: #F5DFD9;
---f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
---f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
---f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
---r: 10px;
-}
-@media (prefers-color-scheme: dark) {
-:root:not([data-theme="light"]) {
---bg: #0F1411; --surface: #171E19; --sunk: #1E2721; --ink: #E4EBE3; --muted: #9AA99D; --line: #2A352D;
---accent: #62B9A2; --accent-soft: #1C3530; --accent-ink: #0C1310; --new: #E6A05A; --new-soft: #3A2A18;
---good: #7CC487; --warn: #E8846F; --warn-soft: #3A211B; color-scheme: dark;
-}
+  --bg: #F1F4EF;
+  --surface: #FFFFFF;
+  --sunk: #E7ECE4;
+  --ink: #16201A;
+  --muted: #5A6A5E;
+  --line: #D6DDD2;
+  --accent: #1D6658;
+  --accent-soft: #DCEBE5;
+  --accent-ink: #FFFFFF;
+  --new: #A9580C;
+  --new-soft: #F6E6D3;
+  --good: #2E7A3A;
+  --warn: #A13A28;
+  --warn-soft: #F5DFD9;
+  --star: #C28A00;
+  --star-soft: #FBF0D2;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
 }
 :root[data-theme="dark"] {
---bg: #0F1411; --surface: #171E19; --sunk: #1E2721; --ink: #E4EBE3; --muted: #9AA99D; --line: #2A352D;
---accent: #62B9A2; --accent-soft: #1C3530; --accent-ink: #0C1310; --new: #E6A05A; --new-soft: #3A2A18;
---good: #7CC487; --warn: #E8846F; --warn-soft: #3A211B; color-scheme: dark;
+  --bg: #0F1411; --surface: #171E19; --sunk: #1E2721; --ink: #E4EBE3; --muted: #9AA99D; --line: #2A352D;
+  --accent: #62B9A2; --accent-soft: #1C3530; --accent-ink: #0C1310; --new: #E6A05A; --new-soft: #3A2A18;
+  --good: #7CC487; --warn: #E8846F; --warn-soft: #3A211B; --star: #F2C14E; --star-soft: #3A3014; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
@@ -77,9 +75,9 @@ button { cursor: pointer; }
 .btn:disabled { opacity: .55; cursor: default; }
 .btn.small { padding: 4px 9px; font-size: 13px; }
 .status-line { font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
 /* sticky controls */
-.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); }
-@media (max-width: 900px) { .controls { position: static; } }
+.controls { position: relative; z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); }
 .controls-inner { display: flex; flex-direction: column; gap: 10px; }
 .searchrow { display: flex; gap: 8px; flex-wrap: wrap; }
 .search { flex: 1 1 260px; min-width: 0; display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
@@ -95,17 +93,21 @@ button { cursor: pointer; }
 .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dc, var(--muted)); }
 .chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
 .chip .n { color: var(--muted); font-family: var(--f-mono); font-size: 12px; }
+
 /* main grid */
 main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 20px; padding-block: 16px 40px; align-items: start; }
 @media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
 .listhead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
 .list { display: flex; flex-direction: column; gap: 8px; }
-.offer { text-align: left; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+.offer { cursor: pointer; text-align: left; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
 .offer:hover { border-color: var(--accent); }
 .offer[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
 .offer .t { font-weight: 600; font-size: 15px; line-height: 1.3; }
 .offer .m { font-size: 13px; color: var(--muted); grid-column: 1 / 2; }
 .offer .side { grid-row: 1 / 3; grid-column: 2; display: flex; flex-direction: column; align-items: end; gap: 4px; }
+.offer .acts { display: flex; gap: 2px; margin: -4px -6px 0 0; }
+.offer .meta { display: flex; gap: 8px; align-items: center; }
+.offer.busy { opacity: .6; }
 .offer .tags { grid-column: 1 / -1; display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 .pill { font-size: 11.5px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; }
 .pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dc, var(--muted)); }
@@ -120,15 +122,18 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); g
 .idx .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .idx .big { font-family: var(--f-display); font-weight: 700; font-size: 34px; line-height: 1; }
 .idx .verdict { font-weight: 600; }
-.crit { display: grid; grid-template-columns: minmax(0, 12em) minmax(60px, 1fr) 2.5em; gap: 8px; align-items: center; font-size: 13px; }
+.crit { display: grid; grid-template-columns: minmax(0, 15em) minmax(60px, 1fr) 2.5em; gap: 8px; align-items: center; font-size: 13px; }
 .crit .bar { height: 6px; background: var(--surface); }
 .crit .v { font-family: var(--f-mono); text-align: right; color: var(--muted); }
+.theme-btn svg { display: block; }
+.nodate { font-size: 11.5px; color: var(--muted); font-style: italic; }
 .progress { font-size: 13px; color: var(--muted); }
 .empty { border: 1px dashed var(--line); border-radius: var(--r); padding: 22px; color: var(--muted); text-align: center; }
 .notice { border-radius: var(--r); padding: 12px 14px; background: var(--warn-soft); color: var(--ink); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
 .more { margin-top: 10px; }
+
 /* right column */
-aside.work { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 150px); display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 170px); overflow: auto; padding-bottom: 8px; }
+aside.work { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 24px); overflow: auto; padding-bottom: 8px; }
 @media (max-width: 900px) { aside.work { position: static; max-height: none; overflow: visible; } }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .cvbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
@@ -153,613 +158,1362 @@ ul.clean { margin: 0; padding-left: 18px; display: flex; flex-direction: column;
 .rew { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 8px; }
 .rew .a { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--muted) 50%, transparent); }
 .quote { background: var(--sunk); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; }
+.pill.en { color: var(--accent); border-color: var(--accent); font-weight: 600; letter-spacing: .03em; }
 .tagset { display: flex; flex-wrap: wrap; gap: 6px; }
 .thinking { color: var(--muted); font-style: italic; }
 details summary { cursor: pointer; color: var(--accent); font-weight: 500; }
 .legal { font-size: 12px; color: var(--muted); }
 @media (prefers-reduced-motion: no-preference) { .offer, .btn { transition: border-color .15s, filter .15s; } }
-.keybox { display: flex; flex-direction: column; gap: 8px; }
-.keybox input { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-family: var(--f-mono); font-size: 13px; }
-.yrs { width: 4.5em; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font-family: var(--f-mono); }
-.kw-miss .pill { border-color: var(--new); color: var(--new); }
-.kw-ok .pill { border-color: var(--accent); color: var(--accent); }
+
+[hidden] { display: none !important; }
 a.btn { color: inherit; text-decoration: none; }
+/* tabs */
+.tabs { display: flex; gap: 2px; flex-wrap: wrap; align-items: end; border-bottom: 1px solid var(--line); }
+.tab { border: 0; background: transparent; padding: 8px 12px 9px; border-bottom: 2px solid transparent; margin-bottom: -1px; font-weight: 600; color: var(--muted); display: inline-flex; gap: 7px; align-items: center; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab .n { font-family: var(--f-mono); font-size: 12px; font-weight: 500; background: var(--sunk); border-radius: 999px; padding: 0 7px; }
+.tab[data-tab="favoris"] svg { color: var(--star); }
+.tabs .spacer { flex: 1; }
+.tabs .btn { margin-bottom: 6px; }
+/* icon buttons on cards */
+.ico { width: 32px; height: 32px; border: 1px solid transparent; border-radius: 8px; background: transparent; display: inline-grid; place-items: center; color: var(--muted); padding: 0; }
+.ico:hover { border-color: var(--line); color: var(--ink); background: var(--surface); }
+.ico.star.on { color: var(--star); }
+.ico.star.on svg path { fill: currentColor; }
+.ico.del:hover { color: var(--warn); border-color: var(--warn-soft); }
+.candpill { display: inline-flex; gap: 4px; align-items: center; font-size: 12px; font-weight: 600; color: var(--good); padding: 4px 6px; }
+.pill.cand { background: var(--accent-soft); color: var(--accent); border-color: transparent; font-weight: 600; }
+.pill.todo { border-color: var(--star); color: var(--star); }
+.confirm { grid-column: 1 / -1; margin-top: 6px; background: var(--warn-soft); border-radius: 8px; padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; font-size: 13.5px; cursor: default; }
+.confirm.strong { outline: 1.5px solid var(--warn); }
+.btn.danger { background: var(--warn); color: #fff; border-color: var(--warn); }
+.btn.favon { border-color: var(--star); color: var(--star); }
+.btn.favon svg path { fill: currentColor; }
+.btn.delbtn:hover { border-color: var(--warn); color: var(--warn); }
+.btn svg { flex: none; }
+.candbox { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.candbox.done { border-color: var(--accent); background: var(--accent-soft); }
+input[type="date"], .field input, .field select, .field textarea { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font: inherit; color: inherit; }
+.kbdhint { font-size: 12px; color: var(--muted); }
+kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; background: var(--surface); }
+/* add-offer and sources forms */
+.formbox { background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r); padding: 14px 16px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }
+.fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; min-width: 0; }
+.field input, .field select { width: 100%; min-width: 0; }
+.field textarea { min-height: 90px; }
+.field.wide { grid-column: 1 / -1; }
+.srclist { display: flex; flex-direction: column; gap: 6px; }
+.src { display: flex; gap: 10px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 10px 8px 12px; }
+.src.off { opacity: .6; }
+/* experiences chat */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.chatwrap { display: flex; flex-direction: column; gap: 12px; }
+.chatlog { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: flex; flex-direction: column; gap: 10px; max-height: 58vh; min-height: 220px; overflow-y: auto; }
+.msg { max-width: 86%; padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg.a { align-self: flex-start; background: var(--sunk); border-bottom-left-radius: 4px; }
+.msg.u { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-bottom-right-radius: 4px; }
+.msg.saved { align-self: flex-start; background: var(--accent-soft); font-size: 13px; }
+.chatform { display: flex; gap: 8px; align-items: flex-end; }
+.chatform textarea { flex: 1; min-height: 52px; max-height: 180px; resize: vertical; }
+.suggest { display: flex; flex-wrap: wrap; gap: 6px; }
+.exp { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+.exp .top { display: flex; gap: 8px; align-items: flex-start; justify-content: space-between; }
+.exp .top b { overflow-wrap: anywhere; }
+.exp textarea { width: 100%; min-height: 110px; }
+.letter-part { border-left: 3px solid var(--accent); padding: 4px 0 4px 10px; display: flex; flex-direction: column; gap: 3px; }
+.letter-part ul { margin: 2px 0; padding-left: 18px; }
+.axis { display: flex; flex-direction: column; gap: 1px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.axis:last-child { border-bottom: 0; }
+.letterbox .quote { background: var(--surface); }
+.srcmain { display: flex; gap: 10px; align-items: center; flex: 1; min-width: 0; cursor: pointer; }
+.srctext { display: flex; flex-direction: column; min-width: 0; }
+.srctext b { overflow-wrap: anywhere; }
+.src input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+/* toast */
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: var(--bg); padding: 9px 14px; border-radius: 10px; font-size: 13.5px; opacity: 0; pointer-events: none; z-index: 20; max-width: min(560px, calc(100vw - 32px)); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.bad { background: var(--warn); color: #fff; }
+/* connexion au serveur personnel */
+.login { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px)); overflow: auto; }
+.login form { width: min(440px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.login h2 { font-size: 24px; }
+@media (hover: none) { .kbdhint { display: none; } }
+@media (prefers-reduced-motion: no-preference) { .toast { transition: opacity .2s, transform .2s; } }
 </style>
-</head>
-<body>
+
 <div class="wrap">
-<header class="top">
-<h1>Radar Emploi Nature<small>Offres CDI et CDD en écologie, publiées depuis moins de 3 semaines (sans RSE ni greenwashing)</small></h1>
-<div class="status-line">
-<span id="sync"></span>
+  <header class="top">
+    <h1>Radar Emploi Nature<small>Offres CDI et CDD en écologie, des 3 dernières semaines, Meteojob et sites employeurs compris (sans RSE ni greenwashing)</small></h1>
+    <div class="status-line">
+      <button class="btn small theme-btn" id="theme" type="button" aria-pressed="false" title="Basculer entre mode jour et mode nuit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>Mode nuit</span></button>
+      <span id="sync">Connexion à Notion…</span>
+      <button class="btn small" id="refresh" type="button">Actualiser</button>
+      <button class="btn small" id="logout" type="button" hidden title="Changer de serveur ou de mot de passe">Déconnexion</button>
+    </div>
+  </header>
 </div>
-</header>
-</div>
+
 <div class="controls">
-<div class="wrap controls-inner">
-<div class="searchrow">
-<label class="search" for="q">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-<input id="q" type="search" placeholder="Poste, employeur, ville, compétence (ex. écologue, QGIS, Bretagne)…" autocomplete="off">
-</label>
-<div class="seg" role="group" aria-label="Ajoutées depuis" id="since">
-<button type="button" data-v="1" aria-pressed="false">24 h</button>
-<button type="button" data-v="3" aria-pressed="false">3 j</button>
-<button type="button" data-v="7" aria-pressed="false">7 j</button>
-<button type="button" data-v="0" aria-pressed="true">Toutes</button>
+  <div class="wrap controls-inner">
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" type="button" data-tab="offres" aria-selected="true">Offres <span class="n">0</span></button>
+      <button class="tab" role="tab" type="button" data-tab="favoris" aria-selected="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Favoris <span class="n">0</span></button>
+      <button class="tab" role="tab" type="button" data-tab="candidatures" aria-selected="false">Candidatés <span class="n">0</span></button>
+      <button class="tab" role="tab" type="button" data-tab="experiences" aria-selected="false">Mes expériences <span class="n">0</span></button>
+      <button class="tab" role="tab" type="button" data-tab="sources" aria-selected="false">Sources de recherche <span class="n">…</span></button>
+      <span class="spacer"></span>
+      <button class="btn small primary" id="addbtn" type="button">+ Ajouter une offre par lien</button>
+    </nav>
+    <div id="filters" class="controls-inner">
+      <div class="searchrow">
+        <label class="search" for="q">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Poste, employeur, ville, compétence (ex. écologue, QGIS, Bretagne)…" autocomplete="off">
+        </label>
+        <div class="seg" role="group" aria-label="Ajoutées depuis" id="since">
+          <button type="button" data-v="1" aria-pressed="false">24 h</button>
+          <button type="button" data-v="3" aria-pressed="false">3 j</button>
+          <button type="button" data-v="7" aria-pressed="false">7 j</button>
+          <button type="button" data-v="0" aria-pressed="true">Toutes</button>
+        </div>
+      </div>
+      <div class="filters">
+        <select id="f-region" aria-label="Région"><option value="">Toutes régions</option></select>
+        <select id="f-contrat" aria-label="Contrat"><option value="">CDI + CDD</option><option>CDI</option><option>CDD</option></select>
+        <select id="f-langue" aria-label="Langue de l'offre"><option value="">Toutes langues</option><option value="en">Offres en anglais (dont bilingues)</option><option value="en-only">Anglais uniquement</option><option value="fr">Français uniquement</option></select>
+        <select id="f-niveau" aria-label="Niveau"><option value="">Tous niveaux</option><option>Junior</option><option>Technicien</option><option>Confirmé</option><option>Senior / Cadre</option></select>
+        <select id="f-sort" aria-label="Tri"><option value="pub">Plus récentes</option><option value="add">Dernières ajoutées</option><option value="score">Indice de compatibilité</option></select>
+        <select id="f-min" aria-label="Indice minimum"><option value="0">Tout indice</option><option value="50">Indice ≥ 50</option><option value="65">Indice ≥ 65</option><option value="80">Indice ≥ 80</option></select>
+      </div>
+      <div class="chips" id="domains" aria-label="Domaines"></div>
+    </div>
+  </div>
 </div>
-</div>
-<div class="filters">
-<select id="f-region" aria-label="Région"><option value="">Toutes régions</option></select>
-<select id="f-contrat" aria-label="Contrat"><option value="">CDI + CDD</option><option>CDI</option><option>CDD</option></select>
-<select id="f-niveau" aria-label="Niveau"><option value="">Tous niveaux</option><option>Junior</option><option>Technicien</option><option>Confirmé</option><option>Senior / Cadre</option></select>
-<select id="f-statut" aria-label="Statut"><option value="actives">Hors écartées</option><option value="">Tous statuts</option><option>Nouveau</option><option>À regarder</option><option>Candidaté</option><option>Écarté</option></select>
-<select id="f-sort" aria-label="Tri"><option value="pub">Plus récentes</option><option value="add">Dernières ajoutées</option><option value="score">Indice de compatibilité</option></select>
-<select id="f-pref" aria-label="Contrat souhaité"><option value="CDI">Je vise un CDI</option><option value="CDD">Je vise un CDD</option><option value="">Contrat indifférent</option></select>
-<select id="f-min" aria-label="Indice minimum"><option value="0">Tout indice</option><option value="50">Indice ≥ 50</option><option value="65">Indice ≥ 65</option><option value="80">Indice ≥ 80</option></select>
-</div>
-<div class="chips" id="domains" aria-label="Domaines"></div>
-</div>
-</div>
+
 <div class="wrap">
-<main>
-<section aria-labelledby="lh">
-<div class="listhead">
-<h2 id="lh"><span id="count" class="mono">0</span> offres</h2>
-<div class="row">
-<span class="muted" style="font-size:13px" id="rankinfo"></span>
-<button class="btn small" id="rank" type="button" hidden>Affiner l'indice avec Claude</button>
+  <main>
+    <section id="offersview" aria-labelledby="lh">
+      <form class="formbox" id="addbox" hidden novalidate>
+        <h3 style="margin:0">Ajouter une offre à partir de son lien</h3>
+        <div class="fgrid">
+          <label class="field wide" for="add-url">Lien de l'annonce *<input id="add-url" type="url" placeholder="https://…" required></label>
+          <label class="field" for="add-poste">Intitulé du poste<input id="add-poste" type="text" placeholder="facultatif"></label>
+          <label class="field" for="add-ent">Employeur<input id="add-ent" type="text" placeholder="facultatif"></label>
+          <label class="field wide" for="add-text">Texte de l'annonce (facultatif)<textarea id="add-text" placeholder="Copiez-collez ici le texte de l'annonce : Claude remplira aussitôt le lieu, le contrat, le domaine et le résumé. Sinon, l'agent du matin s'en chargera à partir du lien."></textarea></label>
+        </div>
+        <div class="row">
+          <label class="row" for="add-fav" style="gap:6px;font-size:13px"><input id="add-fav" type="checkbox" checked> Mettre directement en favori</label>
+          <span style="flex:1"></span>
+          <button class="btn small" id="add-cancel" type="button">Annuler</button>
+          <button class="btn small primary" id="add-go" type="submit">Ajouter l'offre</button>
+        </div>
+        <span class="legal" id="add-msg"></span>
+      </form>
+      <div class="listhead">
+        <h2 id="lh"><span id="count" class="mono">0</span> <span id="lh-label">offres</span></h2>
+        <div class="row">
+          <span class="muted" style="font-size:13px" id="rankinfo"></span>
+          <button class="btn small primary" id="rank" type="button" disabled>Calculer l'indice de compatibilité</button>
+        </div>
+      </div>
+      <p class="kbdhint" style="margin:-4px 0 10px"><kbd>↑</kbd> <kbd>↓</kbd> passer d'une offre à l'autre · <kbd>F</kbd> favori · <kbd>Suppr</kbd> supprimer · <kbd>Échap</kbd> annuler</p>
+      <div id="listnotice"></div>
+      <div class="list" id="list" role="listbox" aria-label="Offres"><div class="empty">Chargement des offres depuis Notion…</div></div>
+      <button class="btn more" id="more" type="button" hidden>Afficher plus</button>
+    </section>
+
+    <section id="expview" hidden aria-labelledby="exph" class="chatwrap">
+      <div>
+        <h2 id="exph" style="margin-bottom:6px">Mes expériences hors CV</h2>
+        <p class="muted" style="margin:0">Racontez à Claude ce qui ne figure pas sur votre CV : stages, bénévolat, missions courtes, inventaires naturalistes, projets personnels, formations, permis… Il vous pose des questions puis enregistre chaque expérience en fiche. Ces fiches sont ensuite prises en compte dans l'indice, l'adaptation du CV et les lettres de motivation.</p>
+      </div>
+      <div class="chatlog" id="chatlog" aria-live="polite"></div>
+      <div class="suggest" id="chatsuggest"></div>
+      <form class="chatform" id="chatform" novalidate>
+        <label class="sr" for="chatin">Votre message</label>
+        <textarea id="chatin" placeholder="Ex. : en 2022, j'ai fait 3 mois de bénévolat à la LPO pour le suivi des busards…  (Entrée pour envoyer, Maj+Entrée pour aller à la ligne)"></textarea>
+        <button class="btn primary" id="chatgo" type="submit">Envoyer</button>
+      </form>
+      <div class="row" style="justify-content:space-between">
+        <h3 style="margin:0">Fiches enregistrées <span class="mono muted" id="expcount">0</span></h3>
+        <button class="btn small" id="chatreset" type="button">Nouvelle conversation</button>
+      </div>
+      <div class="srclist" id="explist"></div>
+    </section>
+
+    <section id="sourcesview" hidden aria-labelledby="srch">
+      <h2 id="srch" style="margin-bottom:6px">Sources de recherche</h2>
+      <p class="muted" style="margin:0 0 12px">Les sites que l'agent parcourt chaque matin à 5 h 40, en plus de sa liste de base. Décochez un site pour le mettre en pause.</p>
+      <form class="formbox" id="srcform" novalidate>
+        <div class="fgrid">
+          <label class="field" for="src-url">Adresse du site ou de la page offres *<input id="src-url" type="url" placeholder="https://www.exemple.fr/recrutement" required></label>
+          <label class="field" for="src-nom">Nom<input id="src-nom" type="text" placeholder="ex. Parc national des Écrins"></label>
+          <label class="field" for="src-type">Type<select id="src-type"><option>Site employeur</option><option>Job board</option><option>Réseau / association</option><option>Public</option></select></label>
+          <label class="field wide" for="src-notes">Consigne pour l'agent (facultatif)<input id="src-notes" type="text" placeholder="ex. regarder uniquement la rubrique Environnement"></label>
+        </div>
+        <div class="row"><button class="btn small primary" id="src-go" type="submit">Ajouter le site</button><span class="legal" id="src-msg"></span></div>
+      </form>
+      <div class="srclist" id="srclist"></div>
+    </section>
+
+    <aside class="work">
+      <section class="panel" aria-labelledby="cvh">
+        <div class="cvbar">
+          <div><h3 id="cvh">Mon CV</h3><div class="name" id="cvname">Aucun CV importé</div></div>
+          <div class="row">
+            <label class="btn small" for="cvfile">Importer (PDF, DOCX, TXT)</label>
+            <input id="cvfile" type="file" accept=".pdf,.docx,.txt,.md,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+            <button class="btn small" id="cvedit" type="button">Coller / modifier</button>
+          </div>
+        </div>
+        <div class="drop" id="drop">Glissez votre CV ici. Il reste dans votre navigateur et n'est envoyé à Claude que lorsque vous lancez une analyse.</div>
+        <div id="cvbox" hidden>
+          <textarea id="cvtext" placeholder="Collez le texte de votre CV ici…"></textarea>
+          <div class="row" style="margin-top:8px"><button class="btn small primary" id="cvsave" type="button">Enregistrer</button><button class="btn small" id="cvclear" type="button">Effacer le CV</button></div>
+        </div>
+        <div id="cvmsg" class="legal"></div>
+      </section>
+
+      <section class="panel" id="detail" aria-live="polite"></section>
+    </aside>
+  </main>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="login" id="login" hidden>
+  <form id="loginform" novalidate>
+    <h2>Radar Emploi Nature</h2>
+    <p class="muted" style="margin:0">Connectez-vous à votre serveur personnel : il relie l'application à votre base Notion et à Claude.</p>
+    <label class="field" for="login-url">Adresse du serveur<input id="login-url" type="url" inputmode="url" autocomplete="url" placeholder="https://radar-emploi.votre-nom.workers.dev" required></label>
+    <label class="field" for="login-pass">Mot de passe<input id="login-pass" type="password" autocomplete="current-password" required></label>
+    <label class="row" for="login-mem" style="gap:6px;font-size:13px"><input id="login-mem" type="checkbox" checked> Rester connecté sur cet appareil</label>
+    <button class="btn primary" id="login-go" type="submit">Se connecter</button>
+    <span class="legal" id="login-msg" role="alert"></span>
+  </form>
 </div>
-<div class="list" id="list"></div>
-<button class="btn more" id="more" type="button" hidden>Afficher plus</button>
-</section>
-<aside class="work">
-<section class="panel" aria-labelledby="cvh">
-<div class="cvbar">
-<div><h3 id="cvh">Mon CV</h3><div class="name" id="cvname">Aucun CV importé</div></div>
-<div class="row">
-<label class="btn small" for="cvfile">Importer (PDF, DOCX, TXT)</label>
-<input id="cvfile" type="file" accept=".pdf,.docx,.txt,.md,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
-<button class="btn small" id="cvedit" type="button">Coller / modifier</button>
-</div>
-</div>
-<div class="drop" id="drop">Glissez votre CV ici. Il reste sur cet appareil : l'indice est calculé dans votre navigateur.</div>
-<div id="cvbox" hidden>
-<textarea id="cvtext" placeholder="Collez le texte de votre CV ici…"></textarea>
-<div class="row" style="margin-top:8px"><button class="btn small primary" id="cvsave" type="button">Enregistrer</button><button class="btn small" id="cvclear" type="button">Effacer le CV</button></div>
-</div>
-<div class="row" id="yrsrow" hidden style="font-size:13px"><label for="yrs">Années d'expérience professionnelle</label><input class="yrs" id="yrs" type="number" min="0" max="45" step="0.5"><span class="legal">estimées depuis le CV, corrigez si besoin</span></div>
-<div id="cvmsg" class="legal"></div>
-<details id="keyd">
-<summary>Analyse rédigée par Claude (facultatif, avec votre clé API)</summary>
-<div class="keybox" style="margin-top:8px">
-<span class="legal">Sans clé, l'indice et les mots-clés manquants sont calculés dans le navigateur. Avec une clé API Anthropic (console.anthropic.com), vous obtenez aussi l'analyse rédigée et un indice affiné. Les appels sont facturés sur votre compte API et partent directement de ce navigateur vers Anthropic.</span>
-<input id="apikey" type="password" placeholder="sk-ant-…" autocomplete="off">
-<span class="legal">Par défaut, la clé n'est gardée que pour cet onglet et disparaît à sa fermeture. Fixez un plafond de dépense mensuel pour cette clé dans la console Anthropic (Settings → Limits) : c'est votre meilleure protection en cas de fuite.</span>
-<label class="row legal" for="keymem" style="gap:6px"><input id="keymem" type="checkbox"> Mémoriser la clé sur cet appareil (déconseillé)</label>
-<span class="legal" id="keywarn" hidden><b>Attention :</b> une clé mémorisée est enregistrée en clair dans le navigateur. Toute autre page publiée sur le même site (vincentlg751.github.io), si elle était compromise, pourrait la lire et l'utiliser à vos frais. Ne mémorisez qu'une clé dédiée, avec un plafond de dépense bas, et retirez-la dès que vous n'en avez plus besoin.</span>
-<div class="row"><button class="btn small primary" id="keysave" type="button">Activer</button><button class="btn small" id="keydel" type="button">Retirer la clé</button><span class="legal" id="keymsg"></span></div>
-</div>
-</details>
-</section>
-<section class="panel" id="detail" aria-live="polite">
-<h3>Offre sélectionnée</h3>
-<p class="muted" style="margin:0">Choisissez une offre dans la liste pour voir le détail et son indice de compatibilité avec votre CV.</p>
-</section>
-</aside>
-</main>
-</div>
-<script id="offres-gz" type="text/plain">__OFFRES_GZ_B64__</script>
+
 <script>
 // La page ne doit pas être affichée dans le cadre d'un autre site (piège au clic).
 if (window.top !== window.self) { document.documentElement.replaceChildren(); throw new Error("Radar Emploi Nature : affichage dans un cadre refusé."); }
 (() => {
-const WINDOW_DAYS = 21, PAGE = 40;
-const DOMAINS = ["Biodiversité","Marin & littoral","Forêt","Eau & milieux aquatiques","Énergies renouvelables","Climat & adaptation","Agriculture & sols","Déchets & économie circulaire","Air & pollutions","Éducation à l'environnement","Aménagement & espaces naturels"];
-const DHUE = { "Biodiversité": 130, "Marin & littoral": 205, "Forêt": 95, "Eau & milieux aquatiques": 190, "Énergies renouvelables": 45, "Climat & adaptation": 20, "Agriculture & sols": 70, "Déchets & économie circulaire": 260, "Air & pollutions": 230, "Éducation à l'environnement": 320, "Aménagement & espaces naturels": 160 };
-const dcol = d => `hsl(${DHUE[d] ?? 0} 45% 48%)`;
-const $ = s => document.querySelector(s);
-const el = (tag, attrs = {}, ...kids) => {
-const n = document.createElement(tag);
-for (const [k, v] of Object.entries(attrs)) {
-if (v == null || v === false) continue;
-if (k === "class") n.className = v; else if (k === "style") n.style.cssText = v;
-else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v === true ? "" : v);
-}
-for (const c of kids.flat()) if (c != null && c !== false) n.append(c.nodeType ? c : String(c));
-return n;
-};
-const store = {
-get(k) { try { return localStorage.getItem(k); } catch { return null; } },
-set(k, v) { try { localStorage.setItem(k, v); } catch {} },
-del(k) { try { localStorage.removeItem(k); } catch {} }
-};
-// Clé API : gardée pour l'onglet (sessionStorage) par défaut ; en localStorage seulement si
-// l'utilisateur coche « Mémoriser » après avertissement (entrée "radar.key.v2").
-// L'ancienne entrée "radar.key" (localStorage, mémorisée sans avertissement) est migrée vers la session puis supprimée.
-const sess = {
-get(k) { try { return sessionStorage.getItem(k); } catch { return null; } },
-set(k, v) { try { sessionStorage.setItem(k, v); } catch {} },
-del(k) { try { sessionStorage.removeItem(k); } catch {} }
-};
-let sessionKey = sess.get("radar.key") || "", keyMigrated = false;
-{ const old = store.get("radar.key"); if (old) { if (!sessionKey) { sessionKey = old; sess.set("radar.key", old); } store.del("radar.key"); keyMigrated = true; } }
-// Liens d'offres : uniquement http(s) absolus.
-const safeUrl = u => { try { const x = new URL(String(u || "")); return x.protocol === "https:" || x.protocol === "http:" ? x.href : ""; } catch { return ""; } };
-const S = { offers: [], filtered: [], shown: PAGE, q: "", since: 0, domains: new Set(), selected: null, ai: {}, analyses: {}, cv: store.get("radar.cv") || "", cvName: store.get("radar.cvname") || "", yrs: null, model: store.get("radar.model") || "" };
-try { S.ai = JSON.parse(store.get("radar.ai") || "{}"); } catch {}
-try { S.analyses = JSON.parse(store.get("radar.analyses") || "{}"); } catch {}
-const apiKey = () => sessionKey || store.get("radar.key.v2") || "";
-// ---------- data ----------
-// Offers are embedded as gzip + base64 JSON ({genere, offres}) to keep the file small.
-// The app (PWA on phones, Android/iOS native shell) also asks offres.json for a newer list.
-// Only official copies (embedded or offres.json) are used when available, the most recent of the two.
-// The copy saved in localStorage ("radar.data") is an offline fallback only, validated, and never
-// takes precedence over official data, whatever its "genere" date says.
-let DATA = { genere: "", offres: [] };
-const DATA_URL = window.RADAR_DATA_URL || "offres.json";
-async function loadEmbedded() {
-const b64 = (document.getElementById("offres-gz")?.textContent || "").trim();
-if (!b64 || b64.startsWith("__")) return null;
-const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-return JSON.parse(await new Response(stream).text());
-}
-const STR_FIELDS = ["id", "p", "e", "l", "r", "c", "n", "pub", "s", "u", "res", "sal", "st", "aj"];
-function validData(d) {
-if (!d || typeof d !== "object" || !Array.isArray(d.offres) || d.offres.length > 20000) return null;
-const offres = [];
-for (const r of d.offres) {
-if (!r || typeof r !== "object" || typeof r.p !== "string" || !r.p) continue;
-const o = {};
-for (const k of STR_FIELDS) if (typeof r[k] === "string" && r[k]) o[k] = r[k].slice(0, 5000);
-if (o.u && !safeUrl(o.u)) delete o.u;
-if (Array.isArray(r.d)) o.d = r.d.filter(x => typeof x === "string").slice(0, 20);
-offres.push(o);
-}
-return { genere: typeof d.genere === "string" ? d.genere.slice(0, 40) : "", offres };
-}
-async function loadRemote() {
-const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 8000);
-try {
-const r = await fetch(DATA_URL, { cache: "no-cache", signal: ctl.signal });
-if (!r.ok) return null;
-const d = await r.json();
-return validData(d);
-} finally { clearTimeout(t); }
-}
-async function loadData() {
-const official = [];
-try { const d = validData(await loadEmbedded()); if (d) official.push(d); } catch {}
-let remote = null;
-try { remote = await loadRemote(); if (remote) official.push(remote); } catch {}
-if (official.length) {
-official.sort((a, b) => String(b.genere || "").localeCompare(String(a.genere || "")));
-DATA = official[0];
-if (remote) store.set("radar.data", JSON.stringify(remote)); else store.del("radar.data");
-return;
-}
-// Secours hors connexion uniquement (aucune copie officielle disponible).
-let local = null;
-try { local = validData(JSON.parse(store.get("radar.data") || "null")); } catch {}
-if (local) { DATA = local; return; }
-store.del("radar.data");
-if (location.protocol === "file:") return; throw new Error("aucune donnée");
-}
-const mapOffers = () => (DATA.offres || []).map((r, i) => ({ id: r.id || r.u || "o" + i, poste: r.p || "", entreprise: r.e || "", lieu: r.l || "", region: r.r || "", contrat: r.c || "", domaines: r.d || [], niveau: r.n || "", pub: r.pub || "", source: r.s || "", lien: safeUrl(r.u), resume: r.res || "", salaire: r.sal || "", statut: r.st || "", ajoute: r.aj || "" }));
-// ---------- dates ----------
-const today = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
-const daysSince = s => s ? Math.round((today() - new Date(s + "T00:00:00")) / 864e5) : null;
-// ---------- local text analysis ----------
-const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-const STOP = new Set("avec dans pour sous sans entre leur leurs vous nous elle elles ils sont etre avoir plus tres bien tout tous toute toutes cette ces ceci cela comme mais donc ainsi aussi autre autres afin selon chez dont lors notre votre votres meme ensemble poste postes mission missions profil profils candidat candidate experience experiences annee annees ans mois minimum souhaite souhaitee appreciee apprecie apprecies requis requise exige exigee exiges obligatoire obligatoires niveau diplome formation equipe equipes travail travaux charge chargee charges chef cheffe projet projets suivi suivis appui contrat temps plein partiel renouvelable remplacement recrutement h/f offre offres entreprise structure service services dossier dossiers etude etudes connaissance connaissances competence competences maitrise bonne bonnes bon bons qualites capacite sens rigueur autonomie relationnel permis vehicule deplacements candidature date semaine jour jours sein cadre categorie grade grille titulaire contractuel contractuels".split(" "));
-const stem = w => w.length >= 6 ? w.slice(0, 6) : w.replace(/[sx]$/, "");
-function terms(text) {
-const out = new Map();
-for (const w of norm(text).split(/[^a-z0-9+]+/)) {
-if (w.length < 4 || STOP.has(w) || /^\d+$/.test(w)) continue;
-const s = stem(w); if (!out.has(s)) out.set(s, w);
-}
-return out;
-}
-const DOMAIN_KW = {
-"Biodiversité": ["biodiv", "ecolog", "faune", "flore", "espece", "habita", "natura", "invent", "natura", "conser", "botani", "orchid", "exotiq", "envahi", "compen"],
-"Marin & littoral": ["marin", "littor", "mer", "cotier", "ocean", "peche", "halieu", "dune", "submer", "estran"],
-"Forêt": ["forest", "foret", "bois", "sylvic", "boisem", "reboise", "peuple", "carbon", "incend"],
-"Eau & milieux aquatiques": ["eau", "riviere", "cours", "ripisy", "zones", "humide", "aquati", "hydrol", "hydrog", "bassin", "assain"],
-"Énergies renouvelables": ["energi", "renouv", "eolien", "photov", "solair", "hydroe", "biomet", "methan"],
-"Climat & adaptation": ["climat", "adapta", "change", "risque", "resili", "carbon", "attenu", "inonda"],
-"Agriculture & sols": ["agric", "agrono", "sols", "pedolo", "agroec", "exploit", "cultur", "pestic", "elevag"],
-"Déchets & économie circulaire": ["dechet", "recycl", "circul", "reempl", "tri", "valori", "emball"],
-"Air & pollutions": ["air", "pollut", "emissi", "deverse", "iso", "14001", "icpe", "qualit"],
-"Éducation à l'environnement": ["educat", "sensib", "animat", "pedago", "scolai", "public", "mediat"],
-"Aménagement & espaces naturels": ["gestio", "espace", "naturel", "reserv", "parc", "plan", "territ", "amenag", "restau", "solution", "fondee"]
-};
-let CV = { terms: new Map(), dom: {}, master: false };
-function analyseCV() {
-const t = terms(S.cv);
-const n = norm(S.cv);
-const dom = {};
-for (const [d, kws] of Object.entries(DOMAIN_KW)) dom[d] = kws.filter(k => n.includes(k)).length;
-CV = { terms: t, dom, master: /(master|msc|bac\s*\+\s*5|ingenieur|doctorat|phd)/.test(n) };
-}
-function estimateYears(text) {
-const n = norm(text), now = new Date().getFullYear();
-const EDU = /(master|msc|licence|bachelor|\bba\b|universit|ecole|lycee|baccalaureat|erasmus|faculte|bts|dut|iut|formation|education)/;
-const re = /\b(19[89]\d|20[0-4]\d)\s*[-–à]\s*(20[0-4]\d|aujourd'?hui|present|actuel|now)?/g;
-let m, starts = [];
-while ((m = re.exec(n))) {
-const ctx = n.slice(Math.max(0, m.index - 70), m.index + 70);
-if (EDU.test(ctx)) continue;
-starts.push(+m[1]);
-}
-if (!starts.length) return null;
-return Math.max(0, Math.min(40, now - Math.min(...starts)));
-}
-const TERMS = new Map(); let DF = new Map(), AVG_IDF = 1;
-const offerTerms = o => { if (!TERMS.has(o.id)) TERMS.set(o.id, terms(`${o.poste} ${o.resume}`)); return TERMS.get(o.id); };
-const idf = s => Math.log((S.offers.length + 1) / ((DF.get(s) || 0) + 1)) + 0.2;
-function buildIdf() {
-DF = new Map();
-for (const o of S.offers) for (const s of offerTerms(o).keys()) DF.set(s, (DF.get(s) || 0) + 1);
-const v = [...DF.keys()].map(idf); AVG_IDF = v.length ? v.reduce((a, b) => a + b, 0) / v.length : 1;
-}
-const RANGES = { "Junior": [0, 2], "Technicien": [0, 5], "Confirmé": [2, 7], "Senior / Cadre": [5, 30] };
-const clamp = v => Math.max(0, Math.min(100, Math.round(+v)));
-function localScore(o) {
-if (!S.cv) return null;
-// Weighted overlap: rare words (high IDF) count more than generic ones ("environnement");
-// title words count double; a prior in the denominator stops short summaries from scoring high.
-const T = offerTerms(o), title = terms(o.poste);
-let got = 0, tot = 0; const ok = [], miss = [];
-for (const [s, w] of T) {
-const wt = idf(s) * (title.has(s) ? 2 : 1);
-tot += wt;
-if (CV.terms.has(s)) { got += wt; ok.push(w); } else miss.push(w);
-}
-const ratio = got / (tot + 4 * AVG_IDF);
-const comp = clamp(5 + ratio * 150);
-const yrs = S.yrs ?? 0;
-let [lo, hi] = RANGES[o.niveau] || [0, 30];
-const req = norm(o.resume).match(/(\d+)\s*(?:a\s*\d+\s*)?ans\s*(?:d'?|minimum d'?)?exp/);
-if (req) lo = Math.max(lo, +req[1]);
-let exp = yrs < lo ? 100 - 18 * (lo - yrs) : yrs > hi ? 100 - 8 * (yrs - hi) : 100;
-if (o.niveau === "Technicien" && CV.master) exp -= 15;
-exp = Math.max(15, clamp(exp));
-const maxD = Math.max(1, ...Object.values(CV.dom));
-const dom = o.domaines.length ? Math.max(...o.domaines.map(d => clamp(25 + 75 * (CV.dom[d] || 0) / maxD))) : 50;
-return { comp, exp, dom, ok, miss };
-}
-// ---------- index ----------
-const WEIGHTS = { comp: 0.45, exp: 0.25, dom: 0.15, con: 0.15 };
-const CRIT = [["comp", "Compétences"], ["exp", "Niveau d'expérience"], ["dom", "Domaine"], ["con", "Type de contrat"]];
-function contratScore(o) { const p = $("#f-pref").value; if (!p) return 100; return o.contrat === p ? 100 : o.contrat ? 50 : 70; }
-function indexOf(o) {
-const ai = S.ai[o.id];
-const base = ai && [ai.comp, ai.exp, ai.dom].every(v => Number.isFinite(+v)) ? { comp: clamp(ai.comp), exp: clamp(ai.exp), dom: clamp(ai.dom), src: ai.detailed ? "analyse détaillée de Claude" : "affiné par Claude", raison: ai.raison || "" } : (() => { const l = localScore(o); return l && { ...l, src: "calcul local par mots-clés", raison: "" }; })();
-if (!base) return null;
-const parts = { comp: base.comp, exp: base.exp, dom: base.dom, con: contratScore(o) };
-const total = Math.round(Object.entries(WEIGHTS).reduce((t, [k, w]) => t + parts[k] * w, 0));
-return { total, parts, src: base.src, raison: base.raison };
-}
-const tier = v => v >= 75 ? "hi" : v >= 55 ? "mid" : "lo";
-const verdict = v => v >= 80 ? "Très compatible" : v >= 65 ? "Compatible" : v >= 50 ? "Partiellement compatible" : "Peu compatible";
-// ---------- filters ----------
-function buildFilters() {
-// Les statuts de candidature ne sont plus publiés : sans statut, le filtre est masqué et neutre.
-const hasStatut = S.offers.some(o => o.statut);
-$("#f-statut").hidden = !hasStatut;
-if (!hasStatut) $("#f-statut").value = "";
-const regs = [...new Set(S.offers.map(o => o.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
-$("#f-region").replaceChildren(el("option", { value: "" }, "Toutes régions"), ...regs.map(r => el("option", { value: r }, r)));
-const counts = {}; S.offers.forEach(o => o.domaines.forEach(d => counts[d] = (counts[d] || 0) + 1));
-$("#domains").replaceChildren(...DOMAINS.filter(d => counts[d]).map(d => el("button", {
-class: "chip", type: "button", "aria-pressed": "false", style: `--dc:${dcol(d)}`,
-onclick: ev => { S.domains.has(d) ? S.domains.delete(d) : S.domains.add(d); ev.currentTarget.setAttribute("aria-pressed", S.domains.has(d)); apply(); }
-}, el("span", { class: "dot" }), d, el("span", { class: "n" }, counts[d]))));
-}
-function apply() {
-const words = norm(S.q).split(/\s+/).filter(Boolean);
-const reg = $("#f-region").value, con = $("#f-contrat").value, niv = $("#f-niveau").value, st = $("#f-statut").value, sort = $("#f-sort").value, min = +$("#f-min").value || 0;
-const cutoff = S.since ? Date.now() - S.since * 864e5 : 0;
-S.filtered = S.offers.filter(o => {
-if (reg && o.region !== reg) return false;
-if (con && o.contrat !== con) return false;
-if (niv && o.niveau !== niv) return false;
-if (st === "actives" && o.statut === "Écarté") return false;
-if (st && st !== "actives" && o.statut !== st) return false;
-if (S.domains.size && !o.domaines.some(d => S.domains.has(d))) return false;
-if (cutoff && !(Date.parse(o.ajoute) >= cutoff)) return false;
-if (min && !((indexOf(o)?.total ?? -1) >= min)) return false;
-if (words.length) {
-const hay = norm([o.poste, o.entreprise, o.lieu, o.region, o.resume, o.domaines.join(" "), o.source, o.niveau].join(" "));
-if (!words.every(t => hay.includes(t))) return false;
-}
-return true;
-});
-const by = {
-pub: (a, b) => (b.pub || "").localeCompare(a.pub || "") || (b.ajoute || "").localeCompare(a.ajoute || ""),
-add: (a, b) => (b.ajoute || "").localeCompare(a.ajoute || "") || (b.pub || "").localeCompare(a.pub || ""),
-score: (a, b) => (indexOf(b)?.total ?? -1) - (indexOf(a)?.total ?? -1) || by.pub(a, b)
-};
-S.filtered.sort(by[sort] || by.pub);
-S.shown = PAGE; renderList();
-}
-// ---------- list ----------
-function offerCard(o) {
-const age = daysSince(o.pub), ix = indexOf(o);
-const isNew = o.ajoute && Date.now() - Date.parse(o.ajoute) < 864e5;
-return el("button", { class: "offer", type: "button", "aria-current": S.selected === o.id ? "true" : "false", onclick: () => select(o.id) },
-el("div", { class: "t" }, o.poste),
-el("div", { class: "side" },
-ix ? el("span", { class: "score " + tier(ix.total), title: `Indice de compatibilité : ${verdict(ix.total)}` }, ix.total + "/100") : null,
-age != null ? el("span", { class: "age", title: "Publiée le " + o.pub }, age === 0 ? "auj." : `J-${age}`) : null),
-el("div", { class: "m" }, [o.entreprise, o.lieu].filter(Boolean).join(" · ")),
-el("div", { class: "tags" },
-isNew ? el("span", { class: "pill new" }, "Nouvelle") : null,
-o.statut && o.statut !== "Nouveau" ? el("span", { class: "pill st" }, o.statut) : null,
-o.contrat ? el("span", { class: "pill" }, o.contrat) : null,
-o.niveau ? el("span", { class: "pill" }, o.niveau) : null,
-...o.domaines.slice(0, 2).map(d => el("span", { class: "pill", style: `--dc:${dcol(d)}` }, el("span", { class: "dot" }), d))));
-}
-function renderList() {
-$("#count").textContent = S.filtered.length;
-$("#list").replaceChildren(...(S.filtered.length ? S.filtered.slice(0, S.shown).map(offerCard) : [el("div", { class: "empty" }, S.offers.length ? "Aucune offre ne correspond à ces filtres." : "Aucune offre dans ce fichier.")]));
-$("#more").hidden = S.filtered.length <= S.shown;
-$("#rank").hidden = !(apiKey() && S.cv);
-$("#rankinfo").textContent = S.cv ? ($("#rankinfo").dataset.msg || "Indice calculé localement à partir de votre CV") : "Importez votre CV pour voir l'indice de compatibilité";
-}
-$("#more").onclick = () => { S.shown += PAGE; renderList(); };
-// ---------- detail ----------
-const byId = id => S.offers.find(o => o.id === id);
-function select(id) { S.selected = id; renderList(); renderDetail(); if (matchMedia("(max-width: 900px)").matches) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); }
-function indexBlock(o) {
-const ix = indexOf(o);
-if (!ix) return el("div", { class: "idx" }, el("h3", { style: "margin:0" }, "Indice de compatibilité"), el("span", { class: "muted", style: "font-size:13px" }, "Importez votre CV pour obtenir l'indice."));
-const pref = $("#f-pref").value;
-const conNote = !pref ? "contrat indifférent" : o.contrat === pref ? `${o.contrat}, conforme à votre préférence` : `${o.contrat || "contrat non précisé"}, vous visez un ${pref}`;
-return el("div", { class: "idx" },
-el("h3", { style: "margin:0" }, "Indice de compatibilité"),
-el("div", { class: "head" }, el("span", { class: "big mono" }, ix.total), el("span", { class: "muted" }, "/100"), el("span", { class: "verdict" }, verdict(ix.total)), el("span", { class: "legal" }, ix.src)),
-...CRIT.map(([k, label]) => el("div", { class: "crit" }, el("span", {}, label + ` (${Math.round(WEIGHTS[k] * 100)} %)`), el("div", { class: "bar" }, el("span", { style: `width:${ix.parts[k]}%` })), el("span", { class: "v" }, ix.parts[k]))),
-el("span", { class: "legal" }, `Contrat : ${conNote}.` + (ix.raison ? ` ${ix.raison}` : "")));
-}
-function keywordsBlock(o) {
-const l = localScore(o); if (!l) return null;
-const miss = [...new Set(l.miss)].slice(0, 14), ok = [...new Set(l.ok)].slice(0, 14);
-return el("div", {},
-miss.length ? el("div", { class: "kw-miss" }, el("h3", {}, "Mots de l'offre absents de votre CV"), el("div", { class: "tagset" }, ...miss.map(w => el("span", { class: "pill" }, w))), el("p", { class: "legal", style: "margin:6px 0 0" }, "Ajoutez ceux qui correspondent à une expérience réelle, avec les termes exacts de l'annonce.")) : null,
-ok.length ? el("div", { class: "kw-ok", style: "margin-top:10px" }, el("h3", {}, "Points communs à mettre en avant"), el("div", { class: "tagset" }, ...ok.map(w => el("span", { class: "pill" }, w)))) : null);
-}
-function renderDetail() {
-const o = byId(S.selected); if (!o) return;
-const age = daysSince(o.pub), left = age != null ? Math.max(0, WINDOW_DAYS - age) : null;
-const out = el("div", { class: "result" });
-const fullDesc = el("textarea", { placeholder: "Facultatif : collez la description complète de l'annonce pour une analyse plus précise.", style: "min-height:90px" });
-const go = el("button", { class: "btn primary", type: "button" }, "Analyse détaillée par Claude");
-go.onclick = () => analyse(o, fullDesc.value, out, go);
-$("#detail").replaceChildren(
-el("h3", {}, "Offre sélectionnée"),
-el("h2", {}, o.poste),
-el("div", { class: "muted" }, [o.entreprise, o.lieu].filter(Boolean).join(" · ")),
-el("p", { style: "margin:0" }, o.resume || "Pas de résumé."),
-el("dl", { class: "kv" },
-el("dt", {}, "Contrat"), el("dd", {}, o.contrat || "—"),
-el("dt", {}, "Niveau"), el("dd", {}, o.niveau || "—"),
-el("dt", {}, "Domaines"), el("dd", {}, o.domaines.join(", ") || "—"),
-el("dt", {}, "Salaire"), el("dd", {}, o.salaire || "Non indiqué"),
-el("dt", {}, "Publiée"), el("dd", { class: "mono" }, o.pub ? `${new Date(o.pub + "T00:00:00").toLocaleDateString("fr-FR")} (J-${age})` : "—"),
-el("dt", {}, "Fenêtre"), el("dd", {}, left == null ? "—" : left ? `Retirée de la veille dans ${left} j si son statut reste « Nouveau »` : "Hors fenêtre de 21 jours"),
-o.statut ? [el("dt", {}, "Statut"), el("dd", {}, o.statut)] : null,
-el("dt", {}, "Source"), el("dd", {}, o.source || "—")),
-el("div", { class: "row" }, safeUrl(o.lien) ? el("a", { class: "btn", href: safeUrl(o.lien), target: "_blank", rel: "noopener noreferrer" }, "Voir l'annonce ↗") : null),
-indexBlock(o),
-keywordsBlock(o),
-apiKey() && S.cv ? el("div", { style: "display:flex;flex-direction:column;gap:10px" },
-el("details", {}, el("summary", {}, "Ajouter la description complète de l'annonce"), fullDesc),
-el("div", { class: "row" }, go), out) : el("p", { class: "legal", style: "margin:0" }, S.cv ? "Pour une analyse rédigée (points à revoir, accroche, reformulations), activez une clé API dans le bloc « Mon CV »." : ""));
-const prev = S.analyses[o.id]; if (prev && apiKey()) renderAnalysis(prev, out, o);
-}
-// ---------- CV import ----------
-function setCV(text, name) {
-S.cv = (text || "").trim(); S.cvName = S.cv ? (name || "CV collé") : "";
-if (S.cv) { store.set("radar.cv", S.cv); store.set("radar.cvname", S.cvName); } else { store.del("radar.cv"); store.del("radar.cvname"); }
-S.ai = {}; S.analyses = {}; store.del("radar.ai"); store.del("radar.analyses"); store.del("radar.yrs");
-S.yrs = S.cv ? estimateYears(S.cv) : null;
-afterCV();
-}
-function afterCV() {
-analyseCV();
-if (S.yrs == null && S.cv) { const y = parseFloat(store.get("radar.yrs")); S.yrs = Number.isFinite(y) ? y : (estimateYears(S.cv) ?? 2); }
-$("#cvname").textContent = S.cv ? `${S.cvName} · ${S.cv.split(/\s+/).length} mots` : "Aucun CV importé";
-$("#drop").hidden = !!S.cv; $("#cvtext").value = S.cv;
-$("#yrsrow").hidden = !S.cv; $("#yrs").value = S.yrs ?? "";
-if (S.cv && $("#f-sort").value === "pub" && !store.get("radar.sorted")) { $("#f-sort").value = "score"; store.set("radar.sorted", "1"); }
-apply(); renderDetail();
-}
-$("#yrs").addEventListener("change", e => { const v = parseFloat(e.target.value); S.yrs = Number.isFinite(v) ? v : 0; store.set("radar.yrs", String(S.yrs)); apply(); renderDetail(); });
-const loaded = {};
-const loadScript = src => loaded[src] ||= new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load")); document.head.append(s); });
-async function readFile(f) {
-const msg = $("#cvmsg"); msg.textContent = "Lecture de " + f.name + "…";
-try {
-let text = "";
-const ext = f.name.toLowerCase().split(".").pop();
-if (ext === "pdf") {
-// pdf.js servi localement (radar-app/vendor) ; isEvalSupported: false neutralise CVE-2024-4367.
-await loadScript("vendor/pdfjs/pdf.min.js");
-window.pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("vendor/pdfjs/pdf.worker.min.js", location.href).href;
-const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()), isEvalSupported: false }).promise;
-const pages = [];
-for (let i = 1; i <= pdf.numPages; i++) {
-const c = await (await pdf.getPage(i)).getTextContent();
-let line = ""; const lines = [];
-for (const it of c.items) { line += it.str; if (it.hasEOL) { lines.push(line); line = ""; } else if (it.str && !it.str.endsWith(" ")) line += " "; }
-if (line) lines.push(line);
-pages.push(lines.join("\n").replace(/(?:^|(?<=\s))((?:\p{L} ){2,}\p{L})(?=\s|$)/gmu, m => m.replace(/ /g, "")).trim());
-}
-if (pages.filter(Boolean).length > 2) { choosePages(pages, f.name); return; }
-text = pages.join("\n\n");
-} else if (ext === "docx") {
-await loadScript("vendor/mammoth/mammoth.browser.min.js");
-text = (await window.mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() })).value;
-} else text = await f.text();
-text = text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
-if (text.length < 80) throw new Error("vide");
-setCV(text, f.name); msg.textContent = "CV importé. Vérifiez le texte avec « Coller / modifier » si besoin.";
-} catch {
-msg.textContent = "Impossible de lire ce fichier (PDF scanné ou protégé, ou lecteur indisponible hors connexion). Copiez le texte du CV et collez-le avec « Coller / modifier ».";
-}
-}
-function choosePages(pages, name) {
-const squash = p => p.replace(/\s+/g, "").toLowerCase();
-const isCV = p => { const q = squash(p); return /exp[ée]rience/.test(q) && /(education|éducation|formation|compétences|competences)/.test(q) && !/(lettredemotivation|coverletter|madame|monsieur|cordialement|salutations|towhom)/.test(q); };
-let best = -1; pages.forEach((p, i) => { if (isCV(p)) best = i; });
-const boxes = pages.map((p, i) => p ? el("label", { for: "pg" + i, class: "row", style: "gap:6px;align-items:flex-start;font-size:13px" },
-el("input", { type: "checkbox", id: "pg" + i, value: i, checked: i === best }),
-el("span", {}, el("b", {}, `Page ${i + 1}`), " · ", el("span", { class: "muted" }, p.replace(/\s+/g, " ").slice(0, 90) + "…"))) : null);
-const ok = el("button", { class: "btn small primary", type: "button" }, "Utiliser les pages cochées");
-ok.onclick = () => {
-const sel = [...$("#cvmsg").querySelectorAll("input:checked")].map(x => +x.value);
-if (!sel.length) return;
-setCV(sel.map(i => pages[i]).join("\n\n"), `${name} (p. ${sel.map(i => i + 1).join(", ")})`);
-$("#cvmsg").textContent = "CV importé. Vérifiez les années d'expérience estimées.";
-};
-$("#cvmsg").replaceChildren(el("div", { style: "display:flex;flex-direction:column;gap:6px" },
-el("span", {}, `Ce PDF contient ${pages.length} pages (plusieurs versions de CV ou des lettres ?). Cochez celles qui forment le CV à utiliser :`), ...boxes, el("div", { class: "row" }, ok)));
-}
-$("#cvfile").onchange = e => { const f = e.target.files[0]; if (f) readFile(f); e.target.value = ""; };
-const drop = $("#drop");
-drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
-drop.addEventListener("dragleave", () => drop.classList.remove("over"));
-drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); const f = e.dataTransfer.files[0]; if (f) readFile(f); });
-$("#cvedit").onclick = () => { $("#cvbox").hidden = !$("#cvbox").hidden; if (!$("#cvbox").hidden) $("#cvtext").focus(); };
-$("#cvsave").onclick = () => { setCV($("#cvtext").value, S.cvName || "CV collé"); $("#cvbox").hidden = true; $("#cvmsg").textContent = S.cv ? "CV enregistré sur cet appareil." : ""; };
-$("#cvclear").onclick = () => { setCV("", ""); $("#cvbox").hidden = true; $("#cvmsg").textContent = "CV effacé de cet appareil."; };
-// ---------- Claude API (optional, viewer's own key) ----------
-async function pickModel(key) {
-if (S.model) return S.model;
-const r = await fetch("https://api.anthropic.com/v1/models?limit=100", { headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" } });
-if (!r.ok) throw { status: r.status };
-const list = (await r.json()).data || [];
-const m = list.find(x => /sonnet/i.test(x.id)) || list[0];
-if (!m) throw { status: 0 };
-S.model = m.id; store.set("radar.model", S.model); return S.model;
-}
-async function askJSON(prompt, maxTokens = 4000) {
-const key = apiKey(); if (!key) throw { msg: "Aucune clé API active." };
-const model = await pickModel(key);
-const r = await fetch("https://api.anthropic.com/v1/messages", {
-method: "POST",
-headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
-body: JSON.stringify({ model, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] })
-});
-if (!r.ok) throw { status: r.status };
-const j = await r.json();
-const text = (j.content || []).filter(b => b.type === "text").map(b => b.text).join("");
-const a = text.search(/[\[{]/), b = Math.max(text.lastIndexOf("}"), text.lastIndexOf("]"));
-try { return JSON.parse(text.slice(a, b + 1)); } catch { throw { msg: "Réponse incomplète de Claude, relancez." }; }
-}
-const apiErr = e => e?.msg || ({ 401: "Clé API refusée : vérifiez-la.", 403: "Cette clé n'a pas accès à l'API.", 429: "Limite d'utilisation atteinte, réessayez plus tard.", 529: "Claude est surchargé, réessayez dans un instant." }[e?.status]) || "Échec de l'appel à Claude" + (e?.status ? ` (erreur ${e.status})` : " (connexion ?)") + ".";
-$("#keysave").onclick = async () => {
-const k = $("#apikey").value.trim(); if (!k) return;
-sessionKey = k; sess.set("radar.key", k); S.model = ""; store.del("radar.model");
-if ($("#keymem").checked) store.set("radar.key.v2", k); else store.del("radar.key.v2");
-$("#keymsg").textContent = "Vérification…";
-try { const m = await pickModel(k); $("#keymsg").textContent = "Clé active (" + m + ")"; $("#apikey").value = ""; }
-catch (e) { sessionKey = ""; sess.del("radar.key"); store.del("radar.key.v2"); $("#keymsg").textContent = apiErr(e); }
-renderList(); renderDetail();
-};
-$("#keydel").onclick = () => { sessionKey = ""; sess.del("radar.key"); store.del("radar.key"); store.del("radar.key.v2"); store.del("radar.model"); S.model = ""; $("#keymsg").textContent = "Clé retirée."; renderList(); renderDetail(); };
-$("#keymem").addEventListener("change", e => { $("#keywarn").hidden = !e.target.checked; });
-if (store.get("radar.key.v2")) { $("#keymsg").textContent = "Clé mémorisée sur cet appareil."; $("#keymem").checked = true; $("#keywarn").hidden = false; }
-else if (keyMigrated) $("#keymsg").textContent = "Votre clé n'est plus mémorisée sur cet appareil : elle reste active jusqu'à la fermeture de l'onglet. Cochez « Mémoriser » pour la garder (lisez l'avertissement).";
-else if (sessionKey) $("#keymsg").textContent = "Clé active pour cette session.";
-const offerBlock = (o, full) => `POSTE : ${o.poste}\nEMPLOYEUR : ${o.entreprise}\nLIEU : ${o.lieu} (${o.region})\nCONTRAT : ${o.contrat} · NIVEAU : ${o.niveau}\nDOMAINES : ${o.domaines.join(", ")}\nRÉSUMÉ DE L'ANNONCE : ${o.resume}` + (full?.trim() ? `\n\nDESCRIPTION COMPLÈTE :\n${full.trim().slice(0, 12000)}` : "");
-const arr = v => Array.isArray(v) ? v : [];
-async function analyse(o, full, out, btn) {
-btn.disabled = true; out.replaceChildren(el("p", { class: "thinking" }, "Claude compare votre CV à l'offre… (jusqu'à une minute)"));
-const prompt = `Tu es conseiller en recrutement spécialisé dans les métiers de l'environnement et de l'écologie en France. Analyse l'adéquation entre le CV et l'offre, puis dis précisément comment adapter le CV. Sois concret et honnête ; n'invente aucune expérience ni diplôme. Rédige en français.
-Réponds UNIQUEMENT avec un objet JSON :
-{"competences": 0-100, "experience": 0-100 (adéquation du niveau ; sur/sous-qualification = moins), "domaine": 0-100,
-"synthese": "2 phrases", "points_forts": ["..."] (3-5),
-"points_a_revoir": [{"sujet": "", "pourquoi": "", "action": "modification précise dans le CV"}] (3-6),
-"mots_cles": ["terme de l'offre à intégrer s'il est vrai"] (5-10), "titre_cv": "", "accroche": "3-4 lignes, uniquement des faits du CV",
-"experiences_a_reformuler": [{"avant": "", "apres": ""}] (2-4), "questions_entretien": ["..."] (3)}
+  const VIEW = "view://bfcfcb20-ba5e-487c-af58-c94131515e21";
+  const SOURCES_VIEW = "view://c83f1989-7d12-4c18-acec-3124570670e8";
+  const OFFERS_DS = "7d5552ba-961d-4a01-a94d-af4343774545";
+  const SOURCES_DS = "cb83dfc0-dd8f-4afa-a84c-a544bff96be3";
+  const NOTION = "Notion";
+  const WINDOW_DAYS = 21;
+  const PAGE = 40;
+  const DOMAINS = ["Biodiversité","Marin & littoral","Forêt","Eau & milieux aquatiques","Énergies renouvelables","Climat & adaptation","Agriculture & sols","Déchets & économie circulaire","Air & pollutions","Éducation à l'environnement","Aménagement & espaces naturels"];
+  const REGIONS = ["Auvergne-Rhône-Alpes","Bourgogne-Franche-Comté","Bretagne","Centre-Val de Loire","Corse","Grand Est","Hauts-de-France","Île-de-France","Normandie","Nouvelle-Aquitaine","Occitanie","Pays de la Loire","Provence-Alpes-Côte d'Azur","Outre-mer","Télétravail / National"];
+  const NIVEAUX = ["Junior","Confirmé","Senior / Cadre","Technicien"];
+  const DHUE = { "Biodiversité": 130, "Marin & littoral": 205, "Forêt": 95, "Eau & milieux aquatiques": 190, "Énergies renouvelables": 45, "Climat & adaptation": 20, "Agriculture & sols": 70, "Déchets & économie circulaire": 260, "Air & pollutions": 230, "Éducation à l'environnement": 320, "Aménagement & espaces naturels": 160 };
+  const dcol = d => `hsl(${DHUE[d] ?? 0} 45% 48%)`;
+
+  const $ = s => document.querySelector(s);
+  const el = (tag, attrs = {}, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v == null || v === false) continue;
+      if (k === "class") n.className = v; else if (k === "style") n.style.cssText = v;
+      else if (k === "html") n.innerHTML = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const c of kids.flat()) if (c != null && c !== false) n.append(c.nodeType ? c : String(c));
+    return n;
+  };
+  const safeUrl = u => { try { const x = new URL(String(u || "")); return x.protocol === "https:" || x.protocol === "http:" ? x.href : ""; } catch { return ""; } };
+  const rc = (node, ...kids) => node.replaceChildren(...kids.flat().filter(k => k != null && k !== false));
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+    del(k) { try { localStorage.removeItem(k); } catch {} }
+  };
+
+  // ---------- theme: light by default, night mode on demand (remembered on this device) ----------
+  const themeBtn = document.getElementById("theme");
+  const MOON = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+  const SUN = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  function setTheme(t, save) {
+    document.documentElement.setAttribute("data-theme", t);
+    const dark = t === "dark";
+    themeBtn.setAttribute("aria-pressed", String(dark));
+    themeBtn.querySelector("svg").innerHTML = dark ? SUN : MOON;
+    themeBtn.querySelector("span").textContent = dark ? "Mode jour" : "Mode nuit";
+    if (save) store.set("radar.theme", t);
+  }
+  setTheme(store.get("radar.theme") === "dark" ? "dark" : "light", false);
+  themeBtn.onclick = () => setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+
+  // ---------- icons ----------
+  const ICON = {
+    star: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>',
+    trash: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>',
+    check: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>'
+  };
+
+  // ---------- state ----------
+  const S = { offers: [], filtered: [], shown: PAGE, q: "", since: 0, domains: new Set(), selected: null, scores: {}, analyses: {}, mcp: null, sample: null,
+    cv: store.get("radar.cv") || "", cvName: store.get("radar.cvname") || "", tab: "offres", confirm: null, busy: new Set(), sources: null, srcConfirm: null };
+  try { S.analyses = JSON.parse(store.get("radar.analyses") || "{}"); } catch {}
+  try { S.scores = JSON.parse(store.get("radar.scores3") || "{}"); } catch {}
+  S.exps = []; S.chat = []; S.letters = {};
+  try { S.exps = JSON.parse(store.get("radar.exps") || "[]"); } catch {}
+  try { S.chat = JSON.parse(store.get("radar.chat") || "[]"); } catch {}
+  try { S.letters = JSON.parse(store.get("radar.letters") || "{}"); } catch {}
+  const saveExps = () => store.set("radar.exps", JSON.stringify(S.exps));
+  const saveChat = () => store.set("radar.chat", JSON.stringify(S.chat.slice(-60)));
+  const saveLetters = () => store.set("radar.letters", JSON.stringify(S.letters));
+  // Experiences told in the "Mes expériences" chat, appended to the CV wherever Claude reads it.
+  function expsText() {
+    if (!S.exps.length) return "";
+    return "\n\n=== EXPÉRIENCES COMPLÉMENTAIRES (absentes du CV, décrites par le candidat ; ce sont des faits vrais, utilisables) ===\n" +
+      S.exps.map(x => `- ${x.titre}${x.structure ? " · " + x.structure : ""}${x.periode ? " · " + x.periode : ""}${x.lieu ? " · " + x.lieu : ""}\n  ${x.description || ""}` +
+        (x.competences?.length ? `\n  Compétences : ${x.competences.join(", ")}` : "") + (x.outils?.length ? `\n  Outils : ${x.outils.join(", ")}` : "") + (x.resultats ? `\n  Résultats : ${x.resultats}` : "")).join("\n");
+  }
+  const profile = n => S.cv.slice(0, n) + expsText();
+  const saveScores = () => store.set("radar.scores3", JSON.stringify(S.scores));
+
+  // ---------- compatibility index (poste) ----------
+  // 50 % compétences + 15 % expérience + 10 % formations et diplômes + 10 % équilibre de vie (lieu)
+  // + 10 % connaissance du secteur + 5 % outils et logiciels. Tout est noté par Claude sauf l'équilibre de vie,
+  // calculé ici à partir du lieu : Île-de-France 100, Bordeaux et alentours 80, Toulouse / Pau et alentours 70,
+  // ailleurs selon la distance à Paris et l'accès à une grande ville.
+  const WEIGHTS = { comp: 0.5, exp: 0.15, form: 0.1, vie: 0.1, sect: 0.1, outils: 0.05 };
+  const CRIT = [["comp", "Compétences"], ["exp", "Niveau d'expérience"], ["form", "Formations et diplômes"], ["vie", "Équilibre de vie"], ["sect", "Connaissance du secteur"], ["outils", "Outils et logiciels"]];
+  const AI_KEYS = ["comp", "exp", "form", "sect", "outils"];
+  const clamp = v => Math.max(0, Math.min(100, Math.round(+v)));
+
+  // Prefecture coordinates (lat, lon) per département, for the distance to Paris.
+  const DEPT = {"01":[46.21,5.23],"02":[49.56,3.62],"03":[46.57,3.33],"04":[44.09,6.24],"05":[44.56,6.08],"06":[43.70,7.27],"07":[44.74,4.60],"08":[49.77,4.72],"09":[42.97,1.61],"10":[48.30,4.08],"11":[43.21,2.35],"12":[44.35,2.57],"13":[43.30,5.37],"14":[49.18,-0.37],"15":[44.93,2.44],"16":[45.65,0.16],"17":[46.16,-1.15],"18":[47.08,2.40],"19":[45.27,1.77],"2A":[41.93,8.74],"2B":[42.70,9.45],"21":[47.32,5.04],"22":[48.51,-2.76],"23":[46.17,1.87],"24":[45.18,0.72],"25":[47.24,6.02],"26":[44.93,4.89],"27":[49.02,1.15],"28":[48.44,1.49],"29":[48.00,-4.10],"30":[43.84,4.36],"31":[43.60,1.44],"32":[43.65,0.59],"33":[44.84,-0.58],"34":[43.61,3.88],"35":[48.11,-1.68],"36":[46.81,1.69],"37":[47.39,0.69],"38":[45.19,5.72],"39":[46.67,5.55],"40":[43.89,-0.50],"41":[47.59,1.33],"42":[45.44,4.39],"43":[45.04,3.88],"44":[47.22,-1.55],"45":[47.90,1.91],"46":[44.45,1.44],"47":[44.20,0.62],"48":[44.52,3.50],"49":[47.47,-0.55],"50":[49.12,-1.09],"51":[49.25,4.03],"52":[48.11,5.14],"53":[48.07,-0.77],"54":[48.69,6.18],"55":[48.77,5.16],"56":[47.66,-2.76],"57":[49.12,6.18],"58":[46.99,3.16],"59":[50.63,3.06],"60":[49.43,2.08],"61":[48.43,0.09],"62":[50.29,2.78],"63":[45.78,3.08],"64":[43.30,-0.37],"65":[43.23,0.08],"66":[42.70,2.90],"67":[48.57,7.75],"68":[48.08,7.36],"69":[45.76,4.84],"70":[47.62,6.15],"71":[46.31,4.83],"72":[48.00,0.20],"73":[45.56,5.92],"74":[45.90,6.13],"76":[49.44,1.10],"79":[46.32,-0.46],"80":[49.89,2.30],"81":[43.93,2.15],"82":[44.02,1.35],"83":[43.12,5.93],"84":[43.95,4.81],"85":[46.67,-1.43],"86":[46.58,0.34],"87":[45.83,1.26],"88":[48.17,6.45],"89":[47.80,3.57],"90":[47.64,6.86]};
+  const IDF = new Set(["75","77","78","91","92","93","94","95"]);
+  const BIG = new Set(["06","13","31","33","34","35","38","44","59","67","69","76","83"]);          // métropoles : +10
+  const MID = new Set(["14","21","25","29","30","37","42","45","49","51","54","57","63","66","72","74","80","84","86","87"]); // grandes villes moyennes : +5
+  const CITY_DEPT = [[/paris/, "75"], [/bordeaux|m[ée]rignac|pessac|b[eè]gles|talence/, "33"], [/toulouse|blagnac|labège/, "31"], [/\bpau\b/, "64"], [/lyon/, "69"], [/marseille/, "13"], [/lille/, "59"], [/nantes/, "44"], [/rennes/, "35"], [/montpellier/, "34"], [/strasbourg/, "67"], [/nice\b/, "06"], [/grenoble/, "38"]];
+  function distParis([lat, lon]) {
+    const R = 6371, r = x => x * Math.PI / 180, dLat = r(lat - 48.857), dLon = r(lon - 2.352);
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(r(48.857)) * Math.cos(r(lat)) * Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(a));
+  }
+  function lifeBalance(o) {
+    const lieu = o.lieu || "", n = norm(lieu);
+    let dep = (lieu.match(/\((\d{2,3}|2[AB])\)/i) || [])[1]?.toUpperCase();
+    if (!dep) dep = (CITY_DEPT.find(([re]) => re.test(n)) || [])[1];
+    if (/^97\d$/.test(dep || "") || o.region === "Outre-mer") return { v: 10, why: "outre-mer, très loin de l'Île-de-France" };
+    if (o.region === "Télétravail / National" || /t[ée]l[ée]travail/.test(n)) return { v: 90, why: "télétravail" };
+    if (!dep && o.region === "Île-de-France") return { v: 100, why: "Île-de-France" };
+    if (!dep) return { v: 50, why: "lieu non reconnu, valeur neutre" };
+    if (IDF.has(dep)) return { v: 100, why: "Île-de-France" };
+    if (dep === "33") return { v: 80, why: "Bordeaux et alentours (Gironde)" };
+    if (dep === "31") return { v: 70, why: "Toulouse et alentours (Haute-Garonne)" };
+    if (dep === "64") return { v: 70, why: "Pau et alentours (Pyrénées-Atlantiques)" };
+    const c = DEPT[dep]; if (!c) return { v: 50, why: "département non reconnu, valeur neutre" };
+    const d = Math.round(distParis(c)), bonus = BIG.has(dep) ? 10 : MID.has(dep) ? 5 : 0;
+    const v = Math.max(15, Math.min(78, Math.round(80 - d / 15 + bonus)));
+    return { v, why: `à ~${d} km de Paris` + (bonus === 10 ? ", métropole à proximité" : bonus === 5 ? ", grande ville à proximité" : ", loin d'une grande ville") };
+  }
+  function indexOf(o) {
+    const s = S.scores[o.id];
+    if (!s || !AI_KEYS.every(k => Number.isFinite(+s[k]))) return null;
+    const life = lifeBalance(o);
+    const parts = { comp: clamp(s.comp), exp: clamp(s.exp), form: clamp(s.form), vie: life.v, sect: clamp(s.sect), outils: clamp(s.outils) };
+    const total = Math.round(Object.entries(WEIGHTS).reduce((t, [k, w]) => t + parts[k] * w, 0));
+    return { total, parts, life, raison: s.raison || "", detailed: !!s.detailed };
+  }
+  const tier = v => v >= 75 ? "hi" : v >= 55 ? "mid" : "lo";
+  const verdict = v => v >= 80 ? "Très compatible" : v >= 65 ? "Compatible" : v >= 50 ? "Partiellement compatible" : "Peu compatible";
+
+  // ---------- dates ----------
+  const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const today = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
+  const effDate = o => o.pub || (o.ajoute || "").slice(0, 10);
+  const daysSince = s => s ? Math.round((today() - new Date(s + "T00:00:00")) / 864e5) : null;
+  const frDate = s => s ? new Date(s.length === 10 ? s + "T00:00:00" : s).toLocaleDateString("fr-FR") : "";
+  const clean = s => (s || "").replace(/\\([|*_#\[\]()`~>-])/g, "$1");
+
+  // ---------- Notion: shared helpers ----------
+  const notionErr = (e, what) => ({
+    approval_required: `${what} demande votre accord : réessayez et acceptez la demande de claude.ai.`,
+    needs_reauth: "Reconnectez Notion dans claude.ai, Paramètres → Connecteurs.",
+    server_not_connected: "Notion n'est pas connecté à votre compte claude.ai.",
+    not_in_manifest: "Cette action Notion n'est pas autorisée pour la page (menu Autorisations de l'artifact).",
+    server_unavailable: "Notion ou le serveur ne répond pas. Réessayez dans un instant ; vérifiez dans Notion si l'action a été faite.",
+    auth: "Session expirée : reconnectez-vous puis réessayez.",
+    tool_error: `Notion a refusé : ${(e?.message || "").slice(0, 160)}`
+  }[e?.code] || `${what} a échoué (${e?.code || "erreur"}).`);
+  const invalidate = () => S.mcp?.invalidate(NOTION, "notion-query-data-sources").catch(() => {});
+  async function updatePage(id, properties) {
+    return S.mcp.callTool(NOTION, "notion-update-page", { page_id: id, command: "update_properties", properties, allow_async: false });
+  }
+  async function readView(view, refresh) {
+    const rows = []; let cursor = null, pages = 0, storedAt, truncated = false;
+    do {
+      const data = { mode: "view", view_url: view, page_size: 100, ...(cursor ? { start_cursor: cursor } : {}) };
+      const res = await S.mcp.callTool(NOTION, "notion-query-data-sources", { data },
+        { cache: { staleTime: 15 * 60e3, gcTime: 24 * 3600e3, ...(refresh ? { refresh: true } : {}) } });
+      const p = res.payload || {};
+      if (Array.isArray(p.results)) rows.push(...p.results);
+      if (res.cache?.storedAt) storedAt = Math.min(storedAt || Infinity, res.cache.storedAt);
+      cursor = p.has_more ? p.next_cursor : null;
+      if (p.has_more && !cursor) truncated = true;
+    } while (cursor && ++pages < 30);
+    return { rows, storedAt, truncated };
+  }
+
+  // ---------- offers loading ----------
+  function rowToOffer(r) {
+    let dom = [];
+    try { dom = Array.isArray(r["Domaine"]) ? r["Domaine"] : JSON.parse(r["Domaine"] || "[]"); } catch {}
+    return {
+      id: r.url, poste: clean(r["Poste"]) || "Offre sans titre", entreprise: clean(r["Entreprise"]), lieu: clean(r["Lieu"]), region: r["Région"] || "",
+      contrat: r["Contrat"] || "", domaines: dom, niveau: r["Niveau"] || "", pub: r["date:Date de publication:start"] || "",
+      source: r["Source"] || "", lien: safeUrl(r["Lien"]), resume: clean(r["Résumé"]), salaire: clean(r["Salaire"]),
+      statut: r["Statut"] || "", ajoute: r["Ajouté le"] || "", candidature: r["date:Date de candidature:start"] || "",
+      aCompleter: r["À compléter"] === "__YES__" || r["À compléter"] === true,
+      ...langOf(r["Langue"], clean(r["Poste"]))
+    };
+  }
+  // Language of the ad: the Notion "Langue" property, otherwise guessed from an English job title.
+  const EN_TITLE = /\b(officer|engineer|specialist|analyst|scientist|advis[eo]r|head of|environmental|ecologist|ecology|biodiversity|wildlife|marine|renewables?|sustainability|associate|coordinator|internship|researcher|fellow|lead)\b/i;
+  const FR_TITLE = /(chargé|ingénieur|technicien|responsable|chef de|animat|garde|agent|é|è|ê|à\b)/i;
+  function langOf(v, poste) {
+    if (v === "Anglais" || v === "Bilingue" || v === "Français") return { langue: v, langueDevinee: false };
+    return { langue: EN_TITLE.test(poste || "") && !FR_TITLE.test(poste || "") ? "Anglais" : "Français", langueDevinee: true };
+  }
+  const isEN = o => o.langue === "Anglais" || o.langue === "Bilingue";
+  const langInstr = o => o.langue === "Anglais" ? "L'offre est rédigée EN ANGLAIS : rédige en anglais tout texte destiné à être collé tel quel dans la candidature (titre, accroche, reformulations, objet, amorces de phrases), et en français tes explications et conseils. Évalue aussi ce que le CV montre du niveau d'anglais (diplômes, séjours, postes, publications) face à l'exigence de l'offre." : o.langue === "Bilingue" ? "L'offre est bilingue français-anglais : rédige en français, mais signale comment valoriser le niveau d'anglais du candidat." : "Rédige en français.";
+  async function loadAll(refresh = false) {
+    if (!S.mcp) return;
+    $("#sync").textContent = "Chargement depuis Notion…";
+    $("#refresh").disabled = true;
+    try {
+      const out = await readView(VIEW, refresh);
+      const seen = new Set();
+      S.offers = out.rows.map(rowToOffer).filter(o => o.id && !seen.has(o.id) && seen.add(o.id));
+      const when = out.storedAt && isFinite(out.storedAt) ? new Date(out.storedAt) : new Date();
+      $("#sync").textContent = `${S.offers.length} offres · mis à jour à ${when.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}` + (out.truncated ? " · liste partielle" : "");
+      $("#listnotice").replaceChildren();
+      buildFilters(); apply();
+      if (S.tab === "sources") loadSources(refresh);
+    } catch (e) { showLoadError(e); }
+    finally { $("#refresh").disabled = false; }
+  }
+  function showLoadError(e) {
+    const code = e?.code;
+    const msg = {
+      needs_reauth: "La connexion Notion a expiré. Reconnectez Notion dans claude.ai, Paramètres → Connecteurs, puis cliquez sur Réessayer.",
+      server_not_connected: "Notion n'est pas connecté à votre compte. Ajoutez-le dans claude.ai, Paramètres → Connecteurs.",
+      selection_required: "Plusieurs connecteurs Notion existent : choisissez-en un dans l'invite de claude.ai, puis réessayez.",
+      not_in_manifest: "L'accès à Notion a été refusé pour cette page. Autorisez-le via le menu Autorisations de l'artifact.",
+      approval_required: "Cette page a besoin de votre accord pour lire la base Notion.",
+      server_unavailable: "Notion ou le serveur ne répond pas pour le moment. Réessayez dans quelques instants.",
+      auth: "Connectez-vous à votre serveur pour charger les offres.",
+      blocked_by_policy: "La politique de votre organisation bloque cet outil Notion.",
+      tool_error: "Notion a refusé la requête : " + (e?.message || "erreur inconnue").slice(0, 200)
+    }[code] || "Impossible de charger les offres (" + (code || "erreur") + ").";
+    $("#sync").textContent = "Notion indisponible";
+    const btn = el("button", { class: "btn small", type: "button", onclick: () => loadAll(true) }, code === "approval_required" ? "Autoriser et charger" : "Réessayer");
+    $("#listnotice").replaceChildren(el("div", { class: "notice" }, el("span", {}, msg), btn));
+    if (!S.offers.length) $("#list").replaceChildren();
+  }
+
+  // ---------- tabs ----------
+  const inTab = (o, tab) => tab === "favoris" ? o.statut === "Favori" : tab === "candidatures" ? o.statut === "Candidaté" : (o.statut !== "Candidaté" && o.statut !== "Écarté");
+  function renderTabs() {
+    const c = t => S.offers.filter(o => inTab(o, t)).length;
+    const counts = { offres: c("offres"), favoris: c("favoris"), candidatures: c("candidatures"), sources: S.sources ? S.sources.length : "…", experiences: S.exps.length };
+    document.querySelectorAll(".tab").forEach(b => {
+      b.setAttribute("aria-selected", String(b.dataset.tab === S.tab));
+      b.querySelector(".n").textContent = counts[b.dataset.tab];
+    });
+    const srcMode = S.tab === "sources", expMode = S.tab === "experiences";
+    $("#offersview").hidden = srcMode || expMode; $("#sourcesview").hidden = !srcMode; $("#expview").hidden = !expMode;
+    $("#filters").hidden = srcMode || expMode;
+  }
+  function setTab(t) {
+    S.tab = t; S.confirm = null; renderTabs();
+    if (t === "sources") { renderSources(); if (!S.sources) loadSources(false); return; }
+    if (t === "experiences") { renderChat(); renderExps(); setTimeout(() => $("#chatin").focus(), 0); return; }
+    apply();
+    if (S.selected && !S.filtered.some(o => o.id === S.selected)) { S.selected = null; renderDetail(); }
+  }
+  document.querySelectorAll(".tab").forEach(b => b.onclick = () => setTab(b.dataset.tab));
+
+  // ---------- filters ----------
+  function buildFilters() {
+    const regs = [...new Set(S.offers.map(o => o.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
+    const sel = $("#f-region"), cur = sel.value;
+    sel.replaceChildren(el("option", { value: "" }, "Toutes régions"), ...regs.map(r => el("option", { value: r }, r)));
+    sel.value = regs.includes(cur) ? cur : "";
+    const counts = {}; S.offers.forEach(o => o.domaines.forEach(d => counts[d] = (counts[d] || 0) + 1));
+    $("#domains").replaceChildren(...DOMAINS.filter(d => counts[d]).map(d => el("button", {
+      class: "chip", type: "button", "aria-pressed": S.domains.has(d) ? "true" : "false", style: `--dc:${dcol(d)}`,
+      onclick: ev => { S.domains.has(d) ? S.domains.delete(d) : S.domains.add(d); ev.currentTarget.setAttribute("aria-pressed", S.domains.has(d)); apply(); }
+    }, el("span", { class: "dot" }), d, el("span", { class: "n" }, counts[d]))));
+  }
+  const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  function apply() {
+    const terms = norm(S.q).split(/\s+/).filter(Boolean);
+    const lang = $("#f-langue").value;
+    const reg = $("#f-region").value, con = $("#f-contrat").value, niv = $("#f-niveau").value, sort = $("#f-sort").value;
+    const cutoff = S.since ? Date.now() - S.since * 864e5 : 0;
+    const min = +$("#f-min").value || 0;
+    S.filtered = S.offers.filter(o => {
+      if (!inTab(o, S.tab)) return false;
+      if (min && !((indexOf(o)?.total ?? -1) >= min)) return false;
+      if (reg && o.region !== reg) return false;
+      if (con && o.contrat !== con) return false;
+      if (lang === "en" && !isEN(o)) return false;
+      if (lang === "en-only" && o.langue !== "Anglais") return false;
+      if (lang === "fr" && o.langue !== "Français") return false;
+      if (niv && o.niveau !== niv) return false;
+      if (S.domains.size && !o.domaines.some(d => S.domains.has(d))) return false;
+      if (cutoff && !(Date.parse(o.ajoute) >= cutoff)) return false;
+      if (terms.length) {
+        const hay = norm([o.poste, o.entreprise, o.lieu, o.region, o.resume, o.domaines.join(" "), o.source, o.niveau, isEN(o) ? "anglais english" : ""].join(" "));
+        if (!terms.every(t => hay.includes(t))) return false;
+      }
+      return true;
+    });
+    const by = {
+      pub: (a, b) => (b.pub || "0").localeCompare(a.pub || "0") || (b.ajoute || "").localeCompare(a.ajoute || ""),
+      add: (a, b) => (b.ajoute || "").localeCompare(a.ajoute || "") || (b.pub || "").localeCompare(a.pub || ""),
+      score: (a, b) => (indexOf(b)?.total ?? -1) - (indexOf(a)?.total ?? -1) || by.pub(a, b),
+      cand: (a, b) => (b.candidature || "").localeCompare(a.candidature || "")
+    };
+    S.filtered.sort(S.tab === "candidatures" ? by.cand : (by[sort] || by.pub));
+    S.shown = Math.max(PAGE, S.shown); renderTabs(); renderList();
+  }
+
+  // ---------- list ----------
+  function iconBtn(kind, o) {
+    const fav = o.statut === "Favori";
+    if (kind === "star") return el("button", { class: "ico star" + (fav ? " on" : ""), type: "button", title: fav ? "Retirer des favoris (F)" : "Mettre en favori (F)", "aria-label": fav ? "Retirer des favoris" : "Mettre en favori", "aria-pressed": String(fav), html: ICON.star,
+      onclick: ev => { ev.stopPropagation(); toggleFavorite(o); } });
+    return el("button", { class: "ico del", type: "button", title: "Supprimer l'offre (Suppr)", "aria-label": "Supprimer l'offre", html: ICON.trash,
+      onclick: ev => { ev.stopPropagation(); askDelete(o); } });
+  }
+  function confirmBar(o) {
+    if (!S.confirm || S.confirm.id !== o.id) return null;
+    const cancel = el("button", { class: "btn small", type: "button", onclick: ev => { ev.stopPropagation(); S.confirm = null; renderList(); } }, "Annuler");
+    if (S.confirm.step === 1) {
+      return el("div", { class: "confirm", onclick: ev => ev.stopPropagation() },
+        el("span", {}, "Supprimer cette offre de la base Notion ?"),
+        el("span", { class: "row" }, cancel, el("button", { class: "btn small danger", type: "button", onclick: ev => { ev.stopPropagation(); S.confirm = { id: o.id, step: 2 }; renderList(); } }, "Oui, supprimer")));
+    }
+    return el("div", { class: "confirm strong", onclick: ev => ev.stopPropagation() },
+      el("span", {}, el("b", {}, "Confirmation finale : "), `« ${o.poste} » ira dans la corbeille Notion et disparaîtra du Radar.`),
+      el("span", { class: "row" }, cancel, el("button", { class: "btn small danger", type: "button", id: "confirm-final", onclick: ev => { ev.stopPropagation(); doDelete(o); } }, "Supprimer définitivement")),
+      S.confirm.msg ? el("span", { class: "legal", style: "flex-basis:100%" }, S.confirm.msg) : null);
+  }
+  function offerCard(o) {
+    const age = daysSince(o.pub);
+    const isNew = o.ajoute && Date.now() - Date.parse(o.ajoute) < 864e5;
+    const ix = indexOf(o);
+    const cand = o.statut === "Candidaté";
+    const busy = S.busy.has(o.id);
+    return el("div", { class: "offer" + (busy ? " busy" : ""), role: "option", tabindex: "-1", "data-id": o.id, "aria-selected": S.selected === o.id ? "true" : "false", "aria-current": S.selected === o.id ? "true" : "false", onclick: () => select(o.id) },
+      el("div", { class: "t" }, o.poste),
+      el("div", { class: "side" },
+        el("div", { class: "acts" }, cand ? el("span", { class: "candpill", html: ICON.check + " Candidaté" }) : [iconBtn("star", o), iconBtn("del", o)]),
+        el("div", { class: "meta" },
+          ix ? el("span", { class: "score " + tier(ix.total), title: `Indice de compatibilité : ${verdict(ix.total)}. ${ix.raison}` }, ix.total + "/100") : null,
+          age != null ? el("span", { class: "age", title: "Publiée le " + o.pub }, age === 0 ? "auj." : `J-${age}`) : el("span", { class: "nodate", title: "L'annonce n'affiche pas de date de publication" }, "sans date"))),
+      el("div", { class: "m" }, [o.entreprise, o.lieu].filter(Boolean).join(" · ")),
+      el("div", { class: "tags" },
+        cand && o.candidature ? el("span", { class: "pill cand" }, "Candidature du " + frDate(o.candidature)) : null,
+        isNew && !cand ? el("span", { class: "pill new" }, "Nouvelle") : null,
+        o.aCompleter ? el("span", { class: "pill todo", title: "Ajoutée par lien : l'agent du matin complètera les informations" }, "À compléter") : null,
+        o.contrat ? el("span", { class: "pill" }, o.contrat) : null,
+        isEN(o) ? el("span", { class: "pill en", title: o.langue === "Bilingue" ? "Offre bilingue français-anglais" : "Offre rédigée en anglais" + (o.langueDevinee ? " (détectée d'après l'intitulé)" : "") }, o.langue === "Bilingue" ? "FR · EN" : "EN") : null,
+        o.niveau ? el("span", { class: "pill" }, o.niveau) : null,
+        ...o.domaines.slice(0, 2).map(d => el("span", { class: "pill", style: `--dc:${dcol(d)}` }, el("span", { class: "dot" }), d))),
+      confirmBar(o));
+  }
+  function renderList() {
+    $("#count").textContent = S.filtered.length;
+    $("#lh-label").textContent = { offres: "offres", favoris: "favoris", candidatures: "candidatures" }[S.tab] || "offres";
+    const list = $("#list");
+    const empty = { offres: S.offers.length ? "Aucune offre ne correspond à ces filtres." : "La base est vide pour l'instant : l'agent l'alimente chaque matin vers 5 h 40.",
+      favoris: "Aucun favori pour l'instant. Cliquez sur l'étoile d'une offre (ou touche F) pour l'ajouter ici.",
+      candidatures: "Aucune candidature enregistrée. Depuis l'onglet Favoris, ouvrez une offre et indiquez la date de candidature." }[S.tab];
+    if (!S.filtered.length) list.replaceChildren(el("div", { class: "empty" }, empty));
+    else list.replaceChildren(...S.filtered.slice(0, S.shown).map(offerCard));
+    $("#more").hidden = S.filtered.length <= S.shown;
+    $("#rank").disabled = !S.sample || !S.cv || !S.filtered.length;
+  }
+  $("#more").onclick = () => { S.shown += PAGE; renderList(); };
+
+  // ---------- favourites, applications, deletion ----------
+  const byId = id => S.offers.find(o => o.id === id);
+  async function setStatut(o, statut, extra = {}, what = "La modification") {
+    const prev = { statut: o.statut, candidature: o.candidature };
+    o.statut = statut; if (extra["date:Date de candidature:start"]) o.candidature = extra["date:Date de candidature:start"];
+    S.busy.add(o.id); apply(); renderDetail();
+    try {
+      await updatePage(o.id, { "Statut": statut, ...extra });
+      flash(statut === "Favori" ? "Ajoutée aux favoris" : statut === "Candidaté" ? "Déplacée dans Candidatés" : "Retirée des favoris");
+      invalidate();
+    } catch (e) {
+      Object.assign(o, prev); flash(notionErr(e, what), true);
+    } finally { S.busy.delete(o.id); apply(); renderDetail(); }
+  }
+  function toggleFavorite(o) {
+    if (!o || o.statut === "Candidaté" || S.busy.has(o.id)) return;
+    setStatut(o, o.statut === "Favori" ? "Nouveau" : "Favori", {}, "La mise en favori");
+  }
+  function askDelete(o) {
+    if (!o || o.statut === "Candidaté") return;
+    S.selected = o.id; S.confirm = { id: o.id, step: 1 }; renderList(); renderDetail(); scrollToSelected();
+  }
+  async function doDelete(o) {
+    S.busy.add(o.id); S.confirm = { id: o.id, step: 2, msg: "Suppression en cours…" }; renderList();
+    try {
+      await S.mcp.callTool(NOTION, "notion-delete-pages", { page_ids: [o.id], user_confirmed: true });
+      const i = S.filtered.findIndex(x => x.id === o.id);
+      S.offers = S.offers.filter(x => x.id !== o.id);
+      S.confirm = null;
+      const next = S.filtered[i + 1] || S.filtered[i - 1];
+      S.selected = next && next.id !== o.id ? next.id : null;
+      flash("Offre supprimée (récupérable 30 jours dans la corbeille Notion)");
+      invalidate(); buildFilters(); apply(); renderDetail();
+    } catch (e) {
+      S.confirm = { id: o.id, step: 2, msg: notionErr(e, "La suppression") }; renderList();
+    } finally { S.busy.delete(o.id); }
+  }
+  function candidatureBlock(o) {
+    if (o.statut === "Candidaté") {
+      const d = el("input", { type: "date", id: "cand-date", value: o.candidature || "", max: iso(new Date()), required: true });
+      const save = el("button", { class: "btn small", type: "button" }, "Modifier la date");
+      save.onclick = () => { if (!d.value) { d.reportValidity?.(); return; } setStatut(o, "Candidaté", { "date:Date de candidature:start": d.value, "date:Date de candidature:is_datetime": 0 }, "La modification de la date"); };
+      return el("div", { class: "candbox done" },
+        el("h3", { style: "margin:0" }, "Candidature"),
+        el("p", { style: "margin:0" }, o.candidature ? `Candidature envoyée le ${frDate(o.candidature)}. Cette offre est conservée : l'agent ne la supprime jamais.` : "Candidature enregistrée sans date : indiquez-la ci-dessous."),
+        el("label", { class: "row", for: "cand-date", style: "font-size:13px" }, "Date de candidature", d, save));
+    }
+    if (o.statut !== "Favori") return el("p", { class: "legal", style: "margin:0" }, "Pour suivre une candidature, mettez d'abord l'offre en favori (étoile), puis indiquez la date depuis l'onglet Favoris.");
+    const d = el("input", { type: "date", id: "cand-date", max: iso(new Date()), required: true });
+    const go = el("button", { class: "btn small primary", type: "button", disabled: true }, "Passer en Candidatés");
+    d.oninput = () => { go.disabled = !d.value; };
+    go.onclick = () => { if (!d.value) return; setStatut(o, "Candidaté", { "date:Date de candidature:start": d.value, "date:Date de candidature:is_datetime": 0 }, "Le passage en Candidatés"); };
+    return el("div", { class: "candbox" },
+      el("h3", { style: "margin:0" }, "J'ai candidaté"),
+      el("label", { class: "row", for: "cand-date", style: "font-size:13px" }, "Date de candidature (obligatoire)", d, go));
+  }
+
+  // ---------- keyboard navigation ----------
+  function scrollToSelected() {
+    const c = document.querySelector(`.offer[data-id="${CSS.escape(S.selected || "")}"]`);
+    c?.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  }
+  function move(step) {
+    if (!S.filtered.length) return;
+    let i = S.filtered.findIndex(o => o.id === S.selected);
+    i = i < 0 ? (step > 0 ? 0 : S.filtered.length - 1) : Math.max(0, Math.min(S.filtered.length - 1, i + step));
+    if (i >= S.shown) S.shown = i + 1 + PAGE / 2;
+    S.selected = S.filtered[i].id; S.confirm = null;
+    renderList(); renderDetail(); scrollToSelected();
+  }
+  document.addEventListener("keydown", e => {
+    if (S.tab === "sources" || S.tab === "experiences" || e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+    if (e.key === "Escape" && S.confirm) { S.confirm = null; renderList(); return; }
+    if (typing) return;
+    if (e.key === "ArrowDown" || e.key === "j") { e.preventDefault(); move(1); }
+    else if (e.key === "ArrowUp" || e.key === "k") { e.preventDefault(); move(-1); }
+    else if ((e.key === "f" || e.key === "F") && S.selected) { e.preventDefault(); toggleFavorite(byId(S.selected)); }
+    else if ((e.key === "Delete" || e.key === "Backspace") && S.selected) {
+      e.preventDefault();
+      const o = byId(S.selected);
+      if (S.confirm?.id === o?.id && S.confirm.step === 1) { S.confirm = { id: o.id, step: 2 }; renderList(); }
+      else askDelete(o);
+    }
+  });
+
+  // ---------- toast ----------
+  let flashT;
+  function flash(msg, bad) {
+    const t = $("#toast"); t.textContent = msg; t.className = "toast show" + (bad ? " bad" : "");
+    clearTimeout(flashT); flashT = setTimeout(() => t.className = "toast", bad ? 6000 : 2600);
+  }
+
+  // ---------- detail ----------
+  function select(id) { S.selected = id; if (S.confirm && S.confirm.id !== id) S.confirm = null; renderList(); renderDetail(); if (matchMedia("(max-width: 900px)").matches) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" }); }
+  function renderDetail() {
+    const o = byId(S.selected); const box = $("#detail");
+    if (!o) {
+      rc(box, el("h3", {}, "Offre sélectionnée"), el("p", { class: "muted", style: "margin:0" }, "Choisissez une offre dans la liste (ou utilisez les flèches ↑ ↓ du clavier) pour voir le détail et adapter votre CV."));
+      return;
+    }
+    const age = daysSince(o.pub), ageAdd = daysSince(o.source === "Meteojob" ? (o.ajoute || "").slice(0, 10) || effDate(o) : effDate(o));
+    const left = ageAdd != null ? Math.max(0, WINDOW_DAYS - ageAdd) : null;
+    const keep = ["Favori", "Candidaté", "À regarder", "Écarté"].includes(o.statut);
+    const fullDesc = el("textarea", { id: "fulldesc", placeholder: "Facultatif : collez ici la description complète de l'annonce pour une analyse plus précise (le résumé de la base fait 2 à 4 phrases)." , style: "min-height:90px" });
+    const out = el("div", { class: "result", id: "analysis" });
+    const go = el("button", { class: "btn primary", type: "button", id: "adapt" }, "Adapter mon CV à cette offre");
+    go.onclick = () => analyse(o, fullDesc.value, out, go);
+    const fav = o.statut === "Favori", cand = o.statut === "Candidaté";
+    rc(box, 
+      el("h3", {}, "Offre sélectionnée"),
+      el("h2", {}, o.poste),
+      el("div", { class: "muted" }, [o.entreprise, o.lieu].filter(Boolean).join(" · ")),
+      o.aCompleter ? el("p", { class: "legal", style: "margin:0" }, "Offre ajoutée par lien : l'agent de 5 h 40 complètera le résumé, le domaine et les autres informations.") : null,
+      el("p", { style: "margin:0" }, o.resume || "Pas de résumé."),
+      el("div", { class: "row" },
+        o.lien ? el("a", { class: "btn", href: o.lien, target: "_blank", rel: "noopener noreferrer" }, "Voir l'annonce ↗") : null,
+        cand ? null : el("button", { class: "btn" + (fav ? " favon" : ""), type: "button", html: ICON.star + (fav ? " Retirer des favoris" : " Mettre en favori"), onclick: () => toggleFavorite(o) }),
+        cand ? null : el("button", { class: "btn delbtn", type: "button", html: ICON.trash + " Supprimer", onclick: () => askDelete(o) }),
+        safeUrl(o.id) ? el("a", { class: "btn", href: safeUrl(o.id), target: "_blank", rel: "noopener noreferrer" }, "Notion ↗") : null),
+      S.confirm?.id === o.id ? el("p", { class: "legal", style: "margin:0;color:var(--warn)" }, "Confirmez la suppression dans la carte de l'offre, à gauche (Échap pour annuler).") : null,
+      candidatureBlock(o),
+      el("dl", { class: "kv" },
+        el("dt", {}, "Contrat"), el("dd", {}, o.contrat || "—"),
+        el("dt", {}, "Niveau"), el("dd", {}, o.niveau || "—"),
+        el("dt", {}, "Langue"), el("dd", {}, o.langue + (o.langueDevinee ? " (non renseignée, déduite de l'intitulé)" : "") + (o.langue === "Anglais" ? " · CV et lettre proposés en anglais" : "")),
+        el("dt", {}, "Domaines"), el("dd", {}, o.domaines.join(", ") || "—"),
+        el("dt", {}, "Salaire"), el("dd", {}, o.salaire || "Non indiqué"),
+        el("dt", {}, "Publiée"), el("dd", { class: "mono" }, o.pub ? `${frDate(o.pub)} (J-${age})` : (o.ajoute ? `Non indiquée (ajoutée le ${frDate(o.ajoute)})` : "Non indiquée")),
+        el("dt", {}, "Fenêtre"), el("dd", {}, keep ? "Conservée (favori ou candidature)" : left == null ? "—" : left ? `Retirée de la veille dans ${left} j sauf si vous la mettez en favori` : "Hors fenêtre de 21 jours"),
+        el("dt", {}, "Source"), el("dd", {}, o.source || "—")),
+      indexBlock(o),
+      (fav || cand) ? letterSection(o, fullDesc) : null,
+      el("hr", { style: "border:0;border-top:1px solid var(--line);margin:2px 0;width:100%" }),
+      el("h3", {}, "Adaptation du CV"),
+      S.cv ? null : el("p", { class: "muted", style: "margin:0" }, "Importez d'abord votre CV dans le bloc ci-dessus."),
+      el("details", {}, el("summary", {}, "Ajouter la description complète de l'annonce"), fullDesc),
+      el("div", { class: "row" }, go),
+      out);
+    go.disabled = !S.cv || !S.sample;
+    if (!S.sample) rc(out, el("p", { class: "legal" }, "L'analyse par Claude n'est pas disponible dans cette vue."));
+    const prev = S.analyses[o.id]; if (prev) renderAnalysis(prev, out, o);
+  }
+  function indexBlock(o) {
+    const ix = indexOf(o);
+    if (!ix) { const life = lifeBalance(o); return el("div", { class: "idx" }, el("h3", { style: "margin:0" }, "Indice de compatibilité · Poste"),
+      el("span", { class: "muted", style: "font-size:13px" }, S.cv ? "Pas encore calculé : cliquez sur « Calculer l'indice de compatibilité » au-dessus de la liste, ou lancez l'analyse détaillée ci-dessous." : "Importez votre CV pour obtenir l'indice."),
+      el("span", { class: "legal" }, `Équilibre de vie déjà connu : ${life.v}/100 (${life.why}).`)); }
+    return el("div", { class: "idx" },
+      el("h3", { style: "margin:0" }, "Indice de compatibilité · Poste"),
+      el("div", { class: "head" }, el("span", { class: "big mono" }, ix.total), el("span", { class: "muted" }, "/100"), el("span", { class: "verdict" }, verdict(ix.total)),
+        el("span", { class: "legal" }, ix.detailed ? "issu de l'analyse détaillée" : "estimation rapide")),
+      ...CRIT.map(([k, label]) => el("div", { class: "crit" }, el("span", {}, label + ` (${Math.round(WEIGHTS[k] * 100)} %)`), el("div", { class: "bar" }, el("span", { style: `width:${ix.parts[k]}%` })), el("span", { class: "v" }, ix.parts[k]))),
+      el("span", { class: "legal" }, `Équilibre de vie : ${ix.life.why}.` + (ix.raison ? ` ${ix.raison}` : "")));
+  }
+
+  // ---------- CV import ----------
+  function setCV(text, name) {
+    S.cv = (text || "").trim(); S.cvName = S.cv ? (name || "CV collé") : "";
+    if (S.cv) { store.set("radar.cv", S.cv); store.set("radar.cvname", S.cvName); } else { store.del("radar.cv"); store.del("radar.cvname"); }
+    S.analyses = {}; S.scores = {}; S.letters = {}; store.del("radar.analyses"); store.del("radar.scores3"); store.del("radar.letters");
+    renderCV(); renderList(); renderDetail();
+  }
+  function renderCV() {
+    $("#cvname").textContent = S.cv ? `${S.cvName} · ${S.cv.split(/\s+/).length} mots` : "Aucun CV importé";
+    $("#drop").hidden = !!S.cv;
+    $("#cvtext").value = S.cv;
+  }
+  const loaded = {};
+  function loadScript(src) {
+    return loaded[src] ||= new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load")); document.head.append(s); });
+  }
+  async function readFile(f) {
+    const msg = $("#cvmsg"); msg.textContent = "Lecture de " + f.name + "…";
+    try {
+      let text = "";
+      const ext = f.name.toLowerCase().split(".").pop();
+      if (ext === "pdf") {
+        await loadScript("vendor/pdfjs/pdf.min.js");
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("vendor/pdfjs/pdf.worker.min.js", location.href).href;
+        const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()), isEvalSupported: false }).promise;
+        const pages = [];
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const c = await (await pdf.getPage(i)).getTextContent();
+          let line = ""; const lines = [];
+          for (const it of c.items) { line += it.str; if (it.hasEOL) { lines.push(line); line = ""; } else if (it.str && !it.str.endsWith(" ")) line += " "; }
+          if (line) lines.push(line);
+          // Re-join headings set in spaced capitals ("E X P É R I E N C E" -> "EXPÉRIENCE")
+          pages.push(lines.join("\n").replace(/(?:^|(?<=\s))((?:\p{L} ){2,}\p{L})(?=\s|$)/gmu, m => m.replace(/ /g, "")).trim());
+        }
+        if (pages.filter(Boolean).length > 2) { choosePages(pages, f.name); return; }
+        text = pages.join("\n\n");
+      } else if (ext === "docx") {
+        await loadScript("vendor/mammoth/mammoth.browser.min.js");
+        text = (await window.mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() })).value;
+      } else text = await f.text();
+      text = text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+      if (text.length < 80) throw new Error("vide");
+      setCV(text, f.name); msg.textContent = "CV importé. Vérifiez le texte avec « Coller / modifier » si la mise en page était complexe.";
+    } catch {
+      msg.textContent = "Impossible de lire ce fichier (PDF scanné ou protégé ?). Copiez le texte de votre CV et collez-le avec « Coller / modifier ».";
+    }
+  }
+  // A long PDF often holds several CV versions and cover letters: let the viewer pick the pages that form the CV.
+  function choosePages(pages, name) {
+    const squash = p => p.replace(/\s+/g, "").toLowerCase();
+    const isCV = p => { const q = squash(p); return /exp[ée]rience/.test(q) && /(education|éducation|formation|compétences|competences)/.test(q) && !/(lettredemotivation|coverletter|madame|monsieur|cordialement|salutations|towhom)/.test(q); };
+    let best = -1; pages.forEach((p, i) => { if (isCV(p)) best = i; });
+    const boxes = pages.map((p, i) => {
+      if (!p) return null;
+      const id = "pg" + i;
+      return el("label", { for: id, class: "row", style: "gap:6px;align-items:flex-start;font-size:13px" },
+        el("input", { type: "checkbox", id, value: i, checked: i === best }),
+        el("span", {}, el("b", {}, `Page ${i + 1}`), " · ", el("span", { class: "muted" }, p.replace(/\s+/g, " ").slice(0, 90) + "…")));
+    });
+    const ok = el("button", { class: "btn small primary", type: "button" }, "Utiliser les pages cochées");
+    ok.onclick = () => {
+      const sel = [...$("#cvmsg").querySelectorAll("input:checked")].map(x => +x.value);
+      if (!sel.length) return;
+      setCV(sel.map(i => pages[i]).join("\n\n"), `${name} (p. ${sel.map(i => i + 1).join(", ")})`);
+      $("#cvmsg").textContent = "CV importé. Vérifiez le texte avec « Coller / modifier » si besoin.";
+    };
+    $("#cvmsg").replaceChildren(el("div", { style: "display:flex;flex-direction:column;gap:6px" },
+      el("span", {}, `Ce PDF contient ${pages.length} pages (plusieurs versions de CV ou des lettres ?). Cochez celles qui forment le CV à utiliser :`),
+      ...boxes, el("div", { class: "row" }, ok)));
+  }
+  $("#cvfile").onchange =e => { const f = e.target.files[0]; if (f) readFile(f); e.target.value = ""; };
+  const drop = $("#drop");
+  drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+  drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+  drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); const f = e.dataTransfer.files[0]; if (f) readFile(f); });
+  $("#cvedit").onclick = () => { $("#cvbox").hidden = !$("#cvbox").hidden; if (!$("#cvbox").hidden) $("#cvtext").focus(); };
+  $("#cvsave").onclick = () => { setCV($("#cvtext").value, S.cvName || "CV collé"); $("#cvbox").hidden = true; $("#cvmsg").textContent = S.cv ? "CV enregistré dans ce navigateur." : ""; };
+  $("#cvclear").onclick = () => { setCV("", ""); $("#cvbox").hidden = true; $("#cvmsg").textContent = "CV effacé de ce navigateur."; };
+
+  // ---------- Claude: adaptation ----------
+  const sampleErr = e => ({
+    not_granted: "Vous n'avez pas autorisé cette page à utiliser Claude.",
+    sampling_disabled: "Claude n'est pas disponible pour ce compte.",
+    rate_limited: "Trop de demandes pour le moment. Réessayez dans quelques minutes.",
+    session_expired: "Votre session a expiré : reconnectez-vous à claude.ai.",
+    prompt_too_large: "Le CV et l'annonce sont trop longs : raccourcissez la description collée.",
+    invalid_json: "La réponse de Claude était incomplète. Relancez l'analyse.",
+    upstream_error: "Le serveur ou Claude ne répond pas. Vérifiez la connexion puis relancez.",
+    auth: "Session expirée : reconnectez-vous.",
+    refused: "Claude n'a pas pu traiter cette demande.",
+  }[e?.code] || "L'analyse a échoué (" + (e?.code || "erreur") + "). Relancez-la.");
+
+  function offerBlock(o, full) {
+    return `LANGUE DE L'ANNONCE : ${o.langue}\nPOSTE : ${o.poste}\nEMPLOYEUR : ${o.entreprise}\nLIEU : ${o.lieu} (${o.region})\nCONTRAT : ${o.contrat} · NIVEAU : ${o.niveau}\nDOMAINES : ${o.domaines.join(", ")}\nRÉSUMÉ DE L'ANNONCE : ${o.resume}` + (full?.trim() ? `\n\nDESCRIPTION COMPLÈTE COLLÉE PAR LE CANDIDAT :\n${full.trim().slice(0, 12000)}` : "");
+  }
+  async function analyse(o, full, out, btn) {
+    btn.disabled = true; rc(out, el("p", { class: "thinking" }, "Claude compare votre CV à l'offre… (jusqu'à une minute)"));
+    const prompt = `Tu es un conseiller en recrutement spécialisé dans les métiers de l'environnement et de l'écologie en France (bureaux d'études, collectivités, établissements publics comme l'OFB ou l'ONF, associations naturalistes, énergies renouvelables). Analyse l'adéquation entre le CV et l'offre ci-dessous, puis dis précisément comment adapter le CV. Sois concret, honnête et factuel : n'invente aucune expérience ni diplôme absent du CV ou des expériences complémentaires. Si une expérience complémentaire est pertinente pour l'offre, propose de l'ajouter au CV (dans points_a_revoir). ${langInstr(o)}
+
+Réponds UNIQUEMENT avec un objet JSON de cette forme :
+{"competences": entier 0-100 (savoir-faire et méthodes du CV face aux missions et exigences du poste),
+ "experience": entier 0-100 (adéquation entre les années et le niveau d'expérience du CV et le niveau demandé ; sur- ou sous-qualification = moins de points),
+ "formation": entier 0-100 (adéquation des formations et diplômes du CV avec ceux demandés : niveau et spécialité),
+ "secteur": entier 0-100 (connaissance du secteur et du type d'employeur : établissements publics, collectivités, bureaux d'études, associations, énergéticiens, et de leurs enjeux et réglementations),
+ "outils": entier 0-100 (maîtrise des outils et logiciels demandés : SIG/QGIS, R, bases de données naturalistes, CAO, bureautique avancée… ; 60 si l'offre n'en cite aucun),
+ "synthese": "2 phrases",
+ "points_forts": ["atout du CV pertinent pour ce poste", ...] (3 à 5),
+ "points_a_revoir": [{"sujet": "titre court", "pourquoi": "écart constaté entre l'offre et le CV", "action": "modification précise à faire dans le CV"}] (3 à 6, les plus importants d'abord),
+ "mots_cles": ["terme de l'offre absent du CV à intégrer s'il est vrai pour le candidat", ...] (5 à 10),
+ "titre_cv": "titre de CV adapté au poste",
+ "accroche": "profil / accroche de 3-4 lignes réécrit pour cette offre, uniquement à partir de faits du CV",
+ "experiences_a_reformuler": [{"avant": "ligne actuelle du CV", "apres": "reformulation orientée vers l'offre"}] (2 à 4),
+ "questions_entretien": ["question probable", ...] (3)}
+
 === OFFRE ===
 ${offerBlock(o, full)}
+
+=== CV DU CANDIDAT ===
+${profile(30000)}`;
+    try {
+      const r = await S.sample.json(prompt, { modelTier: "default", cache: { gcTime: 24 * 3600e3 } });
+      if (!r || typeof r !== "object") throw { code: "invalid_json" };
+      S.analyses[o.id] = r; store.set("radar.analyses", JSON.stringify(S.analyses));
+      if ([r.competences, r.experience, r.formation, r.secteur, r.outils].every(v => Number.isFinite(+v))) {
+        S.scores[o.id] = { comp: +r.competences, exp: +r.experience, form: +r.formation, sect: +r.secteur, outils: +r.outils, raison: "", detailed: true }; saveScores();
+      }
+      renderList(); renderDetail();
+    } catch (e) {
+      rc(out, el("div", { class: "notice" }, el("span", {}, sampleErr(e))));
+    } finally { btn.disabled = false; btn.textContent = "Relancer l'analyse"; }
+  }
+  const arr = v => Array.isArray(v) ? v : [];
+  function analysisMarkdown(r, o) {
+    const L = [];
+    const ix = indexOf(o);
+    L.push(`# CV adapté : ${o.poste} (${o.entreprise})`, "", `Offre : ${o.lien || o.id}`, "", ix ? `Indice de compatibilité : ${ix.total}/100 (${verdict(ix.total)}) — compétences ${ix.parts.comp}, expérience ${ix.parts.exp}, formation ${ix.parts.form}, équilibre de vie ${ix.parts.vie}, secteur ${ix.parts.sect}, outils ${ix.parts.outils}.` : "", "", r.synthese || "", "");
+    L.push("## Titre du CV proposé", "", r.titre_cv || "", "", "## Accroche", "", r.accroche || "", "");
+    L.push("## Points forts", "", ...arr(r.points_forts).map(x => `- ${x}`), "");
+    L.push("## Points à revoir", "", ...arr(r.points_a_revoir).map(x => `- **${x.sujet}** : ${x.pourquoi} → ${x.action}`), "");
+    L.push("## Mots-clés à intégrer", "", arr(r.mots_cles).join(", "), "");
+    L.push("## Reformulations", "", ...arr(r.experiences_a_reformuler).map(x => `- Avant : ${x.avant}\n  Après : ${x.apres}`), "");
+    L.push("## Questions d'entretien probables", "", ...arr(r.questions_entretien).map(x => `- ${x}`));
+    return L.join("\n");
+  }
+  function copyBtn(label, getText) {
+    const b = el("button", { class: "btn small", type: "button" }, label);
+    b.onclick = async () => { try { await navigator.clipboard.writeText(getText()); b.textContent = "Copié"; } catch { b.textContent = "Copie impossible"; } setTimeout(() => b.textContent = label, 1600); };
+    return b;
+  }
+  function renderAnalysis(r, out, o) {
+    const docBtn = el("button", { class: "btn small", type: "button", hidden: !!S.mcp?.remote }, "Enregistrer en document");
+    const docMsg = el("span", { class: "legal" });
+    docBtn.onclick = async () => {
+      if (!S.mcp) { docMsg.textContent = "Création de document indisponible ici."; return; }
+      docBtn.disabled = true; docMsg.textContent = "Création…";
+      const name = `CV adapté – ${o.poste}`.replace(/[\u0000-\u001f]/g, " ").slice(0, 190);
+      try {
+        const res = await S.mcp.callTool("Claude Docs", "batch", { container: { kind: "project", create: { name, doc: { markdown: analysisMarkdown(r, o) } } }, batch: [] });
+        const url = res.payload?.url;
+        docMsg.replaceChildren(url ? el("a", { href: url, target: "_blank", rel: "noopener" }, "Document créé ↗") : "Document créé dans Claude Docs.");
+      } catch (e) {
+        docMsg.textContent = e?.code === "approval_required" ? "La création demande votre accord : réessayez et acceptez." : e?.code === "tool_error" ? "Document non créé." : "Le document a peut-être été créé : vérifiez dans Claude Docs.";
+      } finally { docBtn.disabled = false; }
+    };
+    rc(out, 
+      r.synthese ? el("p", { style: "margin:0" }, r.synthese) : null,
+      el("div", {}, el("h3", {}, "Points à revoir"), ...arr(r.points_a_revoir).map(x => el("div", { class: "fix", style: "margin-bottom:8px" }, el("b", {}, x.sujet || ""), el("span", { class: "muted" }, x.pourquoi || ""), el("span", { class: "act" }, "→ " + (x.action || ""))))),
+      el("div", {}, el("h3", {}, "Points forts à mettre en avant"), el("ul", { class: "clean" }, ...arr(r.points_forts).map(x => el("li", {}, x)))),
+      arr(r.mots_cles).length ? el("div", {}, el("h3", {}, "Mots-clés de l'offre à intégrer (s'ils sont vrais)"), el("div", { class: "tagset" }, ...arr(r.mots_cles).map(k => el("span", { class: "pill" }, k)))) : null,
+      r.titre_cv ? el("div", {}, el("h3", {}, "Titre de CV proposé"), el("div", { class: "quote" }, r.titre_cv)) : null,
+      r.accroche ? el("div", {}, el("div", { class: "row", style: "justify-content:space-between" }, el("h3", {}, "Accroche réécrite"), copyBtn("Copier", () => r.accroche)), el("div", { class: "quote" }, r.accroche)) : null,
+      arr(r.experiences_a_reformuler).length ? el("div", {}, el("h3", {}, "Reformulations"), ...arr(r.experiences_a_reformuler).map(x => el("div", { class: "rew" }, el("span", { class: "a" }, x.avant || ""), el("span", {}, x.apres || "")))) : null,
+      arr(r.questions_entretien).length ? el("div", {}, el("h3", {}, "Questions d'entretien probables"), el("ul", { class: "clean" }, ...arr(r.questions_entretien).map(x => el("li", {}, x)))) : null,
+      el("div", { class: "row" }, copyBtn("Copier toute l'analyse", () => analysisMarkdown(r, o)), docBtn, docMsg));
+  }
+
+  // ---------- Claude: cover-letter outline (favourites and applications) ----------
+  function letterSection(o, fullDesc) {
+    const out = el("div", { class: "result" });
+    const go = el("button", { class: "btn primary", type: "button" }, S.letters[o.id] ? "Refaire la structure" : "Proposer une structure de lettre");
+    go.disabled = !S.cv || !S.sample;
+    go.onclick = () => buildLetter(o, fullDesc.value, out, go);
+    const prev = S.letters[o.id];
+    if (prev) renderLetter(prev, out, o);
+    else if (!S.sample) rc(out, el("p", { class: "legal" }, "La proposition par Claude n'est pas disponible dans cette vue."));
+    return el("div", { class: "panel letterbox", style: "background:var(--sunk);border:0" },
+      el("h3", { style: "margin:0" }, "Lettre de motivation"),
+      el("p", { class: "muted", style: "margin:0;font-size:13px" }, "Plan en 4 parties et axes indispensables pour cette offre, appuyés sur votre CV et vos fiches « Mes expériences »." + (S.exps.length ? "" : " Astuce : ajoutez vos expériences hors CV dans l'onglet dédié.")),
+      S.cv ? null : el("p", { class: "muted", style: "margin:0" }, "Importez d'abord votre CV."),
+      el("div", { class: "row" }, go), out);
+  }
+  async function buildLetter(o, full, out, btn) {
+    btn.disabled = true; rc(out, el("p", { class: "thinking" }, "Claude prépare la structure de la lettre… (jusqu'à une minute)"));
+    const prompt = `Tu es conseiller en recrutement pour les métiers de l'environnement et de l'écologie en France. Propose la STRUCTURE d'une lettre de motivation pour cette offre (pas la lettre rédigée en entier) et les axes indispensables à y intégrer. Appuie chaque argument sur un fait réel du CV ou des expériences complémentaires ; n'invente rien. Adapte le ton au type d'employeur (établissement public, collectivité, bureau d'études, association, entreprise). ${o.langue === "Anglais" ? "L'offre est EN ANGLAIS : la lettre sera en anglais (cover letter), donc rédige l'objet, les amorces et les mots-clés en anglais et adapte la structure aux usages anglo-saxons (plus directe, orientée résultats) ; garde les autres explications en français. Ajoute un axe sur le niveau d'anglais si l'offre l'exige." : langInstr(o)}
+
+Réponds UNIQUEMENT avec un objet JSON :
+{"angle": "fil conducteur de la lettre en 1 phrase",
+ "objet": "ligne d'objet proposée",
+ "axes_indispensables": [{"axe": "titre court", "pourquoi": "ce que l'offre attend précisément", "preuve": "fait du CV ou expérience complémentaire qui le démontre"}] (4 à 6, du plus important au moins important),
+ "structure": [{"partie": "nom de la partie", "objectif": "1 phrase", "points": ["idée à développer", ...] (2 à 4), "amorce": "proposition de première phrase pour cette partie"}] (exactement 4 parties : 1. Vous – l'employeur et ses enjeux, 2. Moi – ce que j'apporte, 3. Nous – ce que nous ferons ensemble sur ce poste, 4. Conclusion et demande d'entretien),
+ "mots_cles": ["terme de l'offre à reprendre", ...] (5 à 8),
+ "manques": [{"exigence": "attente de l'offre non prouvée par le profil", "comment": "comment l'aborder honnêtement dans la lettre"}] (0 à 3),
+ "a_eviter": ["piège à éviter pour ce poste ou cet employeur", ...] (2 à 4),
+ "longueur": "conseil de longueur et de format"}
+
+=== OFFRE ===
+${offerBlock(o, full)}
+
+=== CV DU CANDIDAT ===
+${profile(28000)}`;
+    try {
+      const r = await S.sample.json(prompt, { modelTier: "default", cache: { gcTime: 24 * 3600e3 } });
+      if (!r || typeof r !== "object") throw { code: "invalid_json" };
+      S.letters[o.id] = r; saveLetters();
+      renderLetter(r, out, o); btn.textContent = "Refaire la structure";
+    } catch (e) { rc(out, el("div", { class: "notice" }, el("span", {}, sampleErr(e)))); }
+    finally { btn.disabled = false; }
+  }
+  function letterMarkdown(r, o) {
+    const L = [`# Lettre de motivation : ${o.poste} (${o.entreprise})`, "", `Offre : ${o.lien || o.id}`, ""];
+    if (r.objet) L.push(`**Objet :** ${r.objet}`, "");
+    if (r.angle) L.push(`**Fil conducteur :** ${r.angle}`, "");
+    L.push("## Axes indispensables", "", ...arr(r.axes_indispensables).map(x => `- **${x.axe}** : ${x.pourquoi}${x.preuve ? ` — Preuve : ${x.preuve}` : ""}`), "");
+    L.push("## Structure", "");
+    arr(r.structure).forEach((p, i) => { L.push(`### ${i + 1}. ${p.partie}`, "", p.objectif || "", "", ...arr(p.points).map(x => `- ${x}`), "", p.amorce ? `> ${p.amorce}` : "", ""); });
+    if (arr(r.mots_cles).length) L.push("## Mots-clés à reprendre", "", arr(r.mots_cles).join(", "), "");
+    if (arr(r.manques).length) L.push("## Points faibles à aborder", "", ...arr(r.manques).map(x => `- **${x.exigence}** : ${x.comment}`), "");
+    if (arr(r.a_eviter).length) L.push("## À éviter", "", ...arr(r.a_eviter).map(x => `- ${x}`), "");
+    if (r.longueur) L.push("## Format", "", r.longueur);
+    return L.join("\n");
+  }
+  function renderLetter(r, out, o) {
+    const docBtn = el("button", { class: "btn small", type: "button", hidden: !!S.mcp?.remote }, "Enregistrer en document");
+    const docMsg = el("span", { class: "legal" });
+    docBtn.onclick = async () => {
+      if (!S.mcp) { docMsg.textContent = "Création de document indisponible ici."; return; }
+      docBtn.disabled = true; docMsg.textContent = "Création…";
+      try {
+        const res = await S.mcp.callTool("Claude Docs", "batch", { container: { kind: "project", create: { name: `Lettre – ${o.poste}`.slice(0, 190), doc: { markdown: letterMarkdown(r, o) } } }, batch: [] });
+        const url = res.payload?.url;
+        docMsg.replaceChildren(url ? el("a", { href: url, target: "_blank", rel: "noopener" }, "Document créé ↗") : "Document créé dans Claude Docs.");
+      } catch (e) { docMsg.textContent = e?.code === "approval_required" ? "La création demande votre accord : réessayez et acceptez." : "Document non créé."; }
+      finally { docBtn.disabled = false; }
+    };
+    rc(out,
+      r.objet ? el("div", {}, el("h3", {}, "Objet"), el("div", { class: "quote" }, r.objet)) : null,
+      r.angle ? el("p", { style: "margin:0" }, el("b", {}, "Fil conducteur : "), r.angle) : null,
+      el("div", {}, el("h3", {}, "Axes indispensables"), ...arr(r.axes_indispensables).map(x => el("div", { class: "axis" }, el("b", {}, x.axe || ""), el("span", { class: "muted" }, x.pourquoi || ""), x.preuve ? el("span", { style: "color:var(--accent)" }, "Preuve : " + x.preuve) : null))),
+      el("div", { style: "display:flex;flex-direction:column;gap:10px" }, el("h3", {}, "Structure proposée"), ...arr(r.structure).map((p, i) => el("div", { class: "letter-part" },
+        el("b", {}, `${i + 1}. ${p.partie || ""}`), p.objectif ? el("span", { class: "muted" }, p.objectif) : null,
+        arr(p.points).length ? el("ul", {}, ...arr(p.points).map(x => el("li", {}, x))) : null,
+        p.amorce ? el("div", { class: "quote" }, p.amorce) : null))),
+      arr(r.mots_cles).length ? el("div", {}, el("h3", {}, "Mots-clés à reprendre"), el("div", { class: "tagset" }, ...arr(r.mots_cles).map(k => el("span", { class: "pill" }, k)))) : null,
+      arr(r.manques).length ? el("div", {}, el("h3", {}, "Points faibles à aborder"), ...arr(r.manques).map(x => el("div", { class: "fix", style: "margin-bottom:8px" }, el("b", {}, x.exigence || ""), el("span", { class: "act" }, "→ " + (x.comment || ""))))) : null,
+      arr(r.a_eviter).length ? el("div", {}, el("h3", {}, "À éviter"), el("ul", { class: "clean" }, ...arr(r.a_eviter).map(x => el("li", {}, x)))) : null,
+      r.longueur ? el("p", { class: "legal", style: "margin:0" }, r.longueur) : null,
+      el("div", { class: "row" }, copyBtn("Copier la structure", () => letterMarkdown(r, o)), docBtn, docMsg));
+  }
+
+  // ---------- "Mes expériences": chat that turns untold experiences into saved cards ----------
+  const WELCOME = "Bonjour ! Je vais vous aider à compléter votre profil avec des expériences qui ne sont pas sur votre CV : stages, bénévolat, inventaires naturalistes, chantiers, missions courtes, projets associatifs ou personnels, formations, certificats, permis…\n\nRacontez-m'en une, même en quelques mots : je vous poserai les questions utiles (dates, structure, missions, outils, résultats) puis je l'enregistrerai en fiche.";
+  const SUGGEST = ["J'ai fait du bénévolat naturaliste", "J'ai suivi une formation courte", "J'ai un permis / une certification", "Mon niveau d'anglais (séjours, TOEIC…)", "Un projet personnel lié à la nature", "Qu'est-ce qui manque à mon CV ?"];
+  function renderChat() {
+    const log = $("#chatlog");
+    const msgs = [{ r: "a", t: WELCOME }, ...S.chat];
+    rc(log, msgs.map(m => el("div", { class: "msg " + m.r }, m.t)), S.chatBusy ? el("div", { class: "msg a thinking" }, "Claude réfléchit…") : null);
+    log.scrollTop = log.scrollHeight;
+    rc($("#chatsuggest"), S.chat.length ? [] : SUGGEST.map(t => el("button", { class: "chip", type: "button", onclick: () => sendChat(t) }, t)));
+    $("#chatgo").disabled = !!S.chatBusy || !S.sample;
+  }
+  function renderExps() {
+    $("#expcount").textContent = S.exps.length; renderTabs();
+    const list = $("#explist");
+    if (!S.exps.length) { rc(list, el("div", { class: "empty" }, "Aucune fiche pour l'instant. Elles apparaîtront ici au fil de la conversation.")); return; }
+    rc(list, S.exps.map(x => {
+      const editing = S.expEdit === x.id;
+      const body = el("textarea", { "aria-label": "Description" }); body.value = x.description || "";
+      const del = S.expConfirm === x.id
+        ? el("span", { class: "row" }, el("button", { class: "btn small", type: "button", onclick: () => { S.expConfirm = null; renderExps(); } }, "Annuler"),
+            el("button", { class: "btn small danger", type: "button", onclick: () => { S.exps = S.exps.filter(e => e.id !== x.id); S.expConfirm = null; saveExps(); renderExps(); flash("Fiche supprimée"); } }, "Supprimer"))
+        : el("button", { class: "ico del", type: "button", title: "Supprimer la fiche", "aria-label": "Supprimer la fiche", html: ICON.trash, onclick: () => { S.expConfirm = x.id; renderExps(); } });
+      return el("div", { class: "exp" },
+        el("div", { class: "top" }, el("span", {}, el("b", {}, x.titre || "Expérience"), el("br"), el("span", { class: "legal" }, [x.structure, x.periode, x.lieu].filter(Boolean).join(" · "))),
+          el("span", { class: "row", style: "flex:none" }, editing ? null : el("button", { class: "btn small", type: "button", onclick: () => { S.expEdit = x.id; renderExps(); } }, "Modifier"), del)),
+        editing ? body : el("span", {}, x.description || ""),
+        editing ? el("div", { class: "row" }, el("button", { class: "btn small", type: "button", onclick: () => { S.expEdit = null; renderExps(); } }, "Annuler"),
+          el("button", { class: "btn small primary", type: "button", onclick: () => { x.description = body.value.trim(); S.expEdit = null; saveExps(); renderExps(); flash("Fiche mise à jour"); } }, "Enregistrer")) : null,
+        !editing && (x.competences?.length || x.outils?.length) ? el("div", { class: "tagset" }, ...arr(x.competences).concat(arr(x.outils)).map(k => el("span", { class: "pill" }, k))) : null,
+        !editing && x.resultats ? el("span", { class: "legal" }, "Résultats : " + x.resultats) : null);
+    }));
+  }
+  async function sendChat(text) {
+    text = (text || "").trim();
+    if (!text || S.chatBusy) return;
+    if (!S.sample) { flash("Claude n'est pas disponible dans cette vue.", true); return; }
+    S.chat.push({ r: "u", t: text }); S.chatBusy = true; $("#chatin").value = ""; renderChat();
+    const transcript = [{ r: "a", t: WELCOME }, ...S.chat].slice(-24).map(m => (m.r === "u" ? "CANDIDAT : " : "TOI : ") + m.t).join("\n\n");
+    const cards = S.exps.map(x => `[${x.id}] ${x.titre} · ${x.structure || ""} · ${x.periode || ""} — ${x.description || ""}`).join("\n") || "(aucune)";
+    const prompt = `Tu es un conseiller carrière bienveillant, spécialiste des métiers de l'écologie et de l'environnement en France. Tu discutes avec un candidat pour recueillir les expériences qui NE figurent PAS sur son CV (stages, bénévolat, inventaires, chantiers, projets, formations, certificats, permis, engagements associatifs, compétences acquises hors travail) afin de les enregistrer en fiches réutilisables pour ses candidatures.
+
+Règles :
+- Pose UNE ou DEUX questions courtes à la fois pour obtenir : intitulé, structure, période, lieu, missions concrètes, compétences, outils/logiciels/espèces/méthodes, résultats chiffrés.
+- Dès que tu as assez d'éléments (au moins un intitulé et une description concrète), enregistre la fiche dans "experiences" sans attendre la perfection ; tu pourras la compléter ensuite en réutilisant son id.
+- Ne crée pas de fiche pour ce qui est déjà sur le CV ; signale-le simplement. N'invente rien : uniquement ce que le candidat a dit.
+- Si le candidat demande ce qui manque, compare son CV aux attentes habituelles des métiers de l'écologie et suggère des pistes d'expériences à raconter.
+- Ton chaleureux, phrases courtes, en français, vouvoiement. Pas de markdown.
+
+Réponds UNIQUEMENT avec un objet JSON :
+{"reponse": "ton message au candidat",
+ "experiences": [{"id": "id d'une fiche existante à mettre à jour, ou vide pour une nouvelle", "titre": "", "structure": "", "periode": "", "lieu": "", "description": "2 à 4 phrases factuelles, style CV (verbes d'action, sans « je »)", "competences": [""], "outils": [""], "resultats": ""}] (liste vide si rien à enregistrer ou mettre à jour à ce tour)}
+
+=== CV DU CANDIDAT ===
+${S.cv ? S.cv.slice(0, 15000) : "(pas de CV importé)"}
+
+=== FICHES DÉJÀ ENREGISTRÉES ===
+${cards}
+
+=== CONVERSATION ===
+${transcript}`;
+    try {
+      const r = await S.sample.json(prompt, { modelTier: "default", cache: false });
+      const saved = [];
+      for (const x of arr(r?.experiences)) {
+        if (!x || !String(x.titre || "").trim()) continue;
+        const clean1 = { titre: String(x.titre).slice(0, 160), structure: String(x.structure || ""), periode: String(x.periode || ""), lieu: String(x.lieu || ""), description: String(x.description || ""), competences: arr(x.competences).map(String).filter(Boolean), outils: arr(x.outils).map(String).filter(Boolean), resultats: String(x.resultats || "") };
+        const ex = x.id && S.exps.find(e => e.id === x.id);
+        if (ex) { Object.assign(ex, clean1); saved.push("Fiche mise à jour : " + clean1.titre); }
+        else { S.exps.push({ id: "x" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), ...clean1 }); saved.push("Fiche enregistrée : " + clean1.titre); }
+      }
+      S.chat.push({ r: "a", t: String(r?.reponse || "C'est noté.") });
+      saved.forEach(t => S.chat.push({ r: "saved", t: "✓ " + t }));
+      if (saved.length) saveExps();
+    } catch (e) {
+      S.chat.push({ r: "a", t: sampleErr(e).replace("L'analyse a échoué", "Je n'ai pas pu répondre").replace("Relancez l'analyse", "Renvoyez votre message") });
+    } finally { S.chatBusy = false; saveChat(); renderChat(); renderExps(); $("#chatin").focus(); }
+  }
+  $("#chatform").addEventListener("submit", e => { e.preventDefault(); sendChat($("#chatin").value); });
+  $("#chatin").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendChat($("#chatin").value); } });
+  $("#chatreset").onclick = () => { S.chat = []; saveChat(); renderChat(); flash("Conversation effacée, les fiches sont conservées"); };
+
+  // ---------- Claude: ranking ----------
+  $("#rank").onclick = async () => {
+    const btn = $("#rank"), info = $("#rankinfo");
+    const todo = S.filtered.filter(o => !S.scores[o.id]?.detailed).slice(0, 160);
+    if (!todo.length) { info.textContent = "Toutes les offres affichées ont déjà un indice."; return; }
+    btn.disabled = true;
+    const CHUNK = 25; let n = 0, failed = null;
+    for (let c = 0; c < todo.length; c += CHUNK) {
+      const items = todo.slice(c, c + CHUNK);
+      info.textContent = `Claude évalue les offres ${c + 1} à ${c + items.length} sur ${todo.length}…`;
+      const list = items.map((o, i) => `${i}. ${o.poste} | ${o.entreprise} | ${o.lieu} | niveau demandé : ${o.niveau || "?"} | langue : ${o.langue} | domaines : ${o.domaines.join(", ")} | ${o.resume.slice(0, 260)}`).join("\n");
+      const prompt = `Tu es recruteur spécialisé dans les métiers de l'environnement en France. Pour chaque offre, note le CV du candidat sur 5 critères, de 0 à 100, de façon exigeante et réaliste (50 = moyen) :
+- "comp" : compétences et méthodes du CV face aux missions et exigences du poste ;
+- "exp" : adéquation entre les années et le niveau d'expérience du candidat et le niveau demandé (sur- ou sous-qualification = moins de points) ;
+- "form" : adéquation des formations et diplômes (niveau et spécialité) avec ceux demandés ;
+- "sect" : connaissance du secteur et du type d'employeur (public, collectivité, bureau d'études, association, énergéticien), de ses enjeux et réglementations ;
+- "outils" : maîtrise des outils et logiciels demandés (SIG/QGIS, R, bases naturalistes, CAO…) ; 60 si l'offre n'en cite aucun.
+Pour une offre en anglais, tiens compte dans "comp" du niveau d'anglais que montre le CV. Ne note ni le contrat ni le lieu. N'invente rien qui ne figure pas dans le CV.
+Réponds UNIQUEMENT avec un tableau JSON, une entrée par offre : [{"i": numéro, "comp": 0-100, "exp": 0-100, "form": 0-100, "sect": 0-100, "outils": 0-100, "raison": "10 mots max : principal atout ou manque"}]
+
 === CV ===
-${S.cv.slice(0, 30000)}`;
-try {
-const r = await askJSON(prompt);
-S.analyses[o.id] = r; store.set("radar.analyses", JSON.stringify(S.analyses));
-if ([r.competences, r.experience, r.domaine].every(v => Number.isFinite(+v))) { S.ai[o.id] = { comp: +r.competences, exp: +r.experience, dom: +r.domaine, detailed: true }; store.set("radar.ai", JSON.stringify(S.ai)); }
-apply(); renderDetail();
-} catch (e) { out.replaceChildren(el("div", { class: "notice" }, el("span", {}, apiErr(e)))); btn.disabled = false; }
-}
-function copyBtn(label, getText) {
-const b = el("button", { class: "btn small", type: "button" }, label);
-b.onclick = async () => { try { await navigator.clipboard.writeText(getText()); b.textContent = "Copié"; } catch { b.textContent = "Copie impossible"; } setTimeout(() => b.textContent = label, 1600); };
-return b;
-}
-function analysisText(r, o) {
-const L = [`CV adapté : ${o.poste} (${o.entreprise})`, safeUrl(o.lien), "", r.synthese || "", "", "Titre : " + (r.titre_cv || ""), "", "Accroche :", r.accroche || "", "", "Points à revoir :", ...arr(r.points_a_revoir).map(x => `- ${x.sujet} : ${x.pourquoi} → ${x.action}`), "", "Mots-clés : " + arr(r.mots_cles).join(", "), "", "Reformulations :", ...arr(r.experiences_a_reformuler).map(x => `- ${x.avant}\n  → ${x.apres}`), "", "Questions d'entretien :", ...arr(r.questions_entretien).map(x => "- " + x)];
-return L.join("\n");
-}
-function renderAnalysis(r, out, o) {
-out.replaceChildren(
-r.synthese ? el("p", { style: "margin:0" }, r.synthese) : null,
-el("div", {}, el("h3", {}, "Points à revoir"), ...arr(r.points_a_revoir).map(x => el("div", { class: "fix", style: "margin-bottom:8px" }, el("b", {}, x.sujet || ""), el("span", { class: "muted" }, x.pourquoi || ""), el("span", { class: "act" }, "→ " + (x.action || ""))))),
-el("div", {}, el("h3", {}, "Points forts"), el("ul", { class: "clean" }, ...arr(r.points_forts).map(x => el("li", {}, x)))),
-arr(r.mots_cles).length ? el("div", {}, el("h3", {}, "Mots-clés à intégrer (s'ils sont vrais)"), el("div", { class: "tagset" }, ...arr(r.mots_cles).map(k => el("span", { class: "pill" }, k)))) : null,
-r.titre_cv ? el("div", {}, el("h3", {}, "Titre de CV proposé"), el("div", { class: "quote" }, r.titre_cv)) : null,
-r.accroche ? el("div", {}, el("div", { class: "row", style: "justify-content:space-between" }, el("h3", {}, "Accroche réécrite"), copyBtn("Copier", () => r.accroche)), el("div", { class: "quote" }, r.accroche)) : null,
-arr(r.experiences_a_reformuler).length ? el("div", {}, el("h3", {}, "Reformulations"), ...arr(r.experiences_a_reformuler).map(x => el("div", { class: "rew" }, el("span", { class: "a" }, x.avant || ""), el("span", {}, x.apres || "")))) : null,
-arr(r.questions_entretien).length ? el("div", {}, el("h3", {}, "Questions d'entretien probables"), el("ul", { class: "clean" }, ...arr(r.questions_entretien).map(x => el("li", {}, x)))) : null,
-el("div", { class: "row" }, copyBtn("Copier toute l'analyse", () => analysisText(r, o))));
-}
-$("#rank").onclick = async () => {
-const btn = $("#rank"), info = $("#rankinfo");
-const todo = S.filtered.filter(o => !S.ai[o.id]?.detailed).slice(0, 160);
-if (!todo.length) return;
-btn.disabled = true; let n = 0, failed = null;
-for (let c = 0; c < todo.length; c += 30) {
-const items = todo.slice(c, c + 30);
-info.dataset.msg = info.textContent = `Claude évalue les offres ${c + 1} à ${c + items.length} sur ${todo.length}…`;
-const list = items.map((o, i) => `${i}. ${o.poste} | ${o.entreprise} | niveau : ${o.niveau || "?"} | domaines : ${o.domaines.join(", ")} | ${o.resume.slice(0, 300)}`).join("\n");
-const prompt = `Tu es recruteur spécialisé dans les métiers de l'environnement en France. Pour chaque offre, note le CV sur 3 critères de 0 à 100, de façon exigeante (50 = moyen) : "comp" compétences, outils, méthodes et diplômes face aux exigences ; "exp" adéquation de l'expérience au niveau demandé ; "dom" proximité des domaines travaillés. Ne note pas le contrat.
-Réponds UNIQUEMENT avec un tableau JSON : [{"i": numéro, "comp": 0-100, "exp": 0-100, "dom": 0-100, "raison": "10 mots max"}]
-=== CV ===
-${S.cv.slice(0, 20000)}
+${profile(20000)}
+
 === OFFRES ===
 ${list}`;
-try {
-const r = await askJSON(prompt, 6000);
-for (const x of arr(r)) { const o = items[+x.i]; if (o && [x.comp, x.exp, x.dom].every(v => Number.isFinite(+v))) { S.ai[o.id] = { comp: +x.comp, exp: +x.exp, dom: +x.dom, raison: String(x.raison || "") }; n++; } }
-store.set("radar.ai", JSON.stringify(S.ai)); apply();
-} catch (e) { failed = e; break; }
-}
-info.dataset.msg = failed ? `${n} offres affinées. ${apiErr(failed)}` : `Indice affiné par Claude pour ${n} offres`;
-btn.disabled = false; apply(); renderDetail();
-};
-// ---------- wiring ----------
-let qt; $("#q").addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { S.q = e.target.value; apply(); }, 120); });
-["#f-region", "#f-contrat", "#f-niveau", "#f-statut", "#f-sort", "#f-min"].forEach(s => $(s).addEventListener("change", apply));
-{ const p = store.get("radar.pref"); if (p !== null) $("#f-pref").value = p; }
-$("#f-pref").addEventListener("change", e => { store.set("radar.pref", e.target.value); apply(); renderDetail(); });
-$("#since").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.since = +b.dataset.v; $("#since").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); apply(); });
-(async () => {
-try { await loadData(); } catch { $("#sync").textContent = navigator.onLine === false ? "Hors connexion : reconnectez-vous une première fois pour charger les offres." : "Impossible de lire les offres (navigateur trop ancien ?)."; }
-S.offers = mapOffers(); buildIdf();
-const gen = DATA.genere ? new Date(DATA.genere) : null;
-if (S.offers.length || gen) $("#sync").textContent = `${S.offers.length} offres` + (gen && !isNaN(gen) ? ` · à jour du ${gen.toLocaleDateString("fr-FR")} à ${gen.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}` : "");
-buildFilters();
-if (S.cv) afterCV(); else apply();
+      try {
+        const r = await S.sample.json(prompt, { modelTier: "default", cache: { gcTime: 6 * 3600e3 } });
+        for (const x of arr(r)) {
+          const o = items[+x.i];
+          if (o && [x.comp, x.exp, x.form, x.sect, x.outils].every(v => Number.isFinite(+v))) { S.scores[o.id] = { comp: +x.comp, exp: +x.exp, form: +x.form, sect: +x.sect, outils: +x.outils, raison: String(x.raison || "") }; n++; }
+        }
+        saveScores(); apply();
+      } catch (e) { failed = e; break; }
+    }
+    info.textContent = failed ? `${n} offres notées. ${sampleErr(failed)}` : `Indice calculé pour ${n} offres`;
+    $("#f-sort").value = "score"; apply(); renderDetail();
+    btn.disabled = !S.cv || !S.filtered.length;
+  };
+
+  // ---------- add an offer from a web link ----------
+  const normUrl = u => (u || "").trim().replace(/#.*$/, "").replace(/\/+$/, "").toLowerCase();
+  function openAdd(show) {
+    $("#addbox").hidden = !show;
+    if (show) { $("#add-url").focus(); $("#add-msg").textContent = ""; }
+  }
+  $("#addbtn").onclick = () => openAdd($("#addbox").hidden);
+  $("#add-cancel").onclick = () => openAdd(false);
+  $("#addbox").addEventListener("submit", async e => {
+    e.preventDefault();
+    const msg = $("#add-msg"), btn = $("#add-go");
+    const url = $("#add-url").value.trim();
+    if (!/^https?:\/\/\S+\.\S+/.test(url)) { msg.textContent = "Saisissez une adresse web complète, commençant par https://"; $("#add-url").focus(); return; }
+    const dup = S.offers.find(o => normUrl(o.lien) === normUrl(url));
+    if (dup) { msg.textContent = "Cette offre est déjà dans la base : elle est sélectionnée dans la liste."; if (!inTab(dup, S.tab)) setTab(dup.statut === "Favori" ? "favoris" : dup.statut === "Candidaté" ? "candidatures" : "offres"); select(dup.id); scrollToSelected(); return; }
+    if (!S.mcp) { msg.textContent = "Notion n'est pas disponible dans cette vue."; return; }
+    btn.disabled = true;
+    const text = $("#add-text").value.trim();
+    let f = { poste: $("#add-poste").value.trim(), entreprise: $("#add-ent").value.trim() };
+    let extracted = false;
+    if (text && S.sample) {
+      msg.textContent = "Claude lit l'annonce collée…";
+      try {
+        const r = await S.sample.json(`Extrais les informations de cette offre d'emploi. Réponds UNIQUEMENT avec un objet JSON :
+{"poste": "", "entreprise": "", "lieu": "Ville (département)", "region": "une valeur parmi : ${REGIONS.join(" | ")}", "contrat": "CDI ou CDD ou vide", "niveau": "une valeur parmi : ${NIVEAUX.join(" | ")}", "domaines": ["1 à 3 valeurs parmi : ${DOMAINS.join(" | ")}"], "date_publication": "AAAA-MM-JJ ou vide", "salaire": "si indiqué, sinon vide", "langue": "Français, Anglais ou Bilingue (langue de rédaction de l'annonce)", "resume": "3 à 4 phrases en français : missions, compétences et outils demandés, diplôme et années d'expérience exigés"}
+N'invente rien : laisse vide ce qui n'est pas dans le texte.
+
+ANNONCE :
+${text.slice(0, 20000)}`, { modelTier: "quick" });
+        if (r && typeof r === "object") { f = { ...r, poste: f.poste || r.poste, entreprise: f.entreprise || r.entreprise }; extracted = true; }
+      } catch (err) { msg.textContent = "Lecture par Claude impossible (" + (err?.code || "erreur") + ") : l'offre sera complétée par l'agent du matin."; }
+    }
+    const props = { "Poste": (f.poste || "Offre ajoutée par lien").slice(0, 200), "Lien": url, "Source": "Ajout manuel", "Statut": $("#add-fav").checked ? "Favori" : "Nouveau", "À compléter": extracted ? "__NO__" : "__YES__" };
+    if (f.entreprise) props["Entreprise"] = f.entreprise;
+    if (f.lieu) props["Lieu"] = f.lieu;
+    if (REGIONS.includes(f.region)) props["Région"] = f.region;
+    if (f.contrat === "CDI" || f.contrat === "CDD") props["Contrat"] = f.contrat;
+    if (NIVEAUX.includes(f.niveau)) props["Niveau"] = f.niveau;
+    const doms = (Array.isArray(f.domaines) ? f.domaines : []).filter(d => DOMAINS.includes(d));
+    if (doms.length) props["Domaine"] = doms;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(f.date_publication || "")) { props["date:Date de publication:start"] = f.date_publication; props["date:Date de publication:is_datetime"] = 0; }
+    if (["Français", "Anglais", "Bilingue"].includes(f.langue)) props["Langue"] = f.langue;
+    if (f.salaire) props["Salaire"] = String(f.salaire).slice(0, 200);
+    if (f.resume) props["Résumé"] = String(f.resume).slice(0, 1500);
+    msg.textContent = "Ajout dans Notion…";
+    try {
+      const res = await S.mcp.callTool(NOTION, "notion-create-pages", { parent: { data_source_id: OFFERS_DS }, pages: [{ properties: props }], allow_async: false });
+      const page = res.payload?.pages?.[0];
+      const id = (page?.url || "").replace(/\?.*$/, "") || ("local-" + Date.now());
+      const o = rowToOffer({ ...props, url: id, "Domaine": doms, "Ajouté le": new Date().toISOString(), "À compléter": props["À compléter"] });
+      S.offers.unshift(o); invalidate(); buildFilters();
+      $("#addbox").reset(); openAdd(false);
+      setTab(o.statut === "Favori" ? "favoris" : "offres"); select(o.id); scrollToSelected();
+      flash(extracted ? "Offre ajoutée et complétée par Claude" : "Offre ajoutée : l'agent complètera les informations demain matin");
+    } catch (err) {
+      msg.textContent = notionErr(err, "L'ajout") + (err?.code === "server_unavailable" || err?.code === "upstream_error" ? " Actualisez avant de réessayer pour éviter un doublon." : "");
+    } finally { btn.disabled = false; }
+  });
+
+  // ---------- search sources (sites the morning agent explores) ----------
+  function srcRow(r) {
+    return { id: r.url, nom: clean(r["Nom"]), url: safeUrl(r["userDefined:URL"] || r["URL"]), type: r["Type"] || "", active: r["Active"] === "__YES__" || r["Active"] === true, notes: clean(r["Notes"]) };
+  }
+  async function loadSources(refresh) {
+    if (!S.mcp) return;
+    $("#src-msg").textContent = "Chargement des sources…";
+    try {
+      const out = await readView(SOURCES_VIEW, refresh);
+      S.sources = out.rows.map(srcRow).sort((a, b) => (b.active - a.active) || a.nom.localeCompare(b.nom, "fr"));
+      $("#src-msg").textContent = "";
+    } catch (e) { $("#src-msg").textContent = notionErr(e, "La lecture des sources"); S.sources = S.sources || []; }
+    renderTabs(); renderSources();
+  }
+  function renderSources() {
+    const list = $("#srclist");
+    if (!S.sources) { list.replaceChildren(el("div", { class: "empty" }, "Chargement des sources…")); return; }
+    if (!S.sources.length) { list.replaceChildren(el("div", { class: "empty" }, "Aucune source. Ajoutez un site ci-dessus.")); return; }
+    list.replaceChildren(...S.sources.map(s => {
+      const tog = el("input", { type: "checkbox", id: "act-" + s.id.slice(-12), checked: s.active, "aria-label": "Source active" });
+      tog.onchange = async () => {
+        const v = tog.checked; s.active = v; tog.disabled = true;
+        try { await updatePage(s.id, { "Active": v ? "__YES__" : "__NO__" }); invalidate(); flash(v ? "Source activée" : "Source mise en pause"); }
+        catch (e) { s.active = !v; tog.checked = !v; flash(notionErr(e, "La modification"), true); }
+        finally { tog.disabled = false; }
+      };
+      const confirming = S.srcConfirm === s.id;
+      const del = confirming
+        ? el("span", { class: "row" }, el("span", { class: "legal" }, "Retirer cette source ?"),
+            el("button", { class: "btn small", type: "button", onclick: () => { S.srcConfirm = null; renderSources(); } }, "Annuler"),
+            el("button", { class: "btn small danger", type: "button", onclick: () => removeSource(s) }, "Retirer"))
+        : el("button", { class: "ico del", type: "button", title: "Retirer la source", "aria-label": "Retirer la source", html: ICON.trash, onclick: () => { S.srcConfirm = s.id; renderSources(); } });
+      return el("div", { class: "src" + (s.active ? "" : " off") },
+        el("label", { class: "srcmain", for: tog.id }, tog,
+          el("span", { class: "srctext" }, el("b", {}, s.nom || s.url), el("span", { class: "legal" }, [s.type, s.notes].filter(Boolean).join(" · ")))),
+        s.url ? el("a", { class: "btn small", href: s.url, target: "_blank", rel: "noopener" }, "Ouvrir ↗") : null,
+        del);
+    }));
+  }
+  async function removeSource(s) {
+    try {
+      await S.mcp.callTool(NOTION, "notion-delete-pages", { page_ids: [s.id], user_confirmed: true });
+      S.sources = S.sources.filter(x => x.id !== s.id); S.srcConfirm = null; invalidate(); flash("Source retirée");
+    } catch (e) { flash(notionErr(e, "Le retrait"), true); }
+    renderTabs(); renderSources();
+  }
+  $("#srcform").addEventListener("submit", async e => {
+    e.preventDefault();
+    const nom = $("#src-nom").value.trim(), url = $("#src-url").value.trim(), type = $("#src-type").value, notes = $("#src-notes").value.trim();
+    const msg = $("#src-msg");
+    if (!/^https?:\/\/\S+\.\S+/.test(url)) { msg.textContent = "Saisissez l'adresse complète du site, commençant par https://"; return; }
+    if ((S.sources || []).some(s => normUrl(s.url) === normUrl(url))) { msg.textContent = "Ce site est déjà dans la liste."; return; }
+    const btn = $("#src-go"); btn.disabled = true; msg.textContent = "Ajout dans Notion…";
+    const props = { "Nom": nom || new URL(url).hostname.replace(/^www\./, ""), "userDefined:URL": url, "Type": type, "Active": "__YES__" };
+    if (notes) props["Notes"] = notes;
+    try {
+      const res = await S.mcp.callTool(NOTION, "notion-create-pages", { parent: { data_source_id: SOURCES_DS }, pages: [{ properties: props }], allow_async: false });
+      const id = (res.payload?.pages?.[0]?.url || "").replace(/\?.*$/, "") || ("local-" + Date.now());
+      (S.sources = S.sources || []).unshift(srcRow({ ...props, url: id }));
+      $("#srcform").reset(); msg.textContent = "Site ajouté : l'agent le parcourra dès demain matin."; invalidate();
+    } catch (err) { msg.textContent = notionErr(err, "L'ajout"); }
+    finally { btn.disabled = false; renderTabs(); renderSources(); }
+  });
+
+  // ---------- wiring ----------
+  let qt; $("#q").addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { S.q = e.target.value; S.shown = PAGE; apply(); }, 120); });
+  ["#f-region", "#f-contrat", "#f-langue", "#f-niveau", "#f-sort", "#f-min"].forEach(s => $(s).addEventListener("change", () => { S.shown = PAGE; apply(); }));
+  $("#since").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.since = +b.dataset.v; $("#since").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); S.shown = PAGE; apply(); });
+  $("#refresh").onclick = () => loadAll(true);
+  renderCV(); renderTabs(); renderDetail();
+
+  // ---------- serveur personnel (application Android / iPhone / web) ----------
+  // Hors de claude.ai, Notion et Claude passent par le serveur personnel (dossier server/ du dépôt),
+  // qui garde les clés et n'accepte que le mot de passe. Mêmes appels que dans claude.ai.
+  const sess = {
+    get(k) { try { return sessionStorage.getItem(k); } catch { return null; } },
+    set(k, v) { try { sessionStorage.setItem(k, v); } catch {} },
+    del(k) { try { sessionStorage.removeItem(k); } catch {} }
+  };
+  const SRV = {
+    url: () => (store.get("radar.server") || window.RADAR_SERVER || "").replace(/\/+$/, ""),
+    pass: () => sess.get("radar.pass") || store.get("radar.pass") || ""
+  };
+  async function srvCall(path, body) {
+    let res;
+    try {
+      res = await fetch(SRV.url() + path, { method: body ? "POST" : "GET", cache: "no-store",
+        headers: { Authorization: "Bearer " + SRV.pass(), ...(body ? { "Content-Type": "application/json" } : {}) },
+        body: body ? JSON.stringify(body) : undefined });
+    } catch { throw { code: "offline", message: "Serveur injoignable." }; }
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401 || data.code === "auth") { showLogin(data.message || "Mot de passe refusé."); throw { code: "auth", message: data.message || "" }; }
+    if (!res.ok) throw { code: data.code || "server_error", message: data.message || "" };
+    return data;
+  }
+  function remoteMcp() {
+    return {
+      remote: true,
+      async callTool(server, tool, args) {
+        if (server !== NOTION) throw { code: "not_in_manifest" };
+        const key = tool === "notion-query-data-sources" ? "radar.cache." + (args?.data?.view_url || "") : null;
+        try {
+          const d = await srvCall("/mcp", { server, tool, args });
+          if (key) store.set(key, JSON.stringify({ t: Date.now(), p: d.payload }));
+          return { payload: d.payload, ...(key ? { cache: { storedAt: Date.now() } } : {}) };
+        } catch (e) {
+          if (key && e.code === "offline") {
+            let c = null; try { c = JSON.parse(store.get(key) || "null"); } catch {}
+            if (c && c.p) { flash("Hors connexion : dernière liste enregistrée sur cet appareil", true); return { payload: c.p, cache: { storedAt: c.t } }; }
+          }
+          if (e.code === "offline") e.code = "server_unavailable";
+          throw e;
+        }
+      },
+      invalidate() { return Promise.resolve(); }
+    };
+  }
+  function remoteSample() {
+    const mem = new Map();
+    return {
+      async json(prompt, opts = {}) {
+        const tier = opts.modelTier === "quick" ? "quick" : "default", ttl = opts.cache && opts.cache.gcTime, key = tier + "|" + prompt;
+        const hit = ttl && mem.get(key);
+        if (hit && Date.now() - hit.t < ttl) return hit.v;
+        try {
+          const d = await srvCall("/sample", { prompt, tier });
+          if (ttl) mem.set(key, { t: Date.now(), v: d.result });
+          return d.result;
+        } catch (e) { if (e.code === "offline") e.code = "upstream_error"; throw e; }
+      }
+    };
+  }
+  function showLogin(msg) {
+    $("#login").hidden = false;
+    $("#login-url").value = SRV.url();
+    $("#login-msg").textContent = msg || "";
+    setTimeout(() => (SRV.url() ? $("#login-pass") : $("#login-url")).focus(), 0);
+  }
+  $("#loginform").addEventListener("submit", async e => {
+    e.preventDefault();
+    const url = $("#login-url").value.trim().replace(/\/+$/, ""), pass = $("#login-pass").value, msg = $("#login-msg");
+    if (!/^(https:\/\/[^\s/]+\.[^\s/]+|http:\/\/localhost(:\d+)?)$/.test(url)) { msg.textContent = "Saisissez l'adresse du serveur, commençant par https:// (sans chemin)."; return; }
+    if (!pass) { msg.textContent = "Saisissez le mot de passe."; return; }
+    const prev = { url: store.get("radar.server"), sp: sess.get("radar.pass"), lp: store.get("radar.pass") };
+    store.set("radar.server", url); sess.set("radar.pass", pass); store.del("radar.pass");
+    $("#login-go").disabled = true; msg.textContent = "Connexion…";
+    try {
+      await srvCall("/ping");
+      if ($("#login-mem").checked) store.set("radar.pass", pass);
+      $("#login-pass").value = ""; $("#login").hidden = true; msg.textContent = "";
+      start();
+    } catch (err) {
+      if (err.code !== "auth") msg.textContent = err.code === "offline" ? "Serveur injoignable : vérifiez l'adresse et votre connexion." : "Connexion impossible (" + (err.message || err.code) + ").";
+      if (prev.url) store.set("radar.server", prev.url);
+      if (prev.sp) sess.set("radar.pass", prev.sp); else sess.del("radar.pass");
+      if (prev.lp) store.set("radar.pass", prev.lp);
+    } finally { $("#login-go").disabled = false; }
+  });
+  $("#logout").onclick = () => { sess.del("radar.pass"); store.del("radar.pass"); S.mcp = null; S.sample = null; showLogin("Vous êtes déconnecté. Les offres restent dans Notion."); };
+
+  async function start() {
+    if (window.claude?.use) {
+      const [mcp, sample] = await Promise.all([claude.use("mcp").catch(() => null), claude.use("sample").catch(() => null)]);
+      S.mcp = mcp; S.sample = sample; renderList(); if (S.tab === "experiences") renderChat();
+      if (!mcp) { $("#sync").textContent = "Connecteur Notion indisponible dans cette vue"; $("#list").replaceChildren(el("div", { class: "empty" }, "Cette vue ne peut pas lire Notion. Ouvrez la page dans claude.ai avec le connecteur Notion activé.")); return; }
+      loadAll(false); return;
+    }
+    if (!SRV.url() || !SRV.pass()) { $("#sync").textContent = "Non connecté"; $("#list").replaceChildren(el("div", { class: "empty" }, "Connectez-vous à votre serveur pour charger les offres.")); showLogin(); return; }
+    S.mcp = remoteMcp(); S.sample = remoteSample(); $("#logout").hidden = false;
+    renderList(); renderDetail(); if (S.tab === "experiences") renderChat();
+    loadAll(false);
+  }
+  start();
 })();
-})();
-// Installable app (Android, iPhone): offline cache. Not needed inside the native shell.
-if ("serviceWorker" in navigator && !window.Capacitor && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(() => {});
+// Application installable (Android, iPhone) : mode hors connexion. Inutile dans l'app native et dans claude.ai.
+if ("serviceWorker" in navigator && !window.Capacitor && !window.claude && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(() => {});
 </script>
 </body>
 </html>
