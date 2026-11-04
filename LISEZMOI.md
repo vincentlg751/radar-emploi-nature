@@ -55,70 +55,8 @@ Cette adresse ne change plus. Ouvrez-la sur ordinateur ou téléphone, sans comp
 
 ---
 
-# Expos du moment — application iPhone
+# Expos du moment
 
-Une seconde page, publiée au même endroit, à l'adresse `https://VOTRE-NOM-GITHUB.github.io/radar-emploi-nature/expositions/`. Elle regroupe les expositions en cours à Paris et en Île-de-France.
+L'application des expositions a déménagé dans son propre dépôt, [Expos-du-moment/Expositions](https://github.com/Expos-du-moment/Expositions), publiée à l'adresse https://expos-du-moment.github.io/Expositions/. Elle est ainsi totalement séparée du Radar emploi : autre adresse, autres données de navigateur.
 
-- **Onglets Gratuites / Payantes / Toutes**, recherche, filtres par **thématique**, « Nouveautés », « Finit bientôt » et favoris.
-- **Carte** des lieux et **Près de moi** (tri par distance, avec votre position).
-- Fiche détaillée avec dates, adresse, tarif, bouton **Itinéraire** (ouvre Plans) et lien vers le site ou la billetterie.
-- Fonctionne hors connexion avec la dernière liste chargée.
-
-## L'installer sur l'iPhone
-
-1. Ouvrez l'adresse ci-dessus dans **Safari**.
-2. Touchez **Partager**, puis **Sur l'écran d'accueil**.
-3. L'icône « Expos » s'ouvre ensuite en plein écran, comme une application.
-
-## Renouvellement automatique de la base
-
-Chaque jour à 5h40 UTC, le robot `.github/workflows/expositions.yml` :
-
-1. lit l'API ouverte **Que faire à Paris** de la Ville de Paris (sans clé) et la sélection manuelle `expositions/data/selection.json` ;
-2. retire les expositions terminées ;
-3. compare avec la veille. Les nouvelles reçoivent la date du jour (`vu_le`) et apparaissent avec l'étiquette **Nouveau** dans l'app pendant 7 jours ;
-4. enregistre la base (`expositions/data/expositions.json`) et le journal (`expositions/data/journal.json`) dans le dépôt, puis relance la publication du site.
-
-Le résumé de chaque passage (total, nouvelles, retirées) s'affiche dans l'onglet **Actions** de GitHub. L'app signale aussi les expositions apparues depuis votre dernière visite.
-
-| Fichier | Rôle |
-|---|---|
-| `expositions/app/` | L'application (page, icônes, mode hors connexion, carte Leaflet) |
-| `expositions/refresh.py` | Renouvelle la base et détecte les nouvelles expositions |
-| `expositions/build.py` | Copie l'app et la base dans `site/expositions/` avant publication |
-| `expositions/data/selection.json` | Expositions ajoutées à la main (grandes expos, lieux absents de l'API) |
-| `expositions/MODELE.md` | Le modèle de données (gratuites puis payantes) |
-
-**Ajouter une exposition à la main :** copiez une fiche dans `selection.json`, modifiez-la, puis cliquez sur **Commit changes**. Le robot se relance tout seul.
-
----
-
-# Radar Emploi — application Android et iPhone
-
-La page Radar Emploi Nature (recherche, filtres, CV, indice de compatibilité, analyse et prompts Claude) existe aussi en application. Deux façons de l'installer :
-
-## 1. Application installable depuis le navigateur (immédiat, sans store)
-
-Ouvrez `https://VOTRE-NOM-GITHUB.github.io/radar-emploi-nature/` sur le téléphone.
-
-- **iPhone :** dans **Safari**, touchez **Partager**, puis **Sur l'écran d'accueil**.
-- **Android :** dans **Chrome**, touchez **⋮**, puis **Installer l'application** (ou **Ajouter à l'écran d'accueil**).
-
-L'icône « Radar Emploi » s'ouvre en plein écran. La liste des offres est relue à chaque ouverture, et la dernière liste reste consultable hors connexion. Le CV et la clé API restent sur le téléphone.
-
-## 2. Application native (APK Android, projet Xcode pour iOS)
-
-Le dossier `mobile/` contient un projet [Capacitor](https://capacitorjs.com) qui emballe la même page. Le robot `.github/workflows/mobile.yml` le compile à chaque modification (ou via **Actions → Application mobile → Run workflow**) :
-
-- **Android :** téléchargez l'artefact **RadarEmploi-android** en bas de la page du passage, dézippez-le, puis ouvrez `RadarEmploi.apk` sur le téléphone. Autorisez l'installation depuis cette source quand Android le demande.
-- **iOS :** Apple impose un Mac et un compte développeur pour installer une app native. Téléchargez **RadarEmploi-ios-xcode**, ou sur un Mac lancez `cd mobile && npm install && npm run ios && npx cap open ios`. Dans Xcode, choisissez votre équipe (**Signing & Capabilities**), branchez l'iPhone, puis cliquez sur **▶**. Pour la publier sur l'App Store ou TestFlight, utilisez **Product → Archive**.
-
-L'application native intègre la liste d'offres du jour de sa compilation et relit `offres.json` sur GitHub Pages à chaque ouverture : elle reste à jour sans réinstallation.
-
-| Fichier | Rôle |
-|---|---|
-| `radar-app/` | Manifeste, mode hors connexion et icônes de l'application installable (`make_icons.py` redessine les icônes) |
-| `mobile/prepare.py` | Produit `mobile/www/` à partir de `radar-template.html` et de la liste d'offres |
-| `mobile/capacitor.config.json` | Nom (« Radar Emploi ») et identifiant de l'application native |
-| `mobile/assets/` | Icône et écran de démarrage des apps natives |
-| `.github/workflows/mobile.yml` | Compile l'APK Android et vérifie le projet iOS |
+L'ancienne adresse `…/radar-emploi-nature/expositions/` renvoie automatiquement vers la nouvelle (`scripts/expositions_redirect.py`).
