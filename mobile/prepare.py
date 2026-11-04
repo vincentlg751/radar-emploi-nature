@@ -1,9 +1,9 @@
 """Prépare mobile/www/ : l'application Radar Emploi Nature pour Android et iPhone (Capacitor).
 
-Reprend radar-template.html (la dernière version du Radar, avec ses onglets et ses prompts),
-qui se connecte au serveur personnel (dossier server/) pour lire et modifier Notion et appeler Claude.
+L'application relit à chaque ouverture la liste publiée sur GitHub Pages (offres.json). Si le site a
+été généré juste avant (site/offres.json), une copie est embarquée pour le premier lancement hors connexion.
 
-Variable facultative : RADAR_SERVER (adresse du serveur, pré-remplie dans l'écran de connexion).
+Variable facultative : RADAR_DATA_URL (par défaut https://vincentlg751.github.io/radar-emploi-nature/offres.json).
 """
 import os, pathlib, shutil, sys
 
@@ -13,12 +13,13 @@ WWW = HERE / "www"
 sys.path.insert(0, str(ROOT / "scripts"))
 import csp as csp_policy  # noqa: E402
 
+DATA_URL = os.environ.get("RADAR_DATA_URL", "https://vincentlg751.github.io/radar-emploi-nature/offres.json")
+
 if __name__ == "__main__":
-    server = os.environ.get("RADAR_SERVER", "")
     html = (ROOT / "radar-template.html").read_text(encoding="utf-8")
     # Le manifeste et le service worker servent à la version web ; l'app native n'en a pas besoin.
     html = html.replace('<link rel="manifest" href="manifest.webmanifest">\n', "")
-    html = csp_policy.harden(csp_policy.with_server(html, server), server)
+    html = csp_policy.harden(csp_policy.with_data_url(html, DATA_URL))
     if WWW.exists():
         shutil.rmtree(WWW)
     (WWW / "icons").mkdir(parents=True)
@@ -26,4 +27,7 @@ if __name__ == "__main__":
     for icon in ("icon-192.png", "apple-touch-icon.png"):
         shutil.copy2(ROOT / "radar-app" / "icons" / icon, WWW / "icons" / icon)
     shutil.copytree(ROOT / "radar-app" / "vendor", WWW / "vendor")
-    print(f"www prêt{' (serveur ' + csp_policy.server_origin(server) + ')' if csp_policy.server_origin(server) else ''} -> {WWW}")
+    bundled = ROOT / "site" / "offres.json"
+    if bundled.exists():
+        shutil.copy2(bundled, WWW / "offres.json")
+    print(f"www prêt (liste : {DATA_URL}{', copie embarquée' if bundled.exists() else ''}) -> {WWW}")

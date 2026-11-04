@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.workers.dev; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Radar Emploi Nature</title>
 <meta name="theme-color" content="#F1F4EF">
@@ -235,10 +235,11 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
 .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: var(--bg); padding: 9px 14px; border-radius: 10px; font-size: 13.5px; opacity: 0; pointer-events: none; z-index: 20; max-width: min(560px, calc(100vw - 32px)); }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: var(--warn); color: #fff; }
-/* connexion au serveur personnel */
-.login { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px)); overflow: auto; }
-.login form { width: min(440px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-.login h2 { font-size: 24px; }
+/* fenêtre « Demander à Claude » (copier-coller) */
+.modal { position: fixed; inset: 0; z-index: 30; background: color-mix(in srgb, var(--ink) 45%, transparent); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px)); overflow: auto; }
+.modal form { width: min(560px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: flex; flex-direction: column; gap: 10px; max-height: 100%; overflow: auto; }
+.modal ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.modal textarea { min-height: 140px; }
 @media (hover: none) { .kbdhint { display: none; } }
 @media (prefers-reduced-motion: no-preference) { .toast { transition: opacity .2s, transform .2s; } }
 </style>
@@ -250,7 +251,6 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
       <button class="btn small theme-btn" id="theme" type="button" aria-pressed="false" title="Basculer entre mode jour et mode nuit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>Mode nuit</span></button>
       <span id="sync">Connexion à Notion…</span>
       <button class="btn small" id="refresh" type="button">Actualiser</button>
-      <button class="btn small" id="logout" type="button" hidden title="Changer de serveur ou de mot de passe">Déconnexion</button>
     </div>
   </header>
 </div>
@@ -301,7 +301,7 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
           <label class="field wide" for="add-url">Lien de l'annonce *<input id="add-url" type="url" placeholder="https://…" required></label>
           <label class="field" for="add-poste">Intitulé du poste<input id="add-poste" type="text" placeholder="facultatif"></label>
           <label class="field" for="add-ent">Employeur<input id="add-ent" type="text" placeholder="facultatif"></label>
-          <label class="field wide" for="add-text">Texte de l'annonce (facultatif)<textarea id="add-text" placeholder="Copiez-collez ici le texte de l'annonce : Claude remplira aussitôt le lieu, le contrat, le domaine et le résumé. Sinon, l'agent du matin s'en chargera à partir du lien."></textarea></label>
+          <label class="field wide" for="add-text">Texte de l'annonce (facultatif)<textarea id="add-text" placeholder="Copiez-collez ici le texte de l'annonce : Claude remplira le lieu, le contrat, le domaine et le résumé (par copier-coller)."></textarea></label>
         </div>
         <div class="row">
           <label class="row" for="add-fav" style="gap:6px;font-size:13px"><input id="add-fav" type="checkbox" checked> Mettre directement en favori</label>
@@ -315,7 +315,7 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
         <h2 id="lh"><span id="count" class="mono">0</span> <span id="lh-label">offres</span></h2>
         <div class="row">
           <span class="muted" style="font-size:13px" id="rankinfo"></span>
-          <button class="btn small primary" id="rank" type="button" disabled>Calculer l'indice de compatibilité</button>
+          <button class="btn small" id="rank" type="button" disabled title="Fait noter les 25 premières offres affichées par Claude (copier-coller)">Affiner l'indice avec Claude</button>
         </div>
       </div>
       <p class="kbdhint" style="margin:-4px 0 10px"><kbd>↑</kbd> <kbd>↓</kbd> passer d'une offre à l'autre · <kbd>F</kbd> favori · <kbd>Suppr</kbd> supprimer · <kbd>Échap</kbd> annuler</p>
@@ -345,8 +345,8 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
 
     <section id="sourcesview" hidden aria-labelledby="srch">
       <h2 id="srch" style="margin-bottom:6px">Sources de recherche</h2>
-      <p class="muted" style="margin:0 0 12px">Les sites que l'agent parcourt chaque matin à 5 h 40, en plus de sa liste de base. Décochez un site pour le mettre en pause.</p>
-      <form class="formbox" id="srcform" novalidate>
+      <p class="muted" style="margin:0 0 12px">Les sites que l'agent parcourt chaque matin à 5 h 40, en plus de sa liste de base. Pour en ajouter un ou le mettre en pause, modifiez la base « Sources de recherche » dans Notion ou dans l'artifact claude.ai : la liste ci-dessous suit le lendemain matin.</p>
+      <form class="formbox" id="srcform" novalidate hidden>
         <div class="fgrid">
           <label class="field" for="src-url">Adresse du site ou de la page offres *<input id="src-url" type="url" placeholder="https://www.exemple.fr/recrutement" required></label>
           <label class="field" for="src-nom">Nom<input id="src-nom" type="text" placeholder="ex. Parc national des Écrins"></label>
@@ -381,15 +381,20 @@ kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line)
   </main>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="login" id="login" hidden>
-  <form id="loginform" novalidate>
-    <h2>Radar Emploi Nature</h2>
-    <p class="muted" style="margin:0">Connectez-vous à votre serveur personnel : il relie l'application à votre base Notion et à Claude.</p>
-    <label class="field" for="login-url">Adresse du serveur<input id="login-url" type="url" inputmode="url" autocomplete="url" placeholder="https://radar-emploi.votre-nom.workers.dev" required></label>
-    <label class="field" for="login-pass">Mot de passe<input id="login-pass" type="password" autocomplete="current-password" required></label>
-    <label class="row" for="login-mem" style="gap:6px;font-size:13px"><input id="login-mem" type="checkbox" checked> Rester connecté sur cet appareil</label>
-    <button class="btn primary" id="login-go" type="submit">Se connecter</button>
-    <span class="legal" id="login-msg" role="alert"></span>
+<div class="modal" id="askbox" hidden role="dialog" aria-modal="true" aria-labelledby="ask-h">
+  <form id="askform" novalidate>
+    <h2 id="ask-h">Demander à Claude</h2>
+    <p class="muted" style="margin:0" id="ask-what"></p>
+    <ol>
+      <li><span class="row"><button class="btn small primary" type="button" id="ask-copy">Copier la demande</button><span class="legal" id="ask-copied"></span></span></li>
+      <li><span class="row"><a class="btn small" id="ask-open" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Ouvrir Claude ↗</a><span class="legal">collez la demande et envoyez-la (le compte gratuit suffit)</span></span></li>
+      <li>Copiez toute la réponse de Claude, puis collez-la ici :</li>
+    </ol>
+    <label class="sr" for="ask-answer">Réponse de Claude</label>
+    <textarea id="ask-answer" placeholder="Collez ici la réponse de Claude…"></textarea>
+    <div class="row"><button class="btn small" type="button" id="ask-cancel">Annuler</button><span style="flex:1"></span><button class="btn small primary" type="submit">Valider la réponse</button></div>
+    <span class="legal" id="ask-msg" role="alert"></span>
+    <span class="legal">Si l'application s'est rechargée entre-temps, relancez la même action : la demande est identique et la réponse déjà copiée reste valable.</span>
   </form>
 </div>
 
@@ -513,12 +518,84 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     return { v, why: `à ~${d} km de Paris` + (bonus === 10 ? ", métropole à proximité" : bonus === 5 ? ", grande ville à proximité" : ", loin d'une grande ville") };
   }
   function indexOf(o) {
-    const s = S.scores[o.id];
+    const s = S.scores[o.id] && AI_KEYS.every(k => Number.isFinite(+S.scores[o.id][k])) ? S.scores[o.id] : localScore(o);
     if (!s || !AI_KEYS.every(k => Number.isFinite(+s[k]))) return null;
     const life = lifeBalance(o);
     const parts = { comp: clamp(s.comp), exp: clamp(s.exp), form: clamp(s.form), vie: life.v, sect: clamp(s.sect), outils: clamp(s.outils) };
     const total = Math.round(Object.entries(WEIGHTS).reduce((t, [k, w]) => t + parts[k] * w, 0));
-    return { total, parts, life, raison: s.raison || "", detailed: !!s.detailed };
+    return { total, parts, life, raison: s.raison || "", detailed: !!s.detailed, local: !!s.local };
+  }
+  // Calcul sur l'appareil, sans Claude : mots-clés du CV face à l'offre (les mots rares comptent plus),
+  // années d'expérience face au niveau, diplôme, domaines travaillés, outils et logiciels cités.
+  const STOP = new Set("avec dans pour sous sans entre leur leurs vous nous elle elles ils sont etre avoir plus tres bien tout tous toute toutes cette ces ceci cela comme mais donc ainsi aussi autre autres afin selon chez dont lors notre votre meme ensemble poste postes mission missions profil profils candidat candidate experience experiences annee annees mois minimum souhaite souhaitee appreciee apprecie requis requise exige exigee obligatoire niveau diplome formation equipe equipes travail travaux charge chargee charges chef cheffe projet projets suivi suivis appui contrat temps plein partiel renouvelable remplacement recrutement offre offres entreprise structure service services dossier dossiers etude etudes connaissance connaissances competence competences maitrise bonne bonnes qualites capacite sens rigueur autonomie relationnel permis vehicule deplacements candidature date semaine jour jours sein cadre categorie grade grille titulaire contractuel contractuels".split(" "));
+  const stem = w => w.length >= 6 ? w.slice(0, 6) : w.replace(/[sx]$/, "");
+  function kw(text) {
+    const out = new Map();
+    for (const w of norm(text).split(/[^a-z0-9+]+/)) { if (w.length < 4 || STOP.has(w) || /^\d+$/.test(w)) continue; const st = stem(w); if (!out.has(st)) out.set(st, w); }
+    return out;
+  }
+  const DOMAIN_KW = {
+    "Biodiversité": ["biodiv", "ecolog", "faune", "flore", "espece", "habita", "natura", "invent", "conser", "botani", "ornith", "entomo", "herpet", "chirop"],
+    "Marin & littoral": ["marin", "littor", "cotier", "ocean", "peche", "halieu", "dune", "estran"],
+    "Forêt": ["forest", "foret", "sylvic", "boisem", "reboise", "bucher", "peuple"],
+    "Eau & milieux aquatiques": ["riviere", "ripisy", "humide", "aquati", "hydrol", "hydrog", "bassin", "assain", "gemapi", "piscic"],
+    "Énergies renouvelables": ["energi", "renouv", "eolien", "photov", "solair", "biomet", "methan"],
+    "Climat & adaptation": ["climat", "adapta", "resili", "carbon", "attenu", "inonda", "bilan ges"],
+    "Agriculture & sols": ["agric", "agrono", "pedolo", "agroec", "exploit", "pestic", "elevag", "maraic"],
+    "Déchets & économie circulaire": ["dechet", "recycl", "circul", "reempl", "valori", "emball"],
+    "Air & pollutions": ["pollut", "emissi", "qualite de l'air", "icpe", "sites et sols"],
+    "Éducation à l'environnement": ["educat", "sensib", "animat", "pedago", "scolai", "mediat"],
+    "Aménagement & espaces naturels": ["gestio", "naturel", "reserv", "parc", "territ", "amenag", "restau", "urbani", "paysag"]
+  };
+  const TOOLS = [["qgis", /\bqgis\b/], ["ArcGIS", /\barcgis\b/], ["SIG", /\bsig\b|\bgis\b/], ["R", /(?:^|[\s,(\/])r(?:[\s,)\/.]|$)|rstudio/], ["Python", /\bpython\b/],
+    ["AutoCAD", /autocad|\bcao\b|\bdao\b/], ["Excel", /\bexcel\b|tableur/], ["SQL", /\bsql\b|postgis|postgresql/], ["GPS", /\bgps\b|gnss/], ["Drone", /\bdrone/],
+    ["Bases naturalistes", /geonature|serena|sicen|faune-france|obsidentify|\binpn\b|\bsinp\b/], ["Statistiques", /statisti/], ["Télédétection", /teledetect|photo-?interpr|lidar/]];
+  const toolsOf = text => { const n = " " + norm(text) + " "; return TOOLS.filter(([, re]) => re.test(n)).map(([name]) => name); };
+  const diploma = n => /doctorat|\bphd\b|these de doctorat/.test(n) ? 8 : /master|\bmsc\b|bac\s*\+\s*5|ingenieur|\bm2\b/.test(n) ? 5 : /licence|bachelor|bac\s*\+\s*3|\bbut\b/.test(n) ? 3 : /\bbts\b|\bdut\b|bac\s*\+\s*2|\bbtsa\b/.test(n) ? 2 : /baccalaureat|\bbac\b/.test(n) ? 0 : -1;
+  function yearsOf(text) {
+    const n = norm(text), now = new Date().getFullYear();
+    const EDU = /(master|msc|licence|bachelor|universit|ecole|lycee|baccalaureat|erasmus|faculte|bts|dut|iut|formation|education)/;
+    const re = /\b(19[89]\d|20[0-4]\d)\s*[-–à]\s*(20[0-4]\d|aujourd'?hui|present|actuel|now)?/g;
+    let m; const starts = [];
+    while ((m = re.exec(n))) { if (EDU.test(n.slice(Math.max(0, m.index - 70), m.index + 70))) continue; starts.push(+m[1]); }
+    return starts.length ? Math.max(0, Math.min(40, now - Math.min(...starts))) : 1;
+  }
+  let LOC = { key: null };
+  function localProfile() {
+    const text = profile(40000), key = text + "|" + S.offers.length;
+    if (LOC.key === key) return LOC;
+    const n = norm(text), dom = {};
+    for (const [d, k] of Object.entries(DOMAIN_KW)) dom[d] = k.filter(x => n.includes(x)).length;
+    const df = new Map(), terms = new Map();
+    for (const o of S.offers) { const t = kw(o.poste + " " + o.resume); terms.set(o.id, t); for (const st of t.keys()) df.set(st, (df.get(st) || 0) + 1); }
+    const idf = st => Math.log((S.offers.length + 1) / ((df.get(st) || 0) + 1)) + 0.2;
+    const all = [...df.keys()].map(idf);
+    LOC = { key, cv: kw(text), dom, maxDom: Math.max(1, ...Object.values(dom)), diploma: diploma(n), years: yearsOf(S.cv), tools: new Set(toolsOf(text)), terms, idf, avgIdf: all.length ? all.reduce((a, b) => a + b, 0) / all.length : 1, scores: new Map() };
+    return LOC;
+  }
+  const RANGES = { "Junior": [0, 2], "Technicien": [0, 5], "Confirmé": [2, 7], "Senior / Cadre": [5, 30] };
+  function localScore(o) {
+    if (!S.cv) return null;
+    const P = localProfile();
+    if (P.scores.has(o.id)) return P.scores.get(o.id);
+    const T = P.terms.get(o.id) || kw(o.poste + " " + o.resume), title = kw(o.poste), on = norm(o.poste + " " + o.resume);
+    let got = 0, tot = 0; const common = [];
+    for (const [st, w] of T) { const wt = P.idf(st) * (title.has(st) ? 2 : 1); tot += wt; if (P.cv.has(st)) { got += wt; common.push([wt, w]); } }
+    const comp = clamp(10 + (got / (tot + 4 * P.avgIdf)) * 150);
+    let [lo, hi] = RANGES[o.niveau] || [0, 30];
+    const req = on.match(/(\d+)\s*(?:a\s*\d+\s*)?ans\s*(?:d'?|minimum d'?)?exp/); if (req) lo = Math.max(lo, +req[1]);
+    let exp = P.years < lo ? 100 - 18 * (lo - P.years) : P.years > hi ? 100 - 8 * (P.years - hi) : 100;
+    if (o.niveau === "Technicien" && P.diploma >= 5) exp -= 15;
+    exp = Math.max(15, clamp(exp));
+    const need = /bac\s*\+\s*2|\bbts\b|\bdut\b/.test(on) ? 2 : /bac\s*\+\s*3|licence/.test(on) ? 3 : /doctorat|\bphd\b/.test(on) ? 8 : o.niveau === "Technicien" ? 2 : 5;
+    const form = P.diploma < 0 ? 50 : P.diploma >= need ? (P.diploma - need >= 3 && o.niveau === "Technicien" ? 70 : 100) : clamp(100 - 25 * (need - P.diploma));
+    const sect = o.domaines.length ? Math.max(...o.domaines.map(d => clamp(25 + 75 * (P.dom[d] || 0) / P.maxDom))) : 50;
+    const asked = toolsOf(o.poste + " " + o.resume), have = asked.filter(t => P.tools.has(t)), lacking = asked.filter(t => !P.tools.has(t));
+    const outils = asked.length ? clamp(30 + 70 * have.length / asked.length) : 60;
+    const top = common.sort((a, b) => b[0] - a[0]).slice(0, 3).map(x => x[1]);
+    const raison = (top.length ? "Mots-clés communs : " + top.join(", ") + "." : "") + (lacking.length ? " Outils demandés absents du CV : " + lacking.join(", ") + "." : "");
+    const res = { comp, exp, form, sect, outils, raison: raison.trim(), local: true };
+    P.scores.set(o.id, res); return res;
   }
   const tier = v => v >= 75 ? "hi" : v >= 55 ? "mid" : "lo";
   const verdict = v => v >= 80 ? "Très compatible" : v >= 65 ? "Compatible" : v >= 50 ? "Partiellement compatible" : "Peu compatible";
@@ -537,8 +614,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     needs_reauth: "Reconnectez Notion dans claude.ai, Paramètres → Connecteurs.",
     server_not_connected: "Notion n'est pas connecté à votre compte claude.ai.",
     not_in_manifest: "Cette action Notion n'est pas autorisée pour la page (menu Autorisations de l'artifact).",
-    server_unavailable: "Notion ou le serveur ne répond pas. Réessayez dans un instant ; vérifiez dans Notion si l'action a été faite.",
-    auth: "Session expirée : reconnectez-vous puis réessayez.",
+    server_unavailable: "Notion ne répond pas. Réessayez dans un instant ; vérifiez dans Notion si l'action a été faite.",
     tool_error: `Notion a refusé : ${(e?.message || "").slice(0, 160)}`
   }[e?.code] || `${what} a échoué (${e?.code || "erreur"}).`);
   const invalidate = () => S.mcp?.invalidate(NOTION, "notion-query-data-sources").catch(() => {});
@@ -549,7 +625,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     const rows = []; let cursor = null, pages = 0, storedAt, truncated = false;
     do {
       const data = { mode: "view", view_url: view, page_size: 100, ...(cursor ? { start_cursor: cursor } : {}) };
-      const res = await S.mcp.callTool(NOTION, "notion-query-data-sources", { data },
+      const res = await S.mcp.callTool(NOTION, "notion-query-data-sources", { data, ...(S.mcp.local && refresh ? { _refresh: true } : {}) },
         { cache: { staleTime: 15 * 60e3, gcTime: 24 * 3600e3, ...(refresh ? { refresh: true } : {}) } });
       const p = res.payload || {};
       if (Array.isArray(p.results)) rows.push(...p.results);
@@ -591,7 +667,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
       const seen = new Set();
       S.offers = out.rows.map(rowToOffer).filter(o => o.id && !seen.has(o.id) && seen.add(o.id));
       const when = out.storedAt && isFinite(out.storedAt) ? new Date(out.storedAt) : new Date();
-      $("#sync").textContent = `${S.offers.length} offres · mis à jour à ${when.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}` + (out.truncated ? " · liste partielle" : "");
+      $("#sync").textContent = `${S.offers.length} offres · liste du ${when.toLocaleDateString("fr-FR")} à ${when.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}` + (out.truncated ? " · liste partielle" : "");
       $("#listnotice").replaceChildren();
       buildFilters(); apply();
       if (S.tab === "sources") loadSources(refresh);
@@ -606,8 +682,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
       selection_required: "Plusieurs connecteurs Notion existent : choisissez-en un dans l'invite de claude.ai, puis réessayez.",
       not_in_manifest: "L'accès à Notion a été refusé pour cette page. Autorisez-le via le menu Autorisations de l'artifact.",
       approval_required: "Cette page a besoin de votre accord pour lire la base Notion.",
-      server_unavailable: "Notion ou le serveur ne répond pas pour le moment. Réessayez dans quelques instants.",
-      auth: "Connectez-vous à votre serveur pour charger les offres.",
+      server_unavailable: "La liste des offres est injoignable (pas de réseau ?) et aucune copie n'est enregistrée sur cet appareil. Réessayez une fois connecté.",
       blocked_by_policy: "La politique de votre organisation bloque cet outil Notion.",
       tool_error: "Notion a refusé la requête : " + (e?.message || "erreur inconnue").slice(0, 200)
     }[code] || "Impossible de charger les offres (" + (code || "erreur") + ").";
@@ -698,11 +773,11 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     const cancel = el("button", { class: "btn small", type: "button", onclick: ev => { ev.stopPropagation(); S.confirm = null; renderList(); } }, "Annuler");
     if (S.confirm.step === 1) {
       return el("div", { class: "confirm", onclick: ev => ev.stopPropagation() },
-        el("span", {}, "Supprimer cette offre de la base Notion ?"),
+        el("span", {}, "Retirer cette offre de votre liste ?"),
         el("span", { class: "row" }, cancel, el("button", { class: "btn small danger", type: "button", onclick: ev => { ev.stopPropagation(); S.confirm = { id: o.id, step: 2 }; renderList(); } }, "Oui, supprimer")));
     }
     return el("div", { class: "confirm strong", onclick: ev => ev.stopPropagation() },
-      el("span", {}, el("b", {}, "Confirmation finale : "), `« ${o.poste} » ira dans la corbeille Notion et disparaîtra du Radar.`),
+      el("span", {}, el("b", {}, "Confirmation finale : "), `« ${o.poste} » disparaîtra du Radar sur cet appareil (elle reste dans Notion).`),
       el("span", { class: "row" }, cancel, el("button", { class: "btn small danger", type: "button", id: "confirm-final", onclick: ev => { ev.stopPropagation(); doDelete(o); } }, "Supprimer définitivement")),
       S.confirm.msg ? el("span", { class: "legal", style: "flex-basis:100%" }, S.confirm.msg) : null);
   }
@@ -775,7 +850,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
       S.confirm = null;
       const next = S.filtered[i + 1] || S.filtered[i - 1];
       S.selected = next && next.id !== o.id ? next.id : null;
-      flash("Offre supprimée (récupérable 30 jours dans la corbeille Notion)");
+      flash("Offre retirée de votre liste");
       invalidate(); buildFilters(); apply(); renderDetail();
     } catch (e) {
       S.confirm = { id: o.id, step: 2, msg: notionErr(e, "La suppression") }; renderList();
@@ -788,7 +863,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
       save.onclick = () => { if (!d.value) { d.reportValidity?.(); return; } setStatut(o, "Candidaté", { "date:Date de candidature:start": d.value, "date:Date de candidature:is_datetime": 0 }, "La modification de la date"); };
       return el("div", { class: "candbox done" },
         el("h3", { style: "margin:0" }, "Candidature"),
-        el("p", { style: "margin:0" }, o.candidature ? `Candidature envoyée le ${frDate(o.candidature)}. Cette offre est conservée : l'agent ne la supprime jamais.` : "Candidature enregistrée sans date : indiquez-la ci-dessous."),
+        el("p", { style: "margin:0" }, o.candidature ? `Candidature envoyée le ${frDate(o.candidature)}. Cette offre est conservée sur cet appareil, même après sa sortie de la veille.` : "Candidature enregistrée sans date : indiquez-la ci-dessous."),
         el("label", { class: "row", for: "cand-date", style: "font-size:13px" }, "Date de candidature", d, save));
     }
     if (o.statut !== "Favori") return el("p", { class: "legal", style: "margin:0" }, "Pour suivre une candidature, mettez d'abord l'offre en favori (étoile), puis indiquez la date depuis l'onglet Favoris.");
@@ -895,7 +970,7 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     return el("div", { class: "idx" },
       el("h3", { style: "margin:0" }, "Indice de compatibilité · Poste"),
       el("div", { class: "head" }, el("span", { class: "big mono" }, ix.total), el("span", { class: "muted" }, "/100"), el("span", { class: "verdict" }, verdict(ix.total)),
-        el("span", { class: "legal" }, ix.detailed ? "issu de l'analyse détaillée" : "estimation rapide")),
+        el("span", { class: "legal" }, ix.detailed ? "issu de l'analyse détaillée de Claude" : ix.local ? "calcul sur l'appareil (mots-clés du CV)" : "estimé par Claude")),
       ...CRIT.map(([k, label]) => el("div", { class: "crit" }, el("span", {}, label + ` (${Math.round(WEIGHTS[k] * 100)} %)`), el("div", { class: "bar" }, el("span", { style: `width:${ix.parts[k]}%` })), el("span", { class: "v" }, ix.parts[k]))),
       el("span", { class: "legal" }, `Équilibre de vie : ${ix.life.why}.` + (ix.raison ? ` ${ix.raison}` : "")));
   }
@@ -986,9 +1061,8 @@ if (window.top !== window.self) { document.documentElement.replaceChildren(); th
     rate_limited: "Trop de demandes pour le moment. Réessayez dans quelques minutes.",
     session_expired: "Votre session a expiré : reconnectez-vous à claude.ai.",
     prompt_too_large: "Le CV et l'annonce sont trop longs : raccourcissez la description collée.",
-    invalid_json: "La réponse de Claude était incomplète. Relancez l'analyse.",
-    upstream_error: "Le serveur ou Claude ne répond pas. Vérifiez la connexion puis relancez.",
-    auth: "Session expirée : reconnectez-vous.",
+    invalid_json: "Réponse de Claude illisible : copiez toute la réponse, puis relancez.",
+    cancelled: "Demande annulée.",
     refused: "Claude n'a pas pu traiter cette demande.",
   }[e?.code] || "L'analyse a échoué (" + (e?.code || "erreur") + "). Relancez-la.");
 
@@ -1050,7 +1124,7 @@ ${profile(30000)}`;
     return b;
   }
   function renderAnalysis(r, out, o) {
-    const docBtn = el("button", { class: "btn small", type: "button", hidden: !!S.mcp?.remote }, "Enregistrer en document");
+    const docBtn = el("button", { class: "btn small", type: "button", hidden: !!S.mcp?.local }, "Enregistrer en document");
     const docMsg = el("span", { class: "legal" });
     docBtn.onclick = async () => {
       if (!S.mcp) { docMsg.textContent = "Création de document indisponible ici."; return; }
@@ -1132,7 +1206,7 @@ ${profile(28000)}`;
     return L.join("\n");
   }
   function renderLetter(r, out, o) {
-    const docBtn = el("button", { class: "btn small", type: "button", hidden: !!S.mcp?.remote }, "Enregistrer en document");
+    const docBtn = el("button", { class: "btn small", type: "button", hidden: !!S.mcp?.local }, "Enregistrer en document");
     const docMsg = el("span", { class: "legal" });
     docBtn.onclick = async () => {
       if (!S.mcp) { docMsg.textContent = "Création de document indisponible ici."; return; }
@@ -1243,8 +1317,8 @@ ${transcript}`;
   // ---------- Claude: ranking ----------
   $("#rank").onclick = async () => {
     const btn = $("#rank"), info = $("#rankinfo");
-    const todo = S.filtered.filter(o => !S.scores[o.id]?.detailed).slice(0, 160);
-    if (!todo.length) { info.textContent = "Toutes les offres affichées ont déjà un indice."; return; }
+    const todo = S.filtered.filter(o => !S.scores[o.id]).slice(0, 25);
+    if (!todo.length) { info.textContent = "Les offres affichées ont déjà un indice affiné par Claude."; return; }
     btn.disabled = true;
     const CHUNK = 25; let n = 0, failed = null;
     for (let c = 0; c < todo.length; c += CHUNK) {
@@ -1309,7 +1383,7 @@ N'invente rien : laisse vide ce qui n'est pas dans le texte.
 ANNONCE :
 ${text.slice(0, 20000)}`, { modelTier: "quick" });
         if (r && typeof r === "object") { f = { ...r, poste: f.poste || r.poste, entreprise: f.entreprise || r.entreprise }; extracted = true; }
-      } catch (err) { msg.textContent = "Lecture par Claude impossible (" + (err?.code || "erreur") + ") : l'offre sera complétée par l'agent du matin."; }
+      } catch (err) { msg.textContent = "Offre ajoutée sans lecture par Claude : complétez-la plus tard si besoin."; }
     }
     const props = { "Poste": (f.poste || "Offre ajoutée par lien").slice(0, 200), "Lien": url, "Source": "Ajout manuel", "Statut": $("#add-fav").checked ? "Favori" : "Nouveau", "À compléter": extracted ? "__NO__" : "__YES__" };
     if (f.entreprise) props["Entreprise"] = f.entreprise;
@@ -1323,7 +1397,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
     if (["Français", "Anglais", "Bilingue"].includes(f.langue)) props["Langue"] = f.langue;
     if (f.salaire) props["Salaire"] = String(f.salaire).slice(0, 200);
     if (f.resume) props["Résumé"] = String(f.resume).slice(0, 1500);
-    msg.textContent = "Ajout dans Notion…";
+    msg.textContent = "Ajout…";
     try {
       const res = await S.mcp.callTool(NOTION, "notion-create-pages", { parent: { data_source_id: OFFERS_DS }, pages: [{ properties: props }], allow_async: false });
       const page = res.payload?.pages?.[0];
@@ -1332,7 +1406,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
       S.offers.unshift(o); invalidate(); buildFilters();
       $("#addbox").reset(); openAdd(false);
       setTab(o.statut === "Favori" ? "favoris" : "offres"); select(o.id); scrollToSelected();
-      flash(extracted ? "Offre ajoutée et complétée par Claude" : "Offre ajoutée : l'agent complètera les informations demain matin");
+      flash(extracted ? "Offre ajoutée et complétée par Claude" : "Offre ajoutée sur cet appareil");
     } catch (err) {
       msg.textContent = notionErr(err, "L'ajout") + (err?.code === "server_unavailable" || err?.code === "upstream_error" ? " Actualisez avant de réessayer pour éviter un doublon." : "");
     } finally { btn.disabled = false; }
@@ -1355,7 +1429,7 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
   function renderSources() {
     const list = $("#srclist");
     if (!S.sources) { list.replaceChildren(el("div", { class: "empty" }, "Chargement des sources…")); return; }
-    if (!S.sources.length) { list.replaceChildren(el("div", { class: "empty" }, "Aucune source. Ajoutez un site ci-dessus.")); return; }
+    if (!S.sources.length) { list.replaceChildren(el("div", { class: "empty" }, "Aucune source publiée pour l'instant.")); return; }
     list.replaceChildren(...S.sources.map(s => {
       const tog = el("input", { type: "checkbox", id: "act-" + s.id.slice(-12), checked: s.active, "aria-label": "Source active" });
       tog.onchange = async () => {
@@ -1364,8 +1438,9 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
         catch (e) { s.active = !v; tog.checked = !v; flash(notionErr(e, "La modification"), true); }
         finally { tog.disabled = false; }
       };
+      if (S.mcp?.local) tog.disabled = true;
       const confirming = S.srcConfirm === s.id;
-      const del = confirming
+      const del = S.mcp?.local ? null : confirming
         ? el("span", { class: "row" }, el("span", { class: "legal" }, "Retirer cette source ?"),
             el("button", { class: "btn small", type: "button", onclick: () => { S.srcConfirm = null; renderSources(); } }, "Annuler"),
             el("button", { class: "btn small danger", type: "button", onclick: () => removeSource(s) }, "Retirer"))
@@ -1409,104 +1484,131 @@ ${text.slice(0, 20000)}`, { modelTier: "quick" });
   $("#refresh").onclick = () => loadAll(true);
   renderCV(); renderTabs(); renderDetail();
 
-  // ---------- serveur personnel (application Android / iPhone / web) ----------
-  // Hors de claude.ai, Notion et Claude passent par le serveur personnel (dossier server/ du dépôt),
-  // qui garde les clés et n'accepte que le mot de passe. Mêmes appels que dans claude.ai.
-  const sess = {
-    get(k) { try { return sessionStorage.getItem(k); } catch { return null; } },
-    set(k, v) { try { sessionStorage.setItem(k, v); } catch {} },
-    del(k) { try { sessionStorage.removeItem(k); } catch {} }
-  };
-  const SRV = {
-    url: () => (store.get("radar.server") || window.RADAR_SERVER || "").replace(/\/+$/, ""),
-    pass: () => sess.get("radar.pass") || store.get("radar.pass") || ""
-  };
-  async function srvCall(path, body) {
-    let res;
-    try {
-      res = await fetch(SRV.url() + path, { method: body ? "POST" : "GET", cache: "no-store",
-        headers: { Authorization: "Bearer " + SRV.pass(), ...(body ? { "Content-Type": "application/json" } : {}) },
-        body: body ? JSON.stringify(body) : undefined });
-    } catch { throw { code: "offline", message: "Serveur injoignable." }; }
-    const data = await res.json().catch(() => ({}));
-    if (res.status === 401 || data.code === "auth") { showLogin(data.message || "Mot de passe refusé."); throw { code: "auth", message: data.message || "" }; }
-    if (!res.ok) throw { code: data.code || "server_error", message: data.message || "" };
-    return data;
+  // ---------- mode autonome (application Android / iPhone / web, sans serveur ni abonnement) ----------
+  // Hors de claude.ai, l'application lit la liste publiée chaque matin par GitHub (offres.json) et garde
+  // sur l'appareil ce que vous faites : favoris, candidatures, offres retirées ou ajoutées. Elle reprend
+  // les mêmes appels que dans claude.ai, ce qui laisse tout le reste de la page inchangé.
+  const DATA_URL = window.RADAR_DATA_URL || "offres.json";
+  const jget = k => { try { return JSON.parse(store.get(k) || "null"); } catch { return null; } };
+  const LOCAL_KEY = "radar.local";
+  const localState = () => { const l = jget(LOCAL_KEY) || {}; return { st: l.st || {}, hidden: l.hidden || {}, added: Array.isArray(l.added) ? l.added : [], snap: l.snap || {} }; };
+  const saveLocal = l => store.set(LOCAL_KEY, JSON.stringify(l));
+  const validRows = (a, title = "Poste") => Array.isArray(a) ? a.filter(r => r && typeof r === "object" && typeof r.url === "string" && typeof r[title] === "string") : [];
+  let lastRows = new Map();
+  async function fetchData(refresh) {
+    const urls = [DATA_URL]; if (window.RADAR_DATA_URL) urls.push("offres.json");
+    for (const u of urls) {
+      try {
+        const r = await fetch(u, { cache: refresh ? "no-cache" : "default" });
+        if (!r.ok) continue;
+        const d = await r.json();
+        if (d && Array.isArray(d.offres)) { store.set("radar.data", JSON.stringify(d)); return d; }
+      } catch {}
+    }
+    const c = jget("radar.data");
+    if (c && Array.isArray(c.offres)) { flash("Hors connexion : dernière liste enregistrée sur cet appareil", true); return c; }
+    throw { code: "server_unavailable" };
   }
-  function remoteMcp() {
+  function localMcp() {
     return {
-      remote: true,
+      local: true,
       async callTool(server, tool, args) {
         if (server !== NOTION) throw { code: "not_in_manifest" };
-        const key = tool === "notion-query-data-sources" ? "radar.cache." + (args?.data?.view_url || "") : null;
-        try {
-          const d = await srvCall("/mcp", { server, tool, args });
-          if (key) store.set(key, JSON.stringify({ t: Date.now(), p: d.payload }));
-          return { payload: d.payload, ...(key ? { cache: { storedAt: Date.now() } } : {}) };
-        } catch (e) {
-          if (key && e.code === "offline") {
-            let c = null; try { c = JSON.parse(store.get(key) || "null"); } catch {}
-            if (c && c.p) { flash("Hors connexion : dernière liste enregistrée sur cet appareil", true); return { payload: c.p, cache: { storedAt: c.t } }; }
-          }
-          if (e.code === "offline") e.code = "server_unavailable";
-          throw e;
+        const L = localState();
+        if (tool === "notion-query-data-sources") {
+          const d = await fetchData(!!args?._refresh);
+          const storedAt = Date.parse(d.genere) || Date.now();
+          if (args?.data?.view_url === SOURCES_VIEW) return { payload: { results: validRows(d.sources, "Nom"), has_more: false }, cache: { storedAt } };
+          const feed = validRows(d.offres);
+          lastRows = new Map(feed.map(r => [r.url, r]));
+          const seen = new Set(feed.map(r => r.url));
+          const kept = Object.keys(L.snap).filter(id => !seen.has(id) && L.st[id]).map(id => L.snap[id]);
+          const rows = [...L.added, ...feed, ...kept].filter(r => !L.hidden[r.url]).map(r => {
+            const st = L.st[r.url];
+            return st ? { ...r, "Statut": st.statut, "date:Date de candidature:start": st.cand || null } : { ...r, "Statut": "Nouveau", "date:Date de candidature:start": null };
+          });
+          rows.forEach(r => lastRows.set(r.url, r));
+          return { payload: { results: rows, has_more: false }, cache: { storedAt } };
         }
+        if (tool === "notion-update-page") {
+          const id = args.page_id, p = args.properties || {};
+          if (!("Statut" in p)) throw { code: "tool_error", message: "Les sources se gèrent dans Notion." };
+          if (p["Statut"] === "Nouveau") { delete L.st[id]; delete L.snap[id]; }
+          else {
+            L.st[id] = { statut: p["Statut"], cand: p["date:Date de candidature:start"] || L.st[id]?.cand || "" };
+            const row = lastRows.get(id) || L.added.find(r => r.url === id);
+            if (row && !String(id).startsWith("local:")) { const { ["Statut"]: _s, ["date:Date de candidature:start"]: _c, ...rest } = row; L.snap[id] = rest; }
+          }
+          saveLocal(L); return { payload: {} };
+        }
+        if (tool === "notion-create-pages") {
+          if (args?.parent?.data_source_id !== OFFERS_DS) throw { code: "tool_error", message: "Les sources se gèrent dans Notion." };
+          const props = args.pages?.[0]?.properties || {}, id = "local:" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+          const row = { ...props, url: id, "Domaine": Array.isArray(props["Domaine"]) ? props["Domaine"] : [], "Ajouté le": new Date().toISOString(), "À compléter": "__NO__" };
+          delete row["Statut"];
+          L.added.unshift(row);
+          if (props["Statut"] && props["Statut"] !== "Nouveau") L.st[id] = { statut: props["Statut"], cand: "" };
+          saveLocal(L); return { payload: { pages: [{ url: id }] } };
+        }
+        if (tool === "notion-delete-pages") {
+          for (const id of args?.page_ids || []) { L.hidden[id] = 1; delete L.st[id]; delete L.snap[id]; L.added = L.added.filter(r => r.url !== id); }
+          saveLocal(L); return { payload: {} };
+        }
+        throw { code: "not_in_manifest" };
       },
       invalidate() { return Promise.resolve(); }
     };
   }
-  function remoteSample() {
-    const mem = new Map();
+  // Claude sans abonnement : la demande (prompt d'origine, CV et offre) est copiée puis collée dans Claude ;
+  // la réponse de Claude est recollée ici et affichée comme dans l'artifact.
+  function parseAnswer(text) {
+    const t = String(text || "").trim().replace(/^[^\[{]*?```(?:json)?\s*/i, "").replace(/```[\s\S]*$/, "").trim();
+    try { return JSON.parse(t); } catch {}
+    const a = t.search(/[\[{]/);
+    if (a >= 0) { const close = t[a] === "{" ? "}" : "]", b = t.lastIndexOf(close); if (b > a) { try { return JSON.parse(t.slice(a, b + 1)); } catch {} } }
+    return null;
+  }
+  const ASK_WHAT = [[/note le CV du candidat sur 5 critères/, "Faire noter les offres affichées par Claude."], [/Analyse l'adéquation entre le CV et l'offre/, "Adapter votre CV à cette offre."],
+    [/STRUCTURE d'une lettre de motivation/, "Proposer la structure de la lettre de motivation."], [/Extrais les informations de cette offre/, "Lire l'annonce collée pour remplir l'offre."],
+    [/expériences qui NE figurent PAS sur son CV/, "Poursuivre la conversation « Mes expériences »."]];
+  function copySample() {
+    const done = new Map();
     return {
-      async json(prompt, opts = {}) {
-        const tier = opts.modelTier === "quick" ? "quick" : "default", ttl = opts.cache && opts.cache.gcTime, key = tier + "|" + prompt;
-        const hit = ttl && mem.get(key);
-        if (hit && Date.now() - hit.t < ttl) return hit.v;
-        try {
-          const d = await srvCall("/sample", { prompt, tier });
-          if (ttl) mem.set(key, { t: Date.now(), v: d.result });
-          return d.result;
-        } catch (e) { if (e.code === "offline") e.code = "upstream_error"; throw e; }
+      json(prompt, opts = {}) {
+        const ttl = opts.cache && opts.cache.gcTime, hit = ttl && done.get(prompt);
+        if (hit && Date.now() - hit.t < ttl) return Promise.resolve(hit.v);
+        return new Promise((resolve, reject) => {
+          const box = $("#askbox"), area = $("#ask-answer"), msg = $("#ask-msg"), copied = $("#ask-copied");
+          $("#ask-what").textContent = (ASK_WHAT.find(([re]) => re.test(prompt)) || [null, "Demande à Claude."])[1] + " La demande contient votre CV et l'offre.";
+          area.value = ""; msg.textContent = ""; copied.textContent = "";
+          box.hidden = false;
+          const close = () => { box.hidden = true; $("#ask-copy").onclick = $("#ask-cancel").onclick = $("#askform").onsubmit = null; };
+          $("#ask-copy").onclick = async () => {
+            try { await navigator.clipboard.writeText(prompt); copied.textContent = "Copiée. Collez-la dans Claude."; }
+            catch { area.value = prompt; area.select(); copied.textContent = "Copie automatique impossible : copiez le texte sélectionné ci-dessous, puis effacez-le."; }
+          };
+          $("#ask-cancel").onclick = () => { close(); reject({ code: "cancelled" }); };
+          $("#askform").onsubmit = e => {
+            e.preventDefault();
+            const v = parseAnswer(area.value);
+            if (!v || typeof v !== "object") { msg.textContent = "Réponse illisible : copiez toute la réponse de Claude (avec les accolades { } ou crochets [ ])."; return; }
+            if (ttl) done.set(prompt, { t: Date.now(), v });
+            close(); resolve(v);
+          };
+          setTimeout(() => $("#ask-copy").focus(), 0);
+        });
       }
     };
   }
-  function showLogin(msg) {
-    $("#login").hidden = false;
-    $("#login-url").value = SRV.url();
-    $("#login-msg").textContent = msg || "";
-    setTimeout(() => (SRV.url() ? $("#login-pass") : $("#login-url")).focus(), 0);
-  }
-  $("#loginform").addEventListener("submit", async e => {
-    e.preventDefault();
-    const url = $("#login-url").value.trim().replace(/\/+$/, ""), pass = $("#login-pass").value, msg = $("#login-msg");
-    if (!/^(https:\/\/[^\s/]+\.[^\s/]+|http:\/\/localhost(:\d+)?)$/.test(url)) { msg.textContent = "Saisissez l'adresse du serveur, commençant par https:// (sans chemin)."; return; }
-    if (!pass) { msg.textContent = "Saisissez le mot de passe."; return; }
-    const prev = { url: store.get("radar.server"), sp: sess.get("radar.pass"), lp: store.get("radar.pass") };
-    store.set("radar.server", url); sess.set("radar.pass", pass); store.del("radar.pass");
-    $("#login-go").disabled = true; msg.textContent = "Connexion…";
-    try {
-      await srvCall("/ping");
-      if ($("#login-mem").checked) store.set("radar.pass", pass);
-      $("#login-pass").value = ""; $("#login").hidden = true; msg.textContent = "";
-      start();
-    } catch (err) {
-      if (err.code !== "auth") msg.textContent = err.code === "offline" ? "Serveur injoignable : vérifiez l'adresse et votre connexion." : "Connexion impossible (" + (err.message || err.code) + ").";
-      if (prev.url) store.set("radar.server", prev.url);
-      if (prev.sp) sess.set("radar.pass", prev.sp); else sess.del("radar.pass");
-      if (prev.lp) store.set("radar.pass", prev.lp);
-    } finally { $("#login-go").disabled = false; }
-  });
-  $("#logout").onclick = () => { sess.del("radar.pass"); store.del("radar.pass"); S.mcp = null; S.sample = null; showLogin("Vous êtes déconnecté. Les offres restent dans Notion."); };
 
   async function start() {
     if (window.claude?.use) {
       const [mcp, sample] = await Promise.all([claude.use("mcp").catch(() => null), claude.use("sample").catch(() => null)]);
-      S.mcp = mcp; S.sample = sample; renderList(); if (S.tab === "experiences") renderChat();
+      S.mcp = mcp; S.sample = sample; $("#srcform").hidden = false; renderList(); if (S.tab === "experiences") renderChat();
       if (!mcp) { $("#sync").textContent = "Connecteur Notion indisponible dans cette vue"; $("#list").replaceChildren(el("div", { class: "empty" }, "Cette vue ne peut pas lire Notion. Ouvrez la page dans claude.ai avec le connecteur Notion activé.")); return; }
       loadAll(false); return;
     }
-    if (!SRV.url() || !SRV.pass()) { $("#sync").textContent = "Non connecté"; $("#list").replaceChildren(el("div", { class: "empty" }, "Connectez-vous à votre serveur pour charger les offres.")); showLogin(); return; }
-    S.mcp = remoteMcp(); S.sample = remoteSample(); $("#logout").hidden = false;
+    S.mcp = localMcp(); S.sample = copySample();
     renderList(); renderDetail(); if (S.tab === "experiences") renderChat();
     loadAll(false);
   }
