@@ -1,67 +1,16 @@
 {
- "genere": "2026-11-03T23:01:47+00:00",
- "jour": "2026-11-03",
+ "genere": "2026-11-04T06:38:41+00:00",
+ "jour": "2026-11-04",
  "api_ok": true,
- "total": 299,
+ "total": 297,
  "par_tarif": {
-  "gratuit": 176,
+  "gratuit": 174,
   "gratuit_sous_condition": 13,
   "payant": 110,
   "inconnu": 0
  },
  "nouvelles": [],
  "expositions": [
-  {
-   "id": "qfap-126201",
-   "titre": "Exposition \" L'antitsiganisme, d'hier à aujourd'hui.\"",
-   "resume": "Exposition créée par le Collectif National des Droits de l’Homme Romeurope et accueillie dans le cadre de la Semaine de Lutte contre les Discriminations.",
-   "debut": "2026-10-14",
-   "fin": "2026-11-03",
-   "horaires": "Du mercredi 14 octobre 2026 au mardi 03 novembre 2026 : mardi, mercredi, jeudi, vendredi, samedi de 10h00 à 18h00",
-   "lieu": "Quartier Jeunes 13 (QJ 13)",
-   "adresse": "115 rue de Tolbiac, 75013 Paris",
-   "lat": 48.826437,
-   "lon": 2.362926,
-   "thematiques": [
-    "Histoire & patrimoine",
-    "Société & monde"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/10/16/huge-7a214dc5c06a08da1831da4a318b6d43.jpg",
-   "lien": "https://www.paris.fr/evenements/exposition-l-antitsiganisme-d-hier-a-aujourd-hui-126201",
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
-  {
-   "id": "qfap-117217",
-   "titre": "« Fénéstrou », une exposition photographique",
-   "resume": "« Fénéstrou » : une exposition photographique où chaque image devient une fenêtre ouverte sur l'autre et sur le monde.",
-   "debut": "2026-09-03",
-   "fin": "2026-11-03",
-   "horaires": "Du jeudi 03 septembre 2026 au mardi 03 novembre 2026 :",
-   "lieu": "FIAP Paris",
-   "adresse": "30, rue Cabanis, 75014 Paris",
-   "lat": 48.8304029958464,
-   "lon": 2.33815301318566,
-   "thematiques": [
-    "Photographie",
-    "Société & monde"
-   ],
-   "tarif": {
-    "type": "gratuit",
-    "prix_min": 0,
-    "reservation": true,
-    "billetterie": "https://shotgun.live/fr/venues/fiap-paris"
-   },
-   "image": "https://cdn.paris.fr/qfapv4/2026/07/30/huge-904eb4d1aacb873c6bb49e3cee71cf0e.png",
-   "lien": "https://www.paris.fr/evenements/exposition-photographique-117217",
-   "accessible": true,
-   "source": "Que faire à Paris (Open Data Ville de Paris)",
-   "vu_le": "2026-11-03"
-  },
   {
    "id": "qfap-126358",
    "titre": "MOIRE : une performance gratuite par Souffle Collectif à la Galerie du 19M",
@@ -4366,7 +4315,7 @@
    "resume": "Une exposition hommage à Philippe Corentin, auteur et illustrateur Jeunesse du 03.11.2026 au 09.01.2027",
    "debut": "2026-11-03",
    "fin": "2027-01-09",
-   "horaires": "Le samedi 09 janvier 2027 de à Le mardi 03 novembre 2026 de à",
+   "horaires": "Le samedi 09 janvier 2027 de à",
    "lieu": "Bibliothèque Germaine Tillion",
    "adresse": "6 rue du Commandant Schlœsing, 75016 Paris",
    "lat": 48.861836,
